@@ -15,5 +15,8 @@
 /log/*.log
 /tmp
 
+#Sqlite
+magic_realm_development
+
 # Mac Files
 .DS_STORE
