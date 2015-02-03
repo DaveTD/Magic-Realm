@@ -17,6 +17,7 @@
 
 #Sqlite
 magic_realm_development
+magic_realm_test
 
 # Mac Files
 .DS_STORE
