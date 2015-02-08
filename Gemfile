@@ -5,6 +5,7 @@ gem 'json', '~> 1.8.2'
 gem 'rabl', '~> 0.11.6'
 gem 'rails', '4.2'
 gem 'uglifier', '>= 1.3.0'
+gem 'aasm'
 
 group :development, :test do
   gem 'better_errors', '~> 2.1.1'
