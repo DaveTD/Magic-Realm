@@ -1,4 +1,4 @@
-class GameController < ApplicationController
+class GamesController < ApplicationController
 
   def index
     @games = Game.all
@@ -6,7 +6,6 @@ class GameController < ApplicationController
   end
 
   def randomize_cards
-
     @cards_randomized = true
   end
 

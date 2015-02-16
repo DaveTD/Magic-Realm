@@ -1,3 +1,3 @@
 class Tile < ActiveRecord::Base
-  belongs_to :clearings
+  has_many :clearings
 end

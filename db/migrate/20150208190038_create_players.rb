@@ -1,6 +1,7 @@
 class CreatePlayers < ActiveRecord::Migration
   def change
     create_table :players do |t|
+      t.references :game
       t.references :clearing, index: true
       t.integer :great_treasures_vps
       t.integer :usable_spells_vps
@@ -29,7 +30,6 @@ class CreatePlayers < ActiveRecord::Migration
       t.references :inventory, index: true
       t.integer :between_clearing_1
       t.integer :between_clearing_2
-
       t.timestamps null: false
     end
     add_foreign_key :players, :clearings
