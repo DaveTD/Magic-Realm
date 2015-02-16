@@ -1,9 +1,9 @@
 class CreateClearings < ActiveRecord::Migration
   def change
     create_table :clearings do |t|
-      t.integer :x-location
-      t.integer :y-location
-      t.integer :tile-number
+      t.integer :x_location
+      t.integer :y_location
+      t.integer :tile_number
       t.boolean :exit
       t.integer :type
       t.references :traversable_clearings, index: true
