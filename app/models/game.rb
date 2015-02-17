@@ -2,10 +2,10 @@ class Game < ActiveRecord::Base
   include AASM
 
   aasm do
-    state :gameSetup, :initial => true
-    state :boardSetup,
-    state :selectClasses,
-    state :mapReveal.
+    state :game_setup, :initial => true
+    state :board_setup,
+    state :select_classes,
+    state :map_reveal.
 
     state :birdsong,
     state :sunrise,
@@ -15,19 +15,19 @@ class Game < ActiveRecord::Base
     state :midnight
 
     event :cards_randomized do
-      transitions :from => :gameSetup, :to => :boardSetup
+      transitions :from => :game_setup, :to => :board_setup
     end
 
     event :board_complete do
-      transitions :from => :boardSetup, :to => :selectClasses
+      transitions :from => :board_setup, :to => :select_classes
     end
 
     event :players_ready do
-      transitions :from => :selectClasses, :to => :mapReveal
+      transitions :from => :select_classes, :to => :map_reveal
     end
 
     event :setup_complete do
-      transitions :from => :mapReveal, :to => :birdsong
+      transitions :from => :map_reveal, :to => :birdsong
     end
 
     event :player_actions_subitted do
