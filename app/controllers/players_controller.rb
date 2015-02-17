@@ -6,13 +6,12 @@ class PlayersController < ApplicationController
   end
 
   def update
-    @player = Player.find params[:id]
-    @player.clearing_id = params[:clearing_id] if params[:clearing_id]
-    binding.pry
-    @player.save
-    render 'player/show'
   end
 
   def move_clearing
+    @player = Player.find params[:id]
+    @player.clearing_id = params[:clearing_id] if params[:clearing_id]
+    @player.save
+    render 'player/show'
   end
 end
