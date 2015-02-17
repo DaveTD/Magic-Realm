@@ -263,4 +263,13 @@ travs.each do |t|
   end
 end
 
-Player.create(clearing_id: 1)
+game = Game.create(state: 'select_classes')
+Player.create(game_id: game.id, clearing_id: 1, first_name: 'Joe', last_name: 'Blow')
+
+Game.create(state: 'select_classes')
+Game.create(state: 'select_classes')
+
+character_names = ['Amazon','Berserker','Black Knight','Captain','Druid','Dwarf','Elf','Magician','Pilgrim','Sorceror','Swordsman','White Knight','Witch','Witch King','Wizard','Woodsgirl']
+character_names.each do |cn|
+  CharacterClass.create(name: cn)
+end

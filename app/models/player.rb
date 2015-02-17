@@ -13,4 +13,11 @@ class Player < ActiveRecord::Base
   belongs_to :curses
   belongs_to :character_class
   belongs_to :inventory
+
+  after_create :init_clearing
+
+  def init_clearing
+    clearing_id = 68
+    save
+  end
 end
