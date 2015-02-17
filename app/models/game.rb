@@ -5,8 +5,7 @@ class Game < ActiveRecord::Base
     state :game_setup, :initial => true
     state :board_setup,
     state :select_classes,
-    state :map_reveal.
-
+    state :map_reveal,
     state :birdsong,
     state :sunrise,
     state :daylight,
@@ -49,8 +48,5 @@ class Game < ActiveRecord::Base
     event :day_complete do
       transitions :from => :midnight, :to => :birdsong
     end
-
-
   end
-
 end

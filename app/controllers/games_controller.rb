@@ -1,7 +1,6 @@
 class GamesController < ApplicationController
-
   def index
-    @games = Game.all
+    @games = Game.where(status: 'select_classes')
     render 'game/index'
   end
 
