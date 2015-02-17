@@ -1,15 +1,14 @@
 class CreateClearings < ActiveRecord::Migration
   def change
     create_table :clearings do |t|
-      t.integer :x_location
-      t.integer :y_location
-      t.integer :tile_number
+      t.integer :x
+      t.integer :y
       t.boolean :exit
-      t.integer :type
-      t.references :traversable_clearings, index: true
-
-      t.timestamps null: false
+      t.string :movement_type
+      t.integer :movement_value
+      t.integer :clearing_number
+      t.references :tile
     end
-    add_foreign_key :clearings, :traversable_clearings
+    add_foreign_key :clearings, :title
   end
 end

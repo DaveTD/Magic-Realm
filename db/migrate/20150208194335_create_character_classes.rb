@@ -11,7 +11,8 @@ class CreateCharacterClasses < ActiveRecord::Migration
       t.references :enemy, index: true
       t.references :development_chits, index: true
       t.text :special_advantages
-      t.integerstarts_in :base_rest_phases
+      t.integer :starts_in
+      t.integer :base_rest_phases
 
       t.timestamps null: false
     end

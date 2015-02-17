@@ -1,4 +1,5 @@
 class Player < ActiveRecord::Base
+  belongs_to :game
   belongs_to :clearing
   belongs_to :action_queue
   belongs_to :weapon
