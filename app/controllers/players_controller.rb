@@ -7,7 +7,7 @@ class PlayersController < ApplicationController
 
   def show
     @player = Player.find params[:id]
-    render 'player/show'
+    render 'players/show'
   end
 
   def update
@@ -17,7 +17,7 @@ class PlayersController < ApplicationController
     @player = Player.find params[:id]
     @player.clearing_id = params[:clearing_id] if params[:clearing_id]
     @player.save
-    render 'player/show'
+    render 'players/show'
   end
 
   private

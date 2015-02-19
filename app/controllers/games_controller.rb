@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   def index
     @games = Game.where(state: 'select_classes')
-    render 'game/index'
+    render 'games/index'
   end
 
   def create

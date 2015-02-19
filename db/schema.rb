@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20150216020832) do
 
   create_table "character_classes", force: :cascade do |t|
+    t.string   "name"
     t.integer  "vunlerability"
     t.integer  "movement_cost"
     t.integer  "cave_movement_cost"
