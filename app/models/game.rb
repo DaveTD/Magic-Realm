@@ -1,17 +1,18 @@
 class Game < ActiveRecord::Base
   include AASM
 
+  has_many :players
+
   aasm do
     state :game_setup, :initial => true
-    state :board_setup,
-    state :select_classes,
-    state :map_reveal.
-
-    state :birdsong,
-    state :sunrise,
-    state :daylight,
-    state :sunset,
-    state :evening,
+    state :board_setup
+    state :select_classes
+    state :map_reveal
+    state :birdsong
+    state :sunrise
+    state :daylight
+    state :sunset
+    state :evening
     state :midnight
 
     event :cards_randomized do
@@ -49,8 +50,13 @@ class Game < ActiveRecord::Base
     event :day_complete do
       transitions :from => :midnight, :to => :birdsong
     end
-
-
   end
 
+  def aasm_state
+    self.state || "unread"
+  end
+
+  def get_players
+    players
+  end
 end

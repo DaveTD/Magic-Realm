@@ -1,6 +1,6 @@
 object @player
 
-attributes :id
+attributes :id, :first_name, :last_name
 
 child :clearing do
   attributes :id, :x, :y, :exit, :movement_type, :tile_id
@@ -9,4 +9,10 @@ child :clearing do
       attributes :id, :x, :y, :exit, :movement_type, :tile_id
     end
   end
+end
+child :character_class do
+  attributes :name
+end
+child :game do
+  extends "games/game"
 end

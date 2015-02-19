@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20150216020832) do
 
   create_table "character_classes", force: :cascade do |t|
+    t.string   "name"
     t.integer  "vunlerability"
     t.integer  "movement_cost"
     t.integer  "cave_movement_cost"
@@ -41,22 +42,54 @@ ActiveRecord::Schema.define(version: 20150216020832) do
     t.integer "y"
     t.boolean "exit"
     t.string  "movement_type"
+    t.integer "movement_value"
     t.integer "clearing_number"
     t.integer "tile_id"
   end
 
   create_table "games", force: :cascade do |t|
+    t.string   "state"
     t.string   "time_of_day"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "horses", force: :cascade do |t|
+    t.integer  "move_strength"
+    t.boolean  "galloping"
+    t.integer  "maneuver_time"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "monsters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "damage_type"
+    t.integer  "attack_time"
+    t.integer  "maneuver_time"
+    t.integer  "vulnerability"
+    t.integer  "attacks"
+    t.integer  "clearing_id"
+    t.boolean  "prowling"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "monsters", ["clearing_id"], name: "index_monsters_on_clearing_id"
+
+  create_table "natives", force: :cascade do |t|
+    t.text     "type"
+    t.boolean  "hq"
+    t.integer  "harm_type"
+    t.integer  "attack_time"
+    t.boolean  "sharpness"
+    t.integer  "maneuver_time"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "players", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
     t.integer  "game_id"
     t.integer  "clearing_id"
     t.integer  "great_treasures_vps"
@@ -112,6 +145,35 @@ ActiveRecord::Schema.define(version: 20150216020832) do
     t.integer "clearing_id"
     t.integer "traversable_id"
     t.boolean "hidden"
+  end
+
+  create_table "treasures", force: :cascade do |t|
+    t.boolean  "large"
+    t.integer  "spell_type"
+    t.integer  "fame_value"
+    t.boolean  "great"
+    t.integer  "fame_price_number"
+    t.integer  "fame_price_natives_id"
+    t.text     "enchanted"
+    t.integer  "weight"
+    t.integer  "notoriety_value"
+    t.integer  "price"
+    t.boolean  "metatreasure"
+    t.boolean  "movable"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "treasures", ["fame_price_natives_id"], name: "index_treasures_on_fame_price_natives_id"
+
+  create_table "weapons", force: :cascade do |t|
+    t.boolean  "ranged"
+    t.integer  "length"
+    t.integer  "price"
+    t.integer  "harm"
+    t.boolean  "sharp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

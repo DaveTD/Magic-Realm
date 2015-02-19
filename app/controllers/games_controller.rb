@@ -1,8 +1,11 @@
 class GamesController < ApplicationController
-
   def index
-    @games = Game.all
-    render 'game/index'
+    @games = Game.where(state: 'select_classes')
+    render 'games/index'
+  end
+
+  def create
+    @game = Game.create(state: 'select_classes')
   end
 
   def randomize_cards
