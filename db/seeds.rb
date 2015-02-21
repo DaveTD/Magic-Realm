@@ -263,6 +263,37 @@ travs.each do |t|
   end
 end
 
+tile_travs =[
+  {:tl_id => 1,  :adj_tile => [2,3], :directions => ['sw','se']},
+  {:tl_id => 2,  :adj_tile => [1,3,6,7], :directions => ['ne','e','sw','se']},
+  {:tl_id => 3,  :adj_tile => [1,2,4,7,8], :directions => ['nw','w','e','sw','se']},
+  {:tl_id => 4,  :adj_tile => [3,5,8,9], :directions => ['w','e','sw','se']},
+  {:tl_id => 5,  :adj_tile => [2,7,11], :directions => ['ne','e','se']},
+  {:tl_id => 6,  :adj_tile => [4,9,10], :directions => ['e','sw','se']},
+  {:tl_id => 7,  :adj_tile => [2,3,6,8,11,12],  :directions => ['nw','ne','w','e','sw','se']},
+  {:tl_id => 8,  :adj_tile => [3,4,7,9,12,13], :directions => ['nw','ne','w','e','sw','se']},
+  {:tl_id => 9,  :adj_tile => [4,5,8,10,13,14], :directions => ['nw','ne','w','e','sw','se']},
+  {:tl_id => 10, :adj_tile => [5,9,14], :directions => ['nw','w','sw']},
+  {:tl_id => 11, :adj_tile => [6,7,12,15], :directions => ['nw','ne','e','se']},
+  {:tl_id => 12, :adj_tile => [7,8,11,13,15,16], :directions => ['nw','ne','w','e','sw','se']},
+  {:tl_id => 13, :adj_tile => [8,9,12,14,16,17], :directions => ['nw','ne','w','e','sw','se']},
+  {:tl_id => 14, :adj_tile => [9,10,13,17,18], :directions => ['nw','ne','w','sw','se']},
+  {:tl_id => 15, :adj_tile => [11,12,16,19], :directions => ['nw','ne','e','se']},
+  {:tl_id => 16, :adj_tile => [12,13,15,17,19], :directions => ['nw','ne','w','e','sw']},
+  {:tl_id => 17, :adj_tile => [13,14,16,18,20], :directions => ['nw','ne','w','e','se']},
+  {:tl_id => 18, :adj_tile => [14,17,20], :directions => ['nw','w','sw']},
+  {:tl_id => 19, :adj_tile => [15,16], :directions => ['nw','ne']},
+  {:tl_id => 20, :adj_tile => [17,18], :directions => ['nw','ne']},
+]
+
+tile_travs.each do |tl|
+  tl[:adj_tile].each do |adj_tile|
+    loc = directions.shift
+    tl_new = AdjacentTile.new(tile_id: tl[:tl_id], adjacent_tile: adj_tile, location: loc)
+    tl_new.save
+  end
+end
+
 game = Game.create(state: 'select_classes')
 Player.create(game_id: game.id, clearing_id: 1, first_name: 'Joe', last_name: 'Blow', character_class_id: 1)
 
