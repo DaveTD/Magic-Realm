@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218014650) do
+ActiveRecord::Schema.define(version: 20150221180840) do
+
+  create_table "action_chits", force: :cascade do |t|
+    t.integer  "player_id"
+    t.string   "chit_type"
+    t.integer  "strength"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "action_chits", ["player_id"], name: "index_action_chits_on_player_id"
 
   create_table "action_queues", force: :cascade do |t|
     t.integer  "player_id"
@@ -19,11 +29,13 @@ ActiveRecord::Schema.define(version: 20150218014650) do
     t.integer  "value"
     t.integer  "turn"
     t.integer  "action_this_turn"
+    t.integer  "action_chit_id"
     t.integer  "clearing_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
 
+  add_index "action_queues", ["action_chit_id"], name: "index_action_queues_on_action_chit_id"
   add_index "action_queues", ["clearing_id"], name: "index_action_queues_on_clearing_id"
   add_index "action_queues", ["player_id"], name: "index_action_queues_on_player_id"
 
@@ -64,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150218014650) do
   create_table "games", force: :cascade do |t|
     t.string   "state"
     t.string   "time_of_day"
+    t.integer  "turn"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -106,6 +119,8 @@ ActiveRecord::Schema.define(version: 20150218014650) do
     t.string   "last_name"
     t.integer  "game_id"
     t.integer  "clearing_id"
+    t.boolean  "ready"
+    t.boolean  "actions_submitted"
     t.integer  "great_treasures_vps"
     t.integer  "usable_spells_vps"
     t.integer  "fame_vps"
@@ -127,6 +142,7 @@ ActiveRecord::Schema.define(version: 20150218014650) do
     t.boolean  "hidden"
     t.boolean  "wounded"
     t.boolean  "fatigued"
+    t.boolean  "dead"
     t.integer  "curses_id"
     t.integer  "character_class_id"
     t.integer  "level"
@@ -160,6 +176,22 @@ ActiveRecord::Schema.define(version: 20150218014650) do
     t.integer "traversable_id"
     t.boolean "hidden"
   end
+
+  create_table "treasure_locations", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "treasure_id"
+    t.integer  "tile_id"
+    t.integer  "clearing_id"
+    t.boolean  "lost_city"
+    t.boolean  "lost_castle"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "treasure_locations", ["clearing_id"], name: "index_treasure_locations_on_clearing_id"
+  add_index "treasure_locations", ["game_id"], name: "index_treasure_locations_on_game_id"
+  add_index "treasure_locations", ["tile_id"], name: "index_treasure_locations_on_tile_id"
+  add_index "treasure_locations", ["treasure_id"], name: "index_treasure_locations_on_treasure_id"
 
   create_table "treasures", force: :cascade do |t|
     t.boolean  "large"
