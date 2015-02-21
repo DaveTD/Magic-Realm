@@ -15,10 +15,13 @@ ActiveRecord::Schema.define(version: 20150218014650) do
 
   create_table "action_queues", force: :cascade do |t|
     t.integer  "player_id"
-    t.text     "action"
+    t.string   "action_name"
+    t.integer  "value"
+    t.integer  "turn"
+    t.integer  "action_this_turn"
     t.integer  "clearing_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "action_queues", ["clearing_id"], name: "index_action_queues_on_clearing_id"

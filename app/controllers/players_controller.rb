@@ -7,6 +7,7 @@ class PlayersController < ApplicationController
 
   def show
     @player = Player.find params[:id]
+    @action_queues = @player.action_queues
     render 'players/show'
   end
 
@@ -17,6 +18,13 @@ class PlayersController < ApplicationController
     @player = Player.find params[:id]
     @player.clearing_id = params[:clearing_id] if params[:clearing_id]
     @player.save
+    render 'players/show'
+  end
+
+  def destroy_last_action
+    @player = Player.find params[:id]
+    @action_queues = @player.action_queues
+    @action_queues.last.destroy
     render 'players/show'
   end
 
