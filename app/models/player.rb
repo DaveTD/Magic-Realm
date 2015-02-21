@@ -14,10 +14,9 @@ class Player < ActiveRecord::Base
   belongs_to :character_class
   belongs_to :inventory
 
-  after_create :init_clearing
+  after_initialize :init
 
-  def init_clearing
-    clearing_id = 68
-    save
+  def init
+    self.clearing_id ||= 68
   end
 end
