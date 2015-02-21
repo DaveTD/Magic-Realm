@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216020832) do
+ActiveRecord::Schema.define(version: 20150218014650) do
+
+  create_table "action_queues", force: :cascade do |t|
+    t.integer  "player_id"
+    t.text     "action"
+    t.integer  "clearing_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "action_queues", ["clearing_id"], name: "index_action_queues_on_clearing_id"
+  add_index "action_queues", ["player_id"], name: "index_action_queues_on_player_id"
 
   create_table "character_classes", force: :cascade do |t|
     t.string   "name"
