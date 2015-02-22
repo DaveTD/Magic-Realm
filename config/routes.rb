@@ -4,22 +4,18 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :create, :show]
 
   #Player Routes
-  match '/players/:id/move_clearing', :controller => 'players', :action => 'move_clearing', via: [:options]
   match '/players', :controller => 'players', :action => 'create', via: [:options]
+  match '/players/:id/chose_selection', :controller => 'players', :action => 'chose_selection', via: [:options]
   match '/players/:id/destroy_last_action', :controller => 'players', :action => 'destroy_last_action', via: [:options]
-  match '/players/:id/perform_search', :controller => 'players', :action => 'perform_search', via: [:options]
-  match '/players/:id/choose_search', :controller => 'players', :action => 'choose_search', via: [:options]
-  match '/players/:id/clues_search', :controller => 'players', :action => 'clues_search', via: [:options]
   match '/players/:id/submit_actions', :controller => 'players', :action => 'submit_actions', via: [:options]
+  match '/players/:id/next_action', :controller => 'players', :action => 'next_action', via: [:options]
 
-  resources :players, only: [:show, :update, :create] do
+  resources :players, only: [:show, :create] do
     member do
-      put 'move_clearing'
+      put 'chose_selection'
       put 'destroy_last_action'
-      put 'perform_search'
-      put 'choose_search'
-      put 'clues_search'
       put 'submit_actions'
+      put 'next_action'
     end
   end
 

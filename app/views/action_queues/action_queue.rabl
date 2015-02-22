@@ -1,7 +1,7 @@
 object @action_queue
 cache @action_queue
 
-attributes :id, :action_name, :clearing_id
+attributes :id, :action_name, :turn, :action_this_turn, :clearing_id, :completed
 
 child :clearing do
   attributes :id, :x, :y, :exit, :movement_type, :tile_id

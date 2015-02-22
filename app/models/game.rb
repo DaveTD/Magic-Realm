@@ -11,7 +11,7 @@ class Game < ActiveRecord::Base
     card_setup
   end
 
-  aasm do
+  aasm  :column => 'time_of_day' do
     state :board_setup, :initial => true
     state :select_classes
     state :birdsong
@@ -29,7 +29,7 @@ class Game < ActiveRecord::Base
       transitions :from => :select_classes, :to => :birdsong
     end
 
-    event :player_actions_subitted do
+    event :player_actions_submitted do
       transitions :from => :birdsong, :to => :sunrise
     end
 
@@ -50,7 +50,6 @@ class Game < ActiveRecord::Base
     end
 
     #event :everybody_died do
-
     #end
   end
 
@@ -119,14 +118,14 @@ class Game < ActiveRecord::Base
   end
 
   def all_player_queues_submitted
-    player_actions_subitted!
+    player_actions_submitted!
+    select_action_order
   end
 
   # player
   def check_votes
     all_ready = true
     all_players = Player.where(game_id: self.id)
-
     if all_players.count >= 2
       all_players.each do |player|
         all_ready &= player.ready
@@ -147,15 +146,17 @@ class Game < ActiveRecord::Base
         all_submitted &= player.actions_submitted
     end
 
-    if actions_submitted
+    if all_submitted
       self.all_player_queues_submitted
     end
 
   end
 
-  def select_player_order
+  def select_action_order
     all_players = Player.where(game_id: self.id).where(dead: false)
-
-
+    all_players.shuffle.each_with_index do |player, i|
+      PlayerQueue.create(game: self, player: player, turn_number: (i+1))
+    end
+    activity_order_selected!
   end
 end

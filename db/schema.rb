@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222175755) do
+ActiveRecord::Schema.define(version: 20150222210853) do
 
   create_table "action_chits", force: :cascade do |t|
     t.integer  "player_id"
@@ -118,7 +118,6 @@ ActiveRecord::Schema.define(version: 20150222175755) do
   add_index "found_hidden_paths", ["player_id"], name: "index_found_hidden_paths_on_player_id"
 
   create_table "games", force: :cascade do |t|
-    t.string   "state"
     t.string   "time_of_day"
     t.integer  "turn"
     t.integer  "current_players_turn"
@@ -226,8 +225,43 @@ ActiveRecord::Schema.define(version: 20150222175755) do
   add_index "players", ["suit_of_armor_id"], name: "index_players_on_suit_of_armor_id"
   add_index "players", ["weapon_id"], name: "index_players_on_weapon_id"
 
+  create_table "players_queues", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "player_id"
+    t.integer  "turn_number"
+    t.boolean  "complete"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "sound_chits", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "tile_id"
+    t.boolean  "lost_city"
+    t.boolean  "lost_castle"
+    t.string   "name"
+    t.integer  "tile_clearing_number"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "sound_chits", ["game_id"], name: "index_sound_chits_on_game_id"
+  add_index "sound_chits", ["tile_id"], name: "index_sound_chits_on_tile_id"
+
+  create_table "special_chits", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "tile_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "special_chits", ["game_id"], name: "index_special_chits_on_game_id"
+  add_index "special_chits", ["tile_id"], name: "index_special_chits_on_tile_id"
+
   create_table "tiles", force: :cascade do |t|
     t.string "name"
+    t.string "tile_type"
   end
 
   create_table "traversable_clearings", force: :cascade do |t|

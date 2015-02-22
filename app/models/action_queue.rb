@@ -8,8 +8,7 @@ class ActionQueue < ActiveRecord::Base
   scope :searches, -> {where(action_name: 'search')}
   scope :rests, -> {where(action_name: 'rest')}
   scope :active, -> {where(completed: false)}
-  scope :next_turn(player), -> {where(player_id: player.id).where(turn: player.game.turn).active.order('action_this_turn ASC').first}
-
+  scope :next_turn, ->(player, game) {where(player_id: player.id).where(turn: game.turn).active.order('action_this_turn ASC').first}
   after_initialize :init
 
   def init
@@ -77,6 +76,10 @@ class ActionQueue < ActiveRecord::Base
     end
   end
 
+  def complete_action!
+    self.completed = true
+    save
+  end
 
   private
 
