@@ -8,6 +8,12 @@ class ActionQueue < ActiveRecord::Base
   scope :searches, -> {where(action_name: 'search')}
   scope :rests, -> {where(action_name: 'rest')}
 
+  after_initialize :init
+
+  def init
+    self.completed = false if completed.nil?
+  end
+
   def move?
     self.action_name == 'move'
   end
@@ -54,7 +60,14 @@ class ActionQueue < ActiveRecord::Base
 
   def where_can_search
     if self.clearing.mountain?
-
+      clearings = []
+      adj_tiles = player.clearing.tile.adjacent_tiles
+      adj_tiles.each do |adj_tile|
+        tile = adj_tile.next_tile
+        binding.pry
+        clearings.push(tile.clearings.not_cave)
+      end
+      return clearings.flatten
     else
       self.clearing
     end

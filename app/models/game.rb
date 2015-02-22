@@ -107,4 +107,10 @@ class Game < ActiveRecord::Base
     end
 
   end
+
+  def select_player_order
+    all_players = Player.where(game_id: self.id).where(dead: false)
+
+
+  end
 end

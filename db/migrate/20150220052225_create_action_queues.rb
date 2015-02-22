@@ -8,6 +8,7 @@ class CreateActionQueues < ActiveRecord::Migration
       t.integer :action_this_turn
       t.references :action_chit, index: true
       t.references :clearing, index: true
+      t.boolean :completed
 
       t.timestamps null: false
     end

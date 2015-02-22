@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150221180840) do
+ActiveRecord::Schema.define(version: 20150221184703) do
 
   create_table "action_chits", force: :cascade do |t|
     t.integer  "player_id"
@@ -38,6 +38,12 @@ ActiveRecord::Schema.define(version: 20150221180840) do
   add_index "action_queues", ["action_chit_id"], name: "index_action_queues_on_action_chit_id"
   add_index "action_queues", ["clearing_id"], name: "index_action_queues_on_clearing_id"
   add_index "action_queues", ["player_id"], name: "index_action_queues_on_player_id"
+
+  create_table "adjacent_tiles", force: :cascade do |t|
+    t.integer "tile_id"
+    t.integer "next_tile_id"
+    t.string  "location"
+  end
 
   create_table "character_classes", force: :cascade do |t|
     t.string   "name"

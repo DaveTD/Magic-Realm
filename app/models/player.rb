@@ -25,13 +25,40 @@ class Player < ActiveRecord::Base
     self.hidden = false if hidden.nil?
   end
 
-  def perform_action
-    action_queues = ActionQueue.where(player_id: self.id).where(turn: game.turn)
+  def do_block
+    actions_to_remove = ActionQueue.where(player_id: self.id).where(turn: game.turn)
+    actions_to_remove.destroy!
+    hidden = false
+    # something needs to force the player to pass their turn if they block during their own turn in order to
+    # prevent them from trading until the evening
   end
 
-  def perform_move
+  def do_next_action
+    action = ActionQueue.where(player_id: self.id).where(turn: game.turn).where(completed: false).order('id ASC').first
+    self.send(("perform_#{action.action_name}").to_sym, action)
+    action.complete = true
   end
 
-  def perform_hide
+  def perform_move(action)
+    #check if blocked first
+
+    #if not blocked, then move
+    clearing = action.clearing
   end
+
+  def perform_hide(action)
+    roll = Random.rand(0..6)
+    if roll != 6
+      hidden = true
+    end
+  end
+
+  def perform_search(action)
+
+  end
+
+  def perform_rest(action)
+    harmed_chits = ActionChits.where(player_id: self.id).where()
+  end
+
 end
