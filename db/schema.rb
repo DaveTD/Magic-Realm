@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150221184703) do
     t.integer  "action_this_turn"
     t.integer  "action_chit_id"
     t.integer  "clearing_id"
+    t.boolean  "completed"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 20150221184703) do
     t.string   "state"
     t.string   "time_of_day"
     t.integer  "turn"
+    t.integer  "current_players_turn"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
