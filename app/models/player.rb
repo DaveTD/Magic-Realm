@@ -70,7 +70,7 @@ class Player < ActiveRecord::Base
     roll = Random.rand(1..6)
     case roll
     when 1
-      search_choice
+      #search_choice
     when 2
       search_clues(action.clearing.tile)
       search_paths(action.clearing)
@@ -88,7 +88,7 @@ class Player < ActiveRecord::Base
     roll = Random.rand(1..6)
     case roll
     when 1
-      search_choice
+      #search_choice
     when 2
       search_passages(action.clearing)
       search_clues(action.clearing.tile)
@@ -102,11 +102,31 @@ class Player < ActiveRecord::Base
 
   def search_choice
     #give the player the choice of any of the peer or locate options
-
+    action = ActionQueue.next_turn(self)
+    case search_choice
+    when 'Clues and Paths'
+      search_clues(action.clearing.tile)
+      search_paths(action.clearing)
+    when 'Hidden Enemies & Paths'
+      search_hidden_enemies
+      search_paths(action.clearing)
+    when 'Passages & Clues'
+      search_passages(action.clearing)
+      search_clues(action.clearing.tile)
+    when 'Hidden Enemies'
+      search_hidden_enemies
+    when 'Clues'
+      search_clues
+    when 'Passages'
+      search_passages
+    when 'Discover chits'
+      search_discover_chits
+    end
   end
 
   def search_paths(clearing)
-
+    found_path = FoundHiddenPath.new(self, self.game, clearing.id)
+    found_path.save
   end
 
   def search_hidden_enemies
@@ -114,13 +134,19 @@ class Player < ActiveRecord::Base
   end
 
   def search_clues(tile)
-
+    # give the player a modal that shows all the map chits on this tile
+    # give the option to swap out replacement tiles
   end
 
   def search_passages(clearing)
+    found_passage = FoundHiddenPassage.new(self, self.game, clearing.id)
+    found_path.save
   end
 
   def search_discover_chits(tile, clearing)
+    search_clues(tile)
+    discovered_chits = DiscoveredChitsClearing.new(self, self.game, clearing.id)
+    discovered_chits.save
   end
 
   def perform_rest(action)
