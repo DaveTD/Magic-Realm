@@ -4,6 +4,7 @@ class CreateGames < ActiveRecord::Migration
       t.string :state
       t.string :time_of_day
       t.integer :turn
+      t.integer :current_players_turn
       t.timestamps
     end
   end

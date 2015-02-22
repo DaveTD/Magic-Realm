@@ -53,25 +53,27 @@ class ActionQueue < ActiveRecord::Base
 
   def where_can_move
     move_value = 2 + day_moves
-    traversable = self.clearing.traversable_clearings
     if(move_value < 2)
-      traversable.map { |trav| trav if trav.traversable.mountain?}.compact
+      clearings = self.clearing.traversable_clearings.map {|trav| trav.traversable if trav.traversable.mountain?}.compact
+    else
+      clearings = self.clearing.traversable_clearings.map {|trav| trav.traversable}
     end
-    return traversable
   end
 
   def where_can_search
     if self.clearing.mountain?
       clearings = []
-      adj_tiles = player.clearing.tile.adjacent_tiles
+      tile = player.clearing.tile
+      clearings.push(tile.clearings.not_cave.not_exit)
+
+      adj_tiles = tile.adjacent_tiles
       adj_tiles.each do |adj_tile|
-        tile = adj_tile.next_tile
-        binding.pry
-        clearings.push(tile.clearings.not_cave)
+        next_tile = adj_tile.next_tile
+        clearings.push(next_tile.clearings.not_cave.not_exit)
       end
       return clearings.flatten
     else
-      self.clearing
+      return self.clearing
     end
   end
 

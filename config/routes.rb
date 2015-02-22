@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   #Game Routes
-  resources :games, only: [:index, :new, :create]
+  resources :games, only: [:index, :create, :show]
 
   #Player Routes
   match '/players/:id/move_clearing', :controller => 'players', :action => 'move_clearing', via: [:options]
@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   match '/players/:id/perform_search', :controller => 'players', :action => 'perform_search', via: [:options]
   match '/players/:id/choose_search', :controller => 'players', :action => 'choose_search', via: [:options]
   match '/players/:id/clues_search', :controller => 'players', :action => 'clues_search', via: [:options]
+  match '/players/:id/submit_actions', :controller => 'players', :action => 'submit_actions', via: [:options]
 
   resources :players, only: [:show, :update, :create] do
     member do
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
       put 'perform_search'
       put 'choose_search'
       put 'clues_search'
+      put 'submit_actions'
     end
   end
 

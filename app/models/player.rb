@@ -26,6 +26,11 @@ class Player < ActiveRecord::Base
     self.found_hidden_enemies = false if hidden.nil?
   end
 
+  def submit_actions
+    actions_submitted = true
+    game.actions_submitted
+  end
+
   def do_block
     actions_to_remove = ActionQueue.where(player_id: self.id).where(turn: game.turn)
     actions_to_remove.destroy!

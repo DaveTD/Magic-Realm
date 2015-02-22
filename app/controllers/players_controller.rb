@@ -46,6 +46,10 @@ class PlayersController < ApplicationController
     @player.search_choice(params[:search_choice])
     @action_queues = @player.action_queues
     render 'players/show'
+
+  def submit_actions
+    @player = Player.find params[:id]
+    @player.submit_actions
   end
 
   private
