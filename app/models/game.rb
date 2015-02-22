@@ -66,7 +66,7 @@ class Game < ActiveRecord::Base
   end
 
   def board_randomization
-    player_ready!
+    players_ready!
   end
 
   def players_voted
