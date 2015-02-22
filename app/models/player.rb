@@ -53,13 +53,17 @@ class Player < ActiveRecord::Base
 
     #if not blocked, then move
     clearing = action.clearing
+    record("Player #{self.id} moved to clearing #{action.clearing}.", false)
   end
 
   def perform_hide(action)
+    result = "successfully hid"
     roll = Random.rand(1..6)
     if roll != 6
       hidden = true
+      result = "failed to hide"
     end
+    record("Player #{self.id} #{result} in clearing #{action.clearing}.", false)
   end
 
   def perform_search(search_action)
@@ -132,30 +136,43 @@ class Player < ActiveRecord::Base
   def search_paths(clearing)
     found_path = FoundHiddenPath.new(self, self.game, clearing.id)
     found_path.save
+    record("Player #{self.id} found hidden paths in clearing #{clearing.id}", false)
   end
 
   def search_hidden_enemies
     found_hidden_enemies = true
+    record("Player #{self.id} found hidden enemies in clearing #{clearing.id}", false)
   end
 
   def search_clues(tile)
     # give the player a modal that shows all the map chits on this tile
     # give the option to swap out replacement tiles
+
+    record("Clues in tile #{tile.name}", true)
   end
 
   def search_passages(clearing)
-    found_passage = FoundHiddenPassage.new(self, self.game, clearing.id)
+    found_passage = FoundHiddenPassage.new(player: self, game: self.game, clearing: clearing.id)
     found_path.save
+    record("Player #{self.id} found hidden passages in clearing #{clearing.id}", false)
   end
 
   def search_discover_chits(tile, clearing)
     search_clues(tile)
-    discovered_chits = DiscoveredChitsClearing.new(self, self.game, clearing.id)
+    discovered_chits = DiscoveredChitsClearing.new(player: self, game: self.game, clearing: clearing.id)
     discovered_chits.save
+    record("Discovered in clearing #{clearing.id}", true)
+    record("Player #{self.id} discovered chits in clearing #{clearing.id}", false)
   end
 
   def perform_rest(action)
-    harmed_chits = ActionChits.where(player_id: self.id).where('damage > 0')
+    #harmed_chits = ActionChits.where(player_id: self.id).where('damage > 0')
+
+    record("Player #{self.id} rested in clearing #{clearing.id}", false)
   end
 
+  def record(notification, private_action)
+    r = Notification.new(player: self, game: self.game, action: notification, private_notification: private_action, turn: self.game.turn)
+    r.save
+  end
 end

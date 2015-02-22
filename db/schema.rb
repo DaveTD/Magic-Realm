@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150221184703) do
+ActiveRecord::Schema.define(version: 20150222175755) do
 
   create_table "action_chits", force: :cascade do |t|
     t.integer  "player_id"
     t.string   "chit_type"
     t.integer  "strength"
+    t.integer  "damage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -80,6 +81,42 @@ ActiveRecord::Schema.define(version: 20150221184703) do
     t.integer "tile_id"
   end
 
+  create_table "discovered_chits_clearings", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "game_id"
+    t.integer  "clearing_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "discovered_chits_clearings", ["clearing_id"], name: "index_discovered_chits_clearings_on_clearing_id"
+  add_index "discovered_chits_clearings", ["game_id"], name: "index_discovered_chits_clearings_on_game_id"
+  add_index "discovered_chits_clearings", ["player_id"], name: "index_discovered_chits_clearings_on_player_id"
+
+  create_table "found_hidden_passages", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "game_id"
+    t.integer  "clearing_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "found_hidden_passages", ["clearing_id"], name: "index_found_hidden_passages_on_clearing_id"
+  add_index "found_hidden_passages", ["game_id"], name: "index_found_hidden_passages_on_game_id"
+  add_index "found_hidden_passages", ["player_id"], name: "index_found_hidden_passages_on_player_id"
+
+  create_table "found_hidden_paths", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "game_id"
+    t.integer  "clearing_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "found_hidden_paths", ["clearing_id"], name: "index_found_hidden_paths_on_clearing_id"
+  add_index "found_hidden_paths", ["game_id"], name: "index_found_hidden_paths_on_game_id"
+  add_index "found_hidden_paths", ["player_id"], name: "index_found_hidden_paths_on_player_id"
+
   create_table "games", force: :cascade do |t|
     t.string   "state"
     t.string   "time_of_day"
@@ -122,6 +159,19 @@ ActiveRecord::Schema.define(version: 20150221184703) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "game_id"
+    t.string   "action"
+    t.boolean  "private_notification"
+    t.integer  "turn"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "notifications", ["game_id"], name: "index_notifications_on_game_id"
+  add_index "notifications", ["player_id"], name: "index_notifications_on_player_id"
+
   create_table "players", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -148,6 +198,7 @@ ActiveRecord::Schema.define(version: 20150221184703) do
     t.integer  "horse_id"
     t.integer  "hirelings_id"
     t.boolean  "hidden"
+    t.boolean  "found_hidden_enemies"
     t.boolean  "wounded"
     t.boolean  "fatigued"
     t.boolean  "dead"
@@ -157,8 +208,8 @@ ActiveRecord::Schema.define(version: 20150221184703) do
     t.integer  "inventory_id"
     t.integer  "between_clearing_1"
     t.integer  "between_clearing_2"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   add_index "players", ["action_queue_id"], name: "index_players_on_action_queue_id"
@@ -183,6 +234,7 @@ ActiveRecord::Schema.define(version: 20150221184703) do
     t.integer "clearing_id"
     t.integer "traversable_id"
     t.boolean "hidden"
+    t.string  "hidden_type"
   end
 
   create_table "treasure_locations", force: :cascade do |t|
