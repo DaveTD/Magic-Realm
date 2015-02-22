@@ -4,6 +4,7 @@ class CreateActionChits < ActiveRecord::Migration
       t.references :player, index: true
       t.string :chit_type
       t.integer :strength
+      t.integer :damage
 
       t.timestamps null: false
     end
