@@ -9,6 +9,7 @@ class ActionQueue < ActiveRecord::Base
   scope :rests, -> {where(action_name: 'rest')}
   scope :active, -> {where(completed: false)}
   scope :next_turn, ->(player, game) {where(player_id: player.id).where(turn: game.turn).active.order('action_this_turn ASC').first}
+
   after_initialize :init
 
   def init

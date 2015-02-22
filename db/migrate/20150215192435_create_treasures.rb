@@ -7,7 +7,7 @@ class CreateTreasures < ActiveRecord::Migration
       t.boolean :great
       t.integer :fame_price_number
       t.references :fame_price_natives, index: true
-      t.text :enchanted
+      t.string :enchanted
       t.integer :weight
       t.integer :notoriety_value
       t.integer :price

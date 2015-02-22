@@ -42,8 +42,10 @@ class PlayersController < ApplicationController
     render 'players/show'
   end
 
-  def next_turn
-
+  def choose_search
+    @player = Player.find params[:id]
+    @player.search_choice(params[:search_choice])
+    @action_queues = @player.action_queues
     render 'players/show'
   end
 

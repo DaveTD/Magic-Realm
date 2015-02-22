@@ -47,9 +47,23 @@ ActiveRecord::Schema.define(version: 20150222210853) do
     t.string  "location"
   end
 
+  create_table "armors", force: :cascade do |t|
+    t.string   "armor_name"
+    t.string   "armor_type"
+    t.boolean  "protect_thrust"
+    t.boolean  "protect_swing"
+    t.boolean  "protect_smash"
+    t.boolean  "tremendous"
+    t.integer  "price_intact"
+    t.integer  "price_damaged"
+    t.integer  "price_destroyed"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "character_classes", force: :cascade do |t|
     t.string   "name"
-    t.integer  "vunlerability"
+    t.integer  "vulnerability"
     t.integer  "movement_cost"
     t.integer  "cave_movement_cost"
     t.integer  "mountain_movement_cost"
@@ -58,11 +72,16 @@ ActiveRecord::Schema.define(version: 20150222210853) do
     t.integer  "unfriendly_id"
     t.integer  "enemy_id"
     t.integer  "development_chits_id"
+    t.integer  "starting_weapon_id"
+    t.integer  "starting_shield_id"
+    t.integer  "starting_helmet_id"
+    t.integer  "starting_breastplate_id"
+    t.integer  "starting_suit_id"
     t.text     "special_advantages"
     t.integer  "starts_in"
-    t.integer  "base_rest_phases"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "starting_gold"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "character_classes", ["ally_id"], name: "index_character_classes_on_ally_id"
@@ -294,7 +313,7 @@ ActiveRecord::Schema.define(version: 20150222210853) do
     t.boolean  "great"
     t.integer  "fame_price_number"
     t.integer  "fame_price_natives_id"
-    t.text     "enchanted"
+    t.string   "enchanted"
     t.integer  "weight"
     t.integer  "notoriety_value"
     t.integer  "price"
@@ -307,13 +326,18 @@ ActiveRecord::Schema.define(version: 20150222210853) do
   add_index "treasures", ["fame_price_natives_id"], name: "index_treasures_on_fame_price_natives_id"
 
   create_table "weapons", force: :cascade do |t|
+    t.string   "weapon_name"
     t.boolean  "ranged"
     t.integer  "length"
     t.integer  "price"
     t.integer  "harm"
-    t.boolean  "sharp"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "alerted_harm"
+    t.integer  "time"
+    t.integer  "alerted_time"
+    t.integer  "sharp"
+    t.integer  "alerted_sharp"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end
