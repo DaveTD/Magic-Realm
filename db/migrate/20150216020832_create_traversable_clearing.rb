@@ -4,6 +4,7 @@ class CreateTraversableClearing < ActiveRecord::Migration
       t.references :clearing
       t.references :traversable
       t.boolean :hidden
+      t.string :hidden_type
     end
   end
 end

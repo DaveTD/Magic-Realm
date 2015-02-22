@@ -8,12 +8,16 @@ Rails.application.routes.draw do
   match '/players', :controller => 'players', :action => 'create', via: [:options]
   match '/players/:id/destroy_last_action', :controller => 'players', :action => 'destroy_last_action', via: [:options]
   match '/players/:id/perform_search', :controller => 'players', :action => 'perform_search', via: [:options]
+  match '/players/:id/choose_search', :controller => 'players', :action => 'choose_search', via: [:options]
+  match '/players/:id/clues_search', :controller => 'players', :action => 'clues_search', via: [:options]
 
   resources :players, only: [:show, :update, :create] do
     member do
       put 'move_clearing'
       put 'destroy_last_action'
       put 'perform_search'
+      put 'choose_search'
+      put 'clues_search'
     end
   end
 

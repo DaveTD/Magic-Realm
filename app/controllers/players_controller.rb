@@ -28,9 +28,23 @@ class PlayersController < ApplicationController
     render 'players/show'
   end
 
+  def next_action
+    @player = Player.find params[:id]
+    @action_queues = @player.action_queues
+    @player.do_next_action
+  end
+
   def perform_search
     @player = Player.find params[:id]
     @player.perform_search(params[:search_action])
+    @action_queues = @player.action_queues
+    render 'players/show'
+  end
+
+  def choose_search
+    @player = Player.find params[:id]
+    @player.search_choice(params[:search_choice])
+    @action_queues = @player.action_queues
     render 'players/show'
   end
 
