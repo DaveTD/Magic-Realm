@@ -209,7 +209,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aasm
+  aasm (~> 4.0.8)
   awesome_print (~> 1.6.1)
   better_errors (~> 2.1.1)
   coffee-rails (~> 4.0.0)

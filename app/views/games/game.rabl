@@ -1,6 +1,6 @@
 object @game
 
-attributes :id, :time_of_day, :created_at, :updated_at
+attributes :id, :turn, :time_of_day, :current_players_turn, :created_at, :updated_at
 child :players do
   extends "games/player"
 end

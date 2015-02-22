@@ -26,7 +26,7 @@ class Player < ActiveRecord::Base
     self.found_hidden_enemies = false if hidden.nil?
   end
 
-  def submit_actions
+  def change_action_state
     actions_submitted = true
     game.actions_submitted
   end
@@ -40,19 +40,18 @@ class Player < ActiveRecord::Base
   end
 
   def do_next_action
-    action = ActionQueue.next_turn(self)
+    action = ActionQueue.next_turn(self, self.game)
     unless action.search?
       self.send(("perform_#{action.action_name}").to_sym, action)
-      action.complete = true
+      action.complete_action!
     end
-    action.save
   end
 
   def perform_move(action)
     #check if blocked first
 
     #if not blocked, then move
-    clearing = action.clearing
+    self.clearing_id = action.clearing_id && save
     record("Player #{self.id} moved to clearing #{action.clearing}.", false)
   end
 
@@ -67,19 +66,20 @@ class Player < ActiveRecord::Base
   end
 
   def perform_search(search_action)
-    action = ActionQueue.next_turn(self)
+    action = ActionQueue.next_turn(self, self.game)
     if search_action == 'peer'
-      self.search(action)
+      self.peer(action)
     else
       self.locate(action)
     end
   end
 
   def peer(action)
-    roll = Random.rand(1..6)
+    # roll = Random.rand(1..6)
+    roll = 1
     case roll
     when 1
-      #search_choice
+      return 1
     when 2
       search_clues(action.clearing.tile)
       search_paths(action.clearing)
@@ -91,13 +91,15 @@ class Player < ActiveRecord::Base
     when 5
       search_clues(action.clearing.tile)
     end
+    action.complete_action!
   end
 
   def locate(action)
-    roll = Random.rand(1..6)
+    # roll = Random.rand(1..6)
+    roll = 1
     case roll
     when 1
-      #search_choice
+      return 1
     when 2
       search_passages(action.clearing)
       search_clues(action.clearing.tile)
@@ -106,12 +108,12 @@ class Player < ActiveRecord::Base
     when 4
       search_discover_chits(action.clearing.tile, action.clearing)
     end
+    action.complete_action!
   end
 
-
-  def search_choice
+  def search_choice(search_choice)
     #give the player the choice of any of the peer or locate options
-    action = ActionQueue.next_turn(self)
+    action = ActionQueue.next_turn(self, self.game)
     case search_choice
     when 'Clues and Paths'
       search_clues(action.clearing.tile)
@@ -125,16 +127,17 @@ class Player < ActiveRecord::Base
     when 'Hidden Enemies'
       search_hidden_enemies
     when 'Clues'
-      search_clues
+      search_clues(action.clearing.tile)
     when 'Passages'
-      search_passages
-    when 'Discover chits'
-      search_discover_chits
+      search_passages(action.clearing)
+    when 'Discover Chits'
+      search_discover_chits(action.clearing.tile, action.clearing)
     end
+    action.complete_action!
   end
 
   def search_paths(clearing)
-    found_path = FoundHiddenPath.new(self, self.game, clearing.id)
+    # found_path = FoundHiddenPath.new(self, self.game, clearing.id)
     found_path.save
     record("Player #{self.id} found hidden paths in clearing #{clearing.id}", false)
   end
@@ -167,12 +170,16 @@ class Player < ActiveRecord::Base
 
   def perform_rest(action)
     #harmed_chits = ActionChits.where(player_id: self.id).where('damage > 0')
-
     record("Player #{self.id} rested in clearing #{clearing.id}", false)
   end
 
   def record(notification, private_action)
     r = Notification.new(player: self, game: self.game, action: notification, private_notification: private_action, turn: self.game.turn)
     r.save
+    # qharmed_chits = ActionChits.where(player_id: self.id).where('damage > 0')
+  end
+
+  def current_action
+    return ActionQueue.next_turn(self, self.game).try(:action_this_turn)
   end
 end
