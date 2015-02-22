@@ -26,6 +26,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.references :horse, index: true
       t.references :hirelings, index: true
       t.boolean :hidden
+      t.boolean :found_hidden_enemies
       t.boolean :wounded
       t.boolean :fatigued
       t.boolean :dead

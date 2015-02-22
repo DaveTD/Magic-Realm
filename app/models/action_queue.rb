@@ -7,6 +7,8 @@ class ActionQueue < ActiveRecord::Base
   scope :hides, -> {where(action_name: 'hide')}
   scope :searches, -> {where(action_name: 'search')}
   scope :rests, -> {where(action_name: 'rest')}
+  scope :active, -> {where(completed: false)}
+  scope :next_turn(player), -> {where(player_id: player.id).where(turn: player.game.turn).active.order('action_this_turn ASC').first}
 
   after_initialize :init
 
