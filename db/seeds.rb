@@ -287,9 +287,9 @@ tile_travs =[
 ]
 
 tile_travs.each do |tl|
-  tl[:adj_tile].each do |adj_tile|
-    loc = directions.shift
-    tl_new = AdjacentTile.new(tile_id: tl[:tl_id], adjacent_tile: adj_tile, location: loc)
+  tl[:adj_tile].each do |adj_tile_id|
+    loc = tl[:directions].shift
+    tl_new = AdjacentTile.new(tile_id: tl[:tl_id], next_tile_id: adj_tile_id, location: loc)
     tl_new.save
   end
 end

@@ -2,7 +2,7 @@ class CreateActionChits < ActiveRecord::Migration
   def change
     create_table :action_chits do |t|
       t.references :player, index: true
-      t.text :type
+      t.string :chit_type
       t.integer :strength
 
       t.timestamps null: false

@@ -5,6 +5,8 @@ class CreatePlayers < ActiveRecord::Migration
       t.string :last_name
       t.references :game
       t.references :clearing, index: true
+      t.boolean :ready
+      t.boolean :actions_submitted
       t.integer :great_treasures_vps
       t.integer :usable_spells_vps
       t.integer :fame_vps
@@ -26,6 +28,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.boolean :hidden
       t.boolean :wounded
       t.boolean :fatigued
+      t.boolean :dead
       t.references :curses, index: true
       t.references :character_class, index: true
       t.integer :level

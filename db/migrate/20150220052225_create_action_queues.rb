@@ -2,15 +2,13 @@ class CreateActionQueues < ActiveRecord::Migration
   def change
     create_table :action_queues do |t|
       t.references :player, index: true
-<<<<<<< HEAD:db/migrate/20150220052225_create_action_queues.rb
-      t.references :action_chit, index: true
-=======
       t.string :action_name
       t.integer :value
       t.integer :turn
       t.integer :action_this_turn
->>>>>>> action routes are in place and functional:db/migrate/20150218014650_create_action_queues.rb
+      t.references :action_chit, index: true
       t.references :clearing, index: true
+      t.boolean :completed
 
       t.timestamps null: false
     end
