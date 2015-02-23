@@ -348,20 +348,20 @@ character_seed.each do |cs|
   breastplate = Armor.where(armor_name: cs[:starting_breastplate]).first.id if cs[:starting_breastplate].present?
   helmet = Armor.where(armor_name: cs[:starting_helmet]).first.id if cs[:starting_helmet].present?
   shield = Armor.where(armor_name: cs[:starting_shield]).first.id if cs[:starting_shield].present?
-  CharacterClass.create(name: cs[:name], 
-                        vulnerability: cs[:vulnerability], 
-                        movement_cost: 1, 
-                        cave_movement_cost: 1, 
-                        mountain_movement_cost: 2, 
-                        starting_weapon_id: weapon, 
-                        starting_suit_id: suit, 
-                        starting_breastplate_id: breastplate, 
-                        starting_helmet_id: helmet, 
-                        starting_shield_id: shield, 
+  CharacterClass.create(name: cs[:name],
+                        vulnerability: cs[:vulnerability],
+                        movement_cost: 1,
+                        cave_movement_cost: 1,
+                        mountain_movement_cost: 2,
+                        starting_weapon_id: weapon,
+                        starting_suit_id: suit,
+                        starting_breastplate_id: breastplate,
+                        starting_helmet_id: helmet,
+                        starting_shield_id: shield,
                         starting_gold: 10)
 end
 
-game = Game.create(state: 'select_classes')
+game = Game.create(time_of_day: 'select_classes')
 
 Player.create(game_id: game.id, clearing_id: 1, first_name: 'Joe', last_name: 'Blow', character_class_id: 1)
 

@@ -68,7 +68,7 @@ class Game < ActiveRecord::Base
 
     all_sound_chits = SoundChit.all
     #all_warning_chits = WarningChit.all
-    all_treasure_site_chits = TreasureLocation.all
+    all_treasure_site_chits = GoldSite.all
 
     chit_mixer = all_sound_chits + all_treasure_site_chits
     lost_city_pile = chit_mixer.sample(5)
