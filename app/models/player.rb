@@ -159,12 +159,12 @@ class Player < ActiveRecord::Base
   def search_paths(clearing, roll)
     found_path = FoundHiddenPath.new(player: self, game: self.game, clearing: clearing.id)
     found_path.save
-    record("Player #{self.name} rolled a #{roll} and found hidden paths in clearing #{clearing.id}", false)
+    record("Player #{self.name} rolled a #{roll} and found hidden paths in #{clearing.tile.name} - #{clearing.clearing_number}", false)
   end
 
   def search_hidden_enemies(roll)
     found_hidden_enemies = true
-    record("Player #{self.name} rolled a #{roll} and found hidden enemies in clearing #{clearing.id}", false)
+    record("Player #{self.name} rolled a #{roll} and found hidden enemies in #{clearing.tile.name} - #{clearing.clearing_number}", false)
   end
 
   def search_clues(tile)
@@ -177,7 +177,7 @@ class Player < ActiveRecord::Base
   def search_passages(clearing, roll)
     found_passage = FoundHiddenPassage.new(player: self, game: self.game, clearing: clearing.id)
     found_path.save
-    record("Player #{self.name} rolled a #{roll} and found hidden passages in clearing #{clearing.id}", false)
+    record("Player #{self.name} rolled a #{roll} and found hidden passages in #{clearing.tile.name} - #{clearing.clearing_number}", false)
   end
 
   def search_discover_chits(tile, clearing, roll)
@@ -185,12 +185,12 @@ class Player < ActiveRecord::Base
     discovered_chits = DiscoveredChitsClearing.new(player: self, game: self.game, clearing: clearing.id)
     discovered_chits.save
     record("Discovered in clearing #{clearing.id}", true)
-    record("Player #{self.name} rolled a #{roll} and discovered chits in clearing #{clearing.id}", false)
+    record("Player #{self.name} rolled a #{roll} and discovered chits #{clearing.tile.name} - #{clearing.clearing_number}", false)
   end
 
   def perform_rest(action)
     #harmed_chits = ActionChits.where(player_id: self.id).where('damage > 0')
-    record("Player #{self.name} rested in clearing #{clearing.id}", false)
+    record("Player #{self.name} rested in #{action.clearing.tile.name} - #{action.clearing.clearing_number}", false)
   end
 
   def blocked!
