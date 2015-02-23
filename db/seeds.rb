@@ -21,6 +21,7 @@
   Tile.create(name: "linden woods", tile_type: 'woods')
 
   ## Clearings
+  ## Tile 1 - Cliff
   Clearing.create(tile_id: 1, movement_type: 'mountain', movement_value: 2, clearing_number: 4, exit: false, x:200, y:26)
   Clearing.create(tile_id: 1, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:240, y:26)
   Clearing.create(tile_id: 1, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: true, x:250, y:6)
@@ -29,23 +30,27 @@
   Clearing.create(tile_id: 1, movement_type: 'wood', movement_value: 1, clearing_number: 3, exit: false, x:220, y:62)
   Clearing.create(tile_id: 1, movement_type: 'mountain', movement_value: 2, clearing_number: 1, exit: false, x:200, y:96)
   Clearing.create(tile_id: 1, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: true, x:240, y:96)
+  ## Tile 2 - Evil Valley
   Clearing.create(tile_id: 2, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: true, x:122, y:118)
   Clearing.create(tile_id: 2, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:135, y:138)
   Clearing.create(tile_id: 2, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:174, y:136)
   Clearing.create(tile_id: 2, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:136, y:205)
   Clearing.create(tile_id: 2, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:189, y:191)
+  ## Tile 3 - Ledges
   Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 3, exit: false, x:258, y:140)
   Clearing.create(tile_id: 3, movement_type: 'mountain', movement_value: 2, clearing_number: 2, exit: false, x:244, y:170)
   Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:282, y:174)
   Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:292, y:144)
   Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 6, exit: false, x:323, y:150)
   Clearing.create(tile_id: 3, movement_type: 'mountain', movement_value: 2, clearing_number: 5, exit: false, x:294, y:211)
+  ## Tile 4 - Crag
   Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 1, exit: false, x:394, y:133)
   Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 4, exit: false, x:382, y:166)
   Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 6, exit: false, x:424, y:146)
   Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 5, exit: false, x:398, y:197)
   Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 3, exit: false, x:438, y:175)
   Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 2, exit: false, x:432, y:210)
+  ## Tile 5 - Dark Valley
   Clearing.create(tile_id: 5, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:527, y:158)
   Clearing.create(tile_id: 5, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:577, y:177)
   Clearing.create(tile_id: 5, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:518, y:210)
@@ -53,6 +58,7 @@
   Clearing.create(tile_id: 5, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: true, x:568, y:120)
   Clearing.create(tile_id: 5, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: true, x:505, y:120)
   Clearing.create(tile_id: 5, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: true, x:604, y:176)
+  ## Tile 6 - High Pass
   Clearing.create(tile_id: 6, movement_type: 'mountain', movement_value: 2, clearing_number: 0, exit: true, x:24, y:284)
   Clearing.create(tile_id: 6, movement_type: 'mountain', movement_value: 2, clearing_number: 5, exit: false, x:51, y:284)
   Clearing.create(tile_id: 6, movement_type: 'mountain', movement_value: 2, clearing_number: 4, exit: false, x:84, y:273)
@@ -60,82 +66,97 @@
   Clearing.create(tile_id: 6, movement_type: 'mountain', movement_value: 2, clearing_number: 1, exit: false, x:79, y:312)
   Clearing.create(tile_id: 6, movement_type: 'cave', movement_value: 1, clearing_number: 3, exit: false, x:110, y:316)
   Clearing.create(tile_id: 6, movement_type: 'mountain', movement_value: 2, clearing_number: 2, exit: false, x:128, y:282)
+  ## Tile 7 - Borderland
   Clearing.create(tile_id: 7, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:176, y:306)
   Clearing.create(tile_id: 7, movement_type: 'wood', movement_value: 1, clearing_number: 3, exit: false, x:181, y:265)
   Clearing.create(tile_id: 7, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:213, y:243)
   Clearing.create(tile_id: 7, movement_type: 'cave', movement_value: 1, clearing_number: 6, exit: false, x:206, y:290)
   Clearing.create(tile_id: 7, movement_type: 'cave', movement_value: 1, clearing_number: 5, exit: false, x:234, y:301)
   Clearing.create(tile_id: 7, movement_type: 'cave', movement_value: 1, clearing_number: 4, exit: false, x:262, y:308)
+  ## Tile 8 - Oak Woods
   Clearing.create(tile_id: 8, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:316, y:270)
   Clearing.create(tile_id: 8, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:385, y:284)
   Clearing.create(tile_id: 8, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:346, y:319)
+  ## Tile 9 - Deep Woods
   Clearing.create(tile_id: 9, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:435, y:270)
   Clearing.create(tile_id: 9, movement_type: 'wood', movement_value: 1, clearing_number: 6, exit: false, x:476, y:295)
   Clearing.create(tile_id: 9, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:433, y:311)
   Clearing.create(tile_id: 9, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:464, y:329)
   Clearing.create(tile_id: 9, movement_type: 'wood', movement_value: 1, clearing_number: 3, exit: false, x:507, y:312)
   Clearing.create(tile_id: 9, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:507, y:267)
+  ## Tile 10 - Curst Valley
   Clearing.create(tile_id: 10, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:562, y:285)
   Clearing.create(tile_id: 10, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:581, y:251)
   Clearing.create(tile_id: 10, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:620, y:252)
   Clearing.create(tile_id: 10, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:611, y:303)
   Clearing.create(tile_id: 10, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:634, y:228)
   Clearing.create(tile_id: 10, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:665, y:284)
+  ## Tile 11 - Cavern
   Clearing.create(tile_id: 11, movement_type: 'cave', movement_value: 1, clearing_number: 5, exit: false, x:132, y:359)
   Clearing.create(tile_id: 11, movement_type: 'cave', movement_value: 1, clearing_number: 2, exit: false, x:172, y:360)
   Clearing.create(tile_id: 11, movement_type: 'cave', movement_value: 1, clearing_number: 3, exit: false, x:158, y:386)
   Clearing.create(tile_id: 11, movement_type: 'cave', movement_value: 1, clearing_number: 1, exit: false, x:196, y:396)
   Clearing.create(tile_id: 11, movement_type: 'cave', movement_value: 1, clearing_number: 6, exit: false, x:156, y:418)
   Clearing.create(tile_id: 11, movement_type: 'cave', movement_value: 1, clearing_number: 4, exit: false, x:132, y:432)
+  ## Tile 12 - Bad Valley
   Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:248, y:416)
   Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:262, y:362)
   Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:300, y:360)
   Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:300, y:430)
-  Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:408, y:364)
-  Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:390, y:432)
-  Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:438, y:416)
-  Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 3, exit: false, x:528, y:378)
-  Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:522, y:432)
-  Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:570, y:414)
-  Clearing.create(tile_id: 12, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: true, x:602, y:394)
-  Clearing.create(tile_id: 13, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:149,y:505)
-  Clearing.create(tile_id: 13, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:172,y:505)
-  Clearing.create(tile_id: 13, movement_type: 'wood', movement_value: 1, clearing_number: 6, exit: false, x:201,y:477)
-  Clearing.create(tile_id: 13, movement_type: 'mountain', movement_value: 2, clearing_number: 5, exit: false, x:238,y:468)
-  Clearing.create(tile_id: 13, movement_type: 'mountain', movement_value: 2, clearing_number: 1, exit: false, x:203,y:530)
-  Clearing.create(tile_id: 13, movement_type: 'mountain', movement_value: 2, clearing_number: 3, exit: false, x:238,y:508)
-  Clearing.create(tile_id: 13, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:238,y:543)
-  Clearing.create(tile_id: 14, movement_type: 'cave', movement_value: 1, clearing_number: 4, exit: false, x:306,y:513)
-  Clearing.create(tile_id: 14, movement_type: 'cave', movement_value: 1, clearing_number: 2, exit: false, x:326,y:470)
-  Clearing.create(tile_id: 14, movement_type: 'cave', movement_value: 1, clearing_number: 3, exit: false, x:344,y:500)
-  Clearing.create(tile_id: 14, movement_type: 'cave', movement_value: 1, clearing_number: 5, exit: false, x:364,y:471)
-  Clearing.create(tile_id: 14, movement_type: 'cave', movement_value: 1, clearing_number: 1, exit: false, x:324,y:540)
-  Clearing.create(tile_id: 14, movement_type: 'cave', movement_value: 1, clearing_number: 6, exit: false, x:383,y:525)
-  Clearing.create(tile_id: 15, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:439,y:476)
-  Clearing.create(tile_id: 15, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:493,y:480)
-  Clearing.create(tile_id: 15, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:460,y:502)
-  Clearing.create(tile_id: 15, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:440,y:563)
-  Clearing.create(tile_id: 15, movement_type: 'wood', movement_value: 1, clearing_number: 3, exit: false, x:453,y:542)
-  Clearing.create(tile_id: 15, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:511,y:529)
-  Clearing.create(tile_id: 16, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:563,y:505)
-  Clearing.create(tile_id: 16, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:581,y:471)
-  Clearing.create(tile_id: 16, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:623,y:505)
-  Clearing.create(tile_id: 16, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:580,y:537)
-  Clearing.create(tile_id: 16, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:635,y:448)
-  Clearing.create(tile_id: 16, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:666,y:505)
-  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:255,y:583)
-  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:215,y:614)
-  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:243,y:629)
-  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:247,y:671)
-  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:308,y:599)
-  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:344,y:614)
-  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:474,y:616)
-  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:529,y:630)
-  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:518,y:582)
-  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:566,y:600)
-  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:603,y:616)
-  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:572,y:672)
-  Clearing.create(tile_id: 15, movement_type: 'cave', movement_value: 1, clearing_number: 6, exit: false, x:483,y:530)
+  ## Tile 13 - Maple Woods
+  Clearing.create(tile_id: 13, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:408, y:364)
+  Clearing.create(tile_id: 13, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:390, y:432)
+  Clearing.create(tile_id: 13, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:438, y:416)
+  ## Tile 14 - Nut Woods
+  Clearing.create(tile_id: 14, movement_type: 'wood', movement_value: 1, clearing_number: 3, exit: false, x:528, y:378)
+  Clearing.create(tile_id: 14, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:522, y:432)
+  Clearing.create(tile_id: 14, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:570, y:414)
+  Clearing.create(tile_id: 14, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: true, x:602, y:394)
+  ## Tile 15 - Mountain
+  Clearing.create(tile_id: 15, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:149,y:505)
+  Clearing.create(tile_id: 15, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:172,y:505)
+  Clearing.create(tile_id: 15, movement_type: 'wood', movement_value: 1, clearing_number: 6, exit: false, x:201,y:477)
+  Clearing.create(tile_id: 15, movement_type: 'mountain', movement_value: 2, clearing_number: 5, exit: false, x:238,y:468)
+  Clearing.create(tile_id: 15, movement_type: 'mountain', movement_value: 2, clearing_number: 1, exit: false, x:203,y:530)
+  Clearing.create(tile_id: 15, movement_type: 'mountain', movement_value: 2, clearing_number: 3, exit: false, x:238,y:508)
+  Clearing.create(tile_id: 15, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:238,y:543)
+  ## Tile 16 - Caves
+  Clearing.create(tile_id: 16, movement_type: 'cave', movement_value: 1, clearing_number: 4, exit: false, x:306,y:513)
+  Clearing.create(tile_id: 16, movement_type: 'cave', movement_value: 1, clearing_number: 2, exit: false, x:326,y:470)
+  Clearing.create(tile_id: 16, movement_type: 'cave', movement_value: 1, clearing_number: 3, exit: false, x:344,y:500)
+  Clearing.create(tile_id: 16, movement_type: 'cave', movement_value: 1, clearing_number: 5, exit: false, x:364,y:471)
+  Clearing.create(tile_id: 16, movement_type: 'cave', movement_value: 1, clearing_number: 1, exit: false, x:324,y:540)
+  Clearing.create(tile_id: 16, movement_type: 'cave', movement_value: 1, clearing_number: 6, exit: false, x:383,y:525)
+  ## Tile 17 - Ruins
+  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:439,y:476)
+  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:493,y:480)
+  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:460,y:502)
+  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:440,y:563)
+  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 3, exit: false, x:453,y:542)
+  Clearing.create(tile_id: 17, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:511,y:529)
+  ## Tile 18 - Awful Valley
+  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:563,y:505)
+  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:581,y:471)
+  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:623,y:505)
+  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:580,y:537)
+  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:635,y:448)
+  Clearing.create(tile_id: 18, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:666,y:505)
+  ## Tile 19 - Pine Woods
+  Clearing.create(tile_id: 19, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:255,y:583)
+  Clearing.create(tile_id: 19, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:215,y:614)
+  Clearing.create(tile_id: 19, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:243,y:629)
+  Clearing.create(tile_id: 19, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:247,y:671)
+  Clearing.create(tile_id: 19, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:308,y:599)
+  Clearing.create(tile_id: 19, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:344,y:614)
+  ## Tile 20 - Linden Woods
+  Clearing.create(tile_id: 20, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:474,y:616)
+  Clearing.create(tile_id: 20, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:529,y:630)
+  Clearing.create(tile_id: 20, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:518,y:582)
+  Clearing.create(tile_id: 20, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:566,y:600)
+  Clearing.create(tile_id: 20, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:603,y:616)
+  Clearing.create(tile_id: 20, movement_type: 'wood', movement_value: 1, clearing_number: 0, exit: false, x:572,y:672)
+  ## Tile 17 - Ruins (again)
+  Clearing.create(tile_id: 17, movement_type: 'cave', movement_value: 1, clearing_number: 6, exit: false, x:483,y:530)
 
 travs = [
   {:id => 1, :trav => [4,5], :hidden => nil, :hidden_type => nil},
@@ -361,7 +382,6 @@ character_seed.each do |cs|
                         starting_gold: 10)
 end
 
-
 ## Gold Sites
 gold_chit_seed = [
   {game_id: 1, name: 'Altar', tile_clearing_number: 1},
@@ -375,6 +395,26 @@ gold_chit_seed = [
 
 gold_chit_seed.each do |sc|
   GoldSite.create(game_id: sc[:game_id], lost_city: false, lost_castle: false, name: sc[:name], tile_clearing_number: sc[:tile_clearing_number])
+
+## Monsters
+Monster.create(monster: 'Ghosts', damage_type: 1, attack_time: 2, maneuver_time: 2, vulnerability: 2, attacks: 1, 
+          clearing_id: 12, prowling: false, blocked: false)
+
+## Sound Chits
+sound_chit_seed = [
+  {game_id: 1, name: 'Flutter', tile_clearing_number: 1},
+  {game_id: 1, name: 'Flutter', tile_clearing_number: 2},
+  {game_id: 1, name: 'Howl', tile_clearing_number: 4},
+  {game_id: 1, name: 'Howl', tile_clearing_number: 5},
+  {game_id: 1, name: 'Patter', tile_clearing_number: 2},
+  {game_id: 1, name: 'Patter', tile_clearing_number: 5},
+  {game_id: 1, name: 'Roar', tile_clearing_number: 4},
+  {game_id: 1, name: 'Roar', tile_clearing_number: 6},
+  {game_id: 1, name: 'Slither', tile_clearing_number: 3},
+  {game_id: 1, name: 'Slither', tile_clearing_number: 6}]
+
+sound_chit_seed.each do |sc|
+  SoundChit.create(game_id: sc[:game_id], lost_city: false, lost_castle: false, name: sc[:name], tile_clearing_number: sc[:tile_clearing_number])
 end
 
 game = Game.create(time_of_day: 'select_classes')
@@ -383,5 +423,8 @@ Player.create(game_id: game.id, clearing_id: 1, first_name: 'Joe', last_name: 'B
 
 Game.create(time_of_day: 'select_classes')
 Game.create(time_of_day: 'select_classes')
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> Ghosts added, and all sound chits
