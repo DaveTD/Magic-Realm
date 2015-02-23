@@ -8,6 +8,7 @@ class CreateMonsters < ActiveRecord::Migration
       t.integer :attacks
       t.references :clearing, index: true
       t.boolean :prowling
+      t.boolean :blocked
 
       t.timestamps null: false
     end
