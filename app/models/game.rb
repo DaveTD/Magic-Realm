@@ -2,6 +2,7 @@ class Game < ActiveRecord::Base
   include AASM
 
   has_many :players
+  has_many :notifications
 
   after_create :card_setup
   after_initialize :init
