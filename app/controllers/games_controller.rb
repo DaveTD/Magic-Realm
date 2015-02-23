@@ -1,11 +1,12 @@
 class GamesController < ApplicationController
   def index
-    @games = Game.where(state: 'select_classes')
+    @games = Game.where(time_of_day: 'select_classes')
     render 'games/index'
   end
 
   def create
-    @game = Game.create(state: 'select_classes')
+    @game = Game.create()
+    render json: @game
   end
 
   def show

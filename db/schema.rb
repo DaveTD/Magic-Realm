@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.integer  "game_id"
     t.string   "action"
     t.boolean  "private_notification"
+    t.boolean  "shown"
     t.integer  "turn"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false

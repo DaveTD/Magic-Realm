@@ -13,4 +13,4 @@ child(:game){extends "games/game"}
 
 child(:action_queues) {extends "action_queues/index"}
 
-node(:notifications) { |p| p.notifications.last }
+node(:notification) {|p| p.last_unseen_notificaiton}

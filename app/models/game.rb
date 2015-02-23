@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   has_many :players
   has_many :notifications
 
-  after_create :card_setup
+  after_create :board_randomization
   after_initialize :init
 
   def init
@@ -112,11 +112,12 @@ class Game < ActiveRecord::Base
   end
 
   def board_randomization
-    players_ready!
+    self.card_setup
+    board_complete!
   end
 
   def players_voted
-    setup_complete!
+    players_ready!
   end
 
   def all_player_queues_submitted
@@ -134,7 +135,7 @@ class Game < ActiveRecord::Base
       end
     end
 
-    if all_ready && all_players.count >= 2
+    if all_ready
       self.players_voted
     end
   end
@@ -145,9 +146,8 @@ class Game < ActiveRecord::Base
     all_players = Player.where(game_id: self.id).where(dead: false)
 
     all_players.each do |player|
-        all_submitted &= player.actions_submitted
+      all_submitted &= player.actions_submitted
     end
-
     if all_submitted
       self.all_player_queues_submitted
     end
@@ -173,8 +173,18 @@ class Game < ActiveRecord::Base
   def select_action_order
     all_players = Player.where(game_id: self.id).where(dead: false)
     all_players.shuffle.each_with_index do |player, i|
-      PlayerQueue.create(game: self, player: player, turn_number: (i+1))
+      PlayersQueue.create(game: self, player: player, turn_number: (i+1))
     end
     activity_order_selected!
+    self.start_next_turn
+  end
+
+  def start_next_turn
+    turn = PlayersQueue.where(game_id: id).incomplete.order('turn_number ASC').first
+    unless turn
+      denizen_actions_completed!
+    end
+    self.current_players_turn = turn.player_id
+    save
   end
 end
