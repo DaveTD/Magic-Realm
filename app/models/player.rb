@@ -48,11 +48,31 @@ class Player < ActiveRecord::Base
   end
 
   def perform_move(action)
-    #check if blocked first
-
-    #if not blocked, then move
     self.clearing_id = action.clearing_id && save
     record("Player #{self.id} moved to clearing #{action.clearing}.", false)
+
+    # check if monster or player is blocking
+    all_monsters = Monsters.all
+    #all_players = Players.all
+
+    all_monsters.each do |monster|
+      if self.clearing_id == monster.clearing.id && !self.hidden
+        blocked!
+        monster.prowling = false
+        monster.blocked = true
+      end
+    end
+    #all_players.each do |other_player|
+    #  if self.clearing_id == other_player.clearing.id
+    #  case self.hidden
+    #  when true
+    #    if other_player.found_hidden_enemies
+    #        # pop a modal for other_player
+    #      end
+    #    end
+    #  when false
+    #    # pop a modal for the other_player
+    #  end
   end
 
   def perform_hide(action)
@@ -173,10 +193,17 @@ class Player < ActiveRecord::Base
     record("Player #{self.id} rested in clearing #{clearing.id}", false)
   end
 
+  def blocked!
+    actions_to_remove = ActionQueue.where(player_id: self.id).where(turn: game.turn).where(game: self.game)
+    actions_to_remove.each do |action|
+      action.complete_action!
+      # in the future, this might be changing to a blocked action, where you can still trade, if trade is to be implemented
+    end
+  end
+
   def record(notification, private_action)
     r = Notification.new(player: self, game: self.game, action: notification, private_notification: private_action, turn: self.game.turn)
     r.save
-    # qharmed_chits = ActionChits.where(player_id: self.id).where('damage > 0')
   end
 
   def current_action
