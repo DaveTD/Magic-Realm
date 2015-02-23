@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222210853) do
+ActiveRecord::Schema.define(version: 20150223024233) do
 
   create_table "action_chits", force: :cascade do |t|
     t.integer  "player_id"
@@ -144,6 +144,20 @@ ActiveRecord::Schema.define(version: 20150222210853) do
     t.datetime "updated_at"
   end
 
+  create_table "gold_sites", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "tile_id"
+    t.boolean  "lost_city"
+    t.boolean  "lost_castle"
+    t.string   "name"
+    t.integer  "tile_clearing_number"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "gold_sites", ["game_id"], name: "index_gold_sites_on_game_id"
+  add_index "gold_sites", ["tile_id"], name: "index_gold_sites_on_tile_id"
+
   create_table "horses", force: :cascade do |t|
     t.integer  "move_strength"
     t.boolean  "galloping"
@@ -161,7 +175,7 @@ ActiveRecord::Schema.define(version: 20150222210853) do
     t.integer  "clearing_id"
     t.boolean  "prowling"
     t.boolean  "blocked"
-    t.string   "monster"
+    t.string   "monster_name"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
