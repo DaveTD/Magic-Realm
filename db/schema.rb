@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(version: 20150222210853) do
     t.integer  "attacks"
     t.integer  "clearing_id"
     t.boolean  "prowling"
+    t.boolean  "blocked"
+    t.string   "monster"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
