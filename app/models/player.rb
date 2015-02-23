@@ -49,7 +49,7 @@ class Player < ActiveRecord::Base
 
   def perform_move(action)
     self.clearing_id = action.clearing_id && save
-    record("Player #{self.name} moved to clearing #{action.clearing}.", false)
+    record("Player #{self.name} moved to #{action.clearing.tile.name} - #{action.clearing.clearing_number}.", false)
 
     # check if monster or player is blocking
     all_monsters = Monsters.all
