@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
   end
 
   create_table "monsters", force: :cascade do |t|
+    t.string   "monster"
     t.integer  "damage_type"
     t.integer  "attack_time"
     t.integer  "maneuver_time"
