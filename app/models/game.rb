@@ -10,6 +10,7 @@ class Game < ActiveRecord::Base
   def init
     self.turn ||= 1
     card_setup
+    # we're going to have to set this up so that it creates all of its own chits
   end
 
   aasm  :column => 'time_of_day' do
@@ -150,7 +151,23 @@ class Game < ActiveRecord::Base
     if all_submitted
       self.all_player_queues_submitted
     end
+  end
 
+  def lost_items
+    @lost_city_tile = SpecialChit.where(name: 'Lost City').tile
+    @lost_castle_tile = SpecialChit.where(name: 'Lost Castle').tile
+
+    @lost_city_pile_sounds = SoundChit.where(lost_city: true)
+    @lost_castle_pile_sounds = SoundChit.where(lost_castle: true)
+    @lost_city_pile_treasures = GoldSite.where(lost_city: true)
+    @lost_castle_pile_treasures = GoldSite.where(lost_castle: true)
+
+    @lost_city_tile_sounds = SoundChit.where(tile: @lost_city_tile)
+    @lost_castle_tile_sounds = SoundChit.where(tile: @lost_castle_tile)
+    @lost_city_tile_treasures = GoldSite.where(tile: @lost_city_tile)
+    @lost_castle_tile_treasures = GoldSite.where(tile: @lost_castle_tile)
+
+    render 'lost_items'
   end
 
   def select_action_order

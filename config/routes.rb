@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   #Game Routes
   resources :games, only: [:index, :create, :show]
+  match '/games/:id/lost_items', :controller => 'games', :action => 'lost_items', via: [:get]
 
   #Player Routes
   match '/players', :controller => 'players', :action => 'create', via: [:options]

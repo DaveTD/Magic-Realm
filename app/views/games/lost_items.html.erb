@@ -1,0 +1,47 @@
+<h1>Here are your game's chits, selected for the lost city and lost castle</h1>
+
+<h3>Lost City</h3>
+<b>Tile: </b><%= lost_city_tile.name %>
+
+<b>Pile Sounds</b><br>
+<% lost_city_pile_sounds.each do |sound| %>
+  <%= sound.name %>
+<% end %>
+
+<b>Tile Sounds</b><br>
+<% lost_city_tile_sounds.each do |sound| %>
+  <%= sound.name %> in location: <%= sound.tile %> - <%= sound.tile_clearing_number %>
+<% end %>
+
+<b>Pile Gold Sites</b><br>
+<% lost_city_pile_treasures.each do |site| %>
+  <%= site.name %>
+<% end %>
+
+<b>Tile Gold Sites</b><br>
+<% lost_city_tile_treasures.each do |site| %>
+  <%= site.name %> in location: <%= site.tile %> - <%= site.tile_clearing_number %>
+<% end %>
+
+<h3>Lost Castle</h3>
+<b>Tile: </b><%= lost_castle_tile.name %>
+
+<b>Pile Sounds</b><br>
+<% lost_castle_pile_sounds.each do |sound| %>
+  <%= sound.name %>
+<% end %>
+
+<b>Tile Sounds</b><br>
+<% lost_castle_tile_sounds.each do |sound| %>
+  <%= sound.name %> in location: <%= sound.tile %> - <%= sound.tile_clearing_number %>
+<% end %>
+
+<b>Pile Gold Sites</b><br>
+<% lost_castle_pile_treasures.each do |site| %>
+  <%= site.name %>
+<% end %>
+
+<b>Tile Gold Sites</b><br>
+<% lost_castle_tile_treasures.each do |site| %>
+  <%= site.name %> in location: <%= site.tile %> - <%= site.tile_clearing_number %>
+<% end %>
