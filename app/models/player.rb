@@ -199,6 +199,7 @@ class Player < ActiveRecord::Base
       action.complete_action!
       # in the future, this might be changing to a blocked action, where you can still trade, if trade is to be implemented
     end
+    record("Player #{self.id} was blocked by an evil #{monster.name}!", false)
   end
 
   def record(notification, private_action)
