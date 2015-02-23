@@ -138,131 +138,133 @@
   Clearing.create(tile_id: 15, movement_type: 'cave', movement_value: 1, clearing_number: 6, exit: false, x:483,y:530)
 
 travs = [
-  {:id => 1, :trav => [4,5], :hidden => nil},
-  {:id => 2, :trav => [3, 6, 8],  :hidden => 8},
-  {:id => 3, :trav => [2], :hidden => nil},
-  {:id => 4, :trav => [1], :hidden => nil},
-  {:id => 5, :trav => [1, 7, 6],  :hidden => 6},
-  {:id => 6, :trav => [2,5,8],  :hidden => 5},
-  {:id => 7, :trav => [5,11], :hidden => nil},
-  {:id => 8, :trav => [6,14],  :hidden => nil},
-  {:id => 9, :trav => [10],  :hidden => nil},
-  {:id => 10, :trav => [9,13],  :hidden => nil},
-  {:id => 11, :trav => [7,12], :hidden => nil},
-  {:id => 12, :trav => [11, 36], :hidden => nil},
-  {:id => 13, :trav => [10,15,42], :hidden => nil},
-  {:id => 14, :trav => [8,17,18], :hidden => 17},
-  {:id => 15, :trav => [13,19],  :hidden => nil},
-  {:id => 16, :trav => [17,18,45], :hidden => 18},
-  {:id => 17, :trav => [14,16,18], :hidden => 14},
-  {:id => 18, :trav => [14,16,17], :hidden => 16},
-  {:id => 19, :trav => [15, 46], :hidden => nil},
-  {:id => 20, :trav => [21,22], :hidden => 22},
-  {:id => 21, :trav => [20,22], :hidden => nil},
-  {:id => 22, :trav => [20,21], :hidden => 20},
-  {:id => 23, :trav => [24,25], :hidden => nil},
-  {:id => 24, :trav => [22,23,25], :hidden => 25},
-  {:id => 25, :trav => [23,49,24], :hidden => 24},
-  {:id => 26, :trav => [29,30,31], :hidden => nil},
-  {:id => 27, :trav => [28,32], :hidden => nil},
-  {:id => 28, :trav => [27,54], :hidden => nil},
-  {:id => 29, :trav => [26,56], :hidden => nil},
-  {:id => 30, :trav => [26], :hidden => nil},
-  {:id => 31, :trav => [26], :hidden => nil},
-  {:id => 32, :trav => [27], :hidden => nil},
-  {:id => 33, :trav => [34], :hidden => nil},
-  {:id => 34, :trav => [33,37], :hidden => nil},
-  {:id => 35, :trav => [37,39], :hidden => nil},
-  {:id => 36, :trav => [12,38], :hidden => nil},
-  {:id => 37, :trav => [34,35], :hidden => nil},
-  {:id => 38, :trav => [36,61], :hidden => nil},
-  {:id => 39, :trav => [35,40], :hidden => nil},
-  {:id => 40, :trav => [39,68], :hidden => nil},
-  {:id => 41, :trav => [42,43], :hidden => nil},
-  {:id => 42, :trav => [13,41], :hidden => nil},
-  {:id => 43, :trav => [40,41,45], :hidden => nil},
-  {:id => 44, :trav => [41,45,62], :hidden => nil},
-  {:id => 45, :trav => [44,43,16], :hidden => nil},
-  {:id => 46, :trav => [42,47], :hidden => nil},
-  {:id => 47, :trav => [42,49], :hidden => nil},
-  {:id => 48, :trav => [69,71], :hidden => nil},
-  {:id => 49, :trav => [25,47,50,51], :hidden => 51},
-  {:id => 50, :trav => [49,51,53] , :hidden => 53},
-  {:id => 51, :trav => [49,50,52], :hidden => 49},
-  {:id => 52, :trav => [51,53,71], :hidden => nil},
-  {:id => 53, :trav => [50,52,54], :hidden => 50},
-  {:id => 54, :trav => [28,53,55], :hidden => nil},
-  {:id => 55, :trav => [29,54,57], :hidden => nil},
-  {:id => 56, :trav => [54,58], :hidden => nil},
-  {:id => 57, :trav => [55, 59], :hidden => nil},
-  {:id => 58, :trav => [56,60,74], :hidden => nil},
-  {:id => 59, :trav => [57], :hidden => nil},
-  {:id => 60, :trav => [58], :hidden => nil},
-  {:id => 61, :trav => [38,63,66], :hidden => 63},
-  {:id => 62, :trav => [44,63], :hidden => nil},
-  {:id => 63, :trav => [62,63,64,65], :hidden => 63},
-  {:id => 64, :trav => [63,67,66], :hidden => 66,},
-  {:id => 65, :trav => [63,66], :hidden => nil},
-  {:id => 66, :trav => [61,64,65], :hidden => 64,},
-  {:id => 67, :trav => [64,69,81],  :hidden => nil},
-  {:id => 68, :trav => [40,70], :hidden => nil},
-  {:id => 69, :trav => [48,67], :hidden => nil},
-  {:id => 70, :trav => [68,86],  :hidden => nil},
-  {:id => 71, :trav => [48,52], :hidden => nil},
-  {:id => 72, :trav => [73,88],  :hidden => nil},
-  {:id => 73, :trav => [72,74,91], :hidden => nil},
-  {:id => 74, :trav => [58,73], :hidden => nil},
-  {:id => 75, :trav => [76,92],  :hidden => nil},
-  {:id => 76, :trav => [75,77,98], :hidden => nil},
-  {:id => 77, :trav => [76], :hidden => nil},
-  {:id => 78, :trav => [79], :hidden => nil},
-  {:id => 79, :trav => [80,84], :hidden => 80},
-  {:id => 80, :trav => [79,81,83], :hidden => 79},
-  {:id => 81, :trav => [67,80,84], :hidden => nil},
-  {:id => 82, :trav => [83], :hidden => nil},
-  {:id => 83, :trav => [80,82], :hidden => nil},
-  {:id => 84, :trav => [79,81], :hidden => nil},
-  {:id => 85, :trav => [86,90], :hidden => nil},
-  {:id => 86, :trav => [70,85,87],  :hidden => nil},
-  {:id => 87, :trav => [86,88], :hidden => nil},
-  {:id => 88, :trav => [72,87],  :hidden => nil},
-  {:id => 89, :trav => [90,107], :hidden => nil},
-  {:id => 90, :trav => [85,89], :hidden => nil},
-  {:id => 91, :trav => [73,92,95], :hidden => 92},
-  {:id => 92, :trav => [75,91,93,96], :hidden => 91},
-  {:id => 93, :trav => [115], :hidden => nil},
-  {:id => 94, :trav => [95,115], :hidden => nil},
-  {:id => 95, :trav => [91,94], :hidden => nil},
-  {:id => 96, :trav => [92], :hidden => nil},
-  {:id => 97, :trav => [96,99], :hidden => nil},
-  {:id => 98, :trav => [76,100],  :hidden => nil},
-  {:id => 99, :trav => [97,101,102], :hidden => nil},
-  {:id => 100, :trav => [98,112], :hidden => nil},
-  {:id => 101, :trav => [99], :hidden => nil},
-  {:id => 102, :trav => [99], :hidden => nil},
-  {:id => 103, :trav => [84,105], :hidden => nil},
-  {:id => 104, :trav => [105], :hidden => nil},
-  {:id => 105, :trav => [104,106], :hidden => nil},
-  {:id => 106, :trav => [105], :hidden => nil},
-  {:id => 107, :trav => [89,108], :hidden => nil},
-  {:id => 108, :trav => [107], :hidden => nil},
-  {:id => 109, :trav => [110], :hidden => nil},
-  {:id => 110, :trav => [114,109,111], :hidden => nil},
-  {:id => 111, :trav => [96,110], :hidden => nil},
-  {:id => 112, :trav => [113,100], :hidden => nil},
-  {:id => 113, :trav => [112], :hidden => nil},
-  {:id => 114, :trav => [110], :hidden => nil},
-  {:id => 115, :trav => [93,95], :hidden => nil}
+  {:id => 1, :trav => [4,5], :hidden => nil, :hidden_type => nil},
+  {:id => 2, :trav => [3, 6, 8],  :hidden => 8, :hidden_type => 'path'},
+  {:id => 3, :trav => [2], :hidden => nil, :hidden_type => nil},
+  {:id => 4, :trav => [1], :hidden => nil, :hidden_type => nil},
+  {:id => 5, :trav => [1, 7, 6],  :hidden => 6, :hidden_type => 'passage'},
+  {:id => 6, :trav => [2,5,8],  :hidden => 5, :hidden_type => 'passage'},
+  {:id => 7, :trav => [5,11], :hidden => nil, :hidden_type => nil},
+  {:id => 8, :trav => [2,6,14],  :hidden => 2, :hidden_type => 'path'},
+  {:id => 9, :trav => [10],  :hidden => nil, :hidden_type => nil},
+  {:id => 10, :trav => [9,13],  :hidden => nil, :hidden_type => nil},
+  {:id => 11, :trav => [7,12], :hidden => nil, :hidden_type => nil},
+  {:id => 12, :trav => [11, 36], :hidden => nil, :hidden_type => nil},
+  {:id => 13, :trav => [10,15,42], :hidden => nil, :hidden_type => nil},
+  {:id => 14, :trav => [8,17,18], :hidden => 17, :hidden_type => 'path'},
+  {:id => 15, :trav => [13,19],  :hidden => nil, :hidden_type => nil},
+  {:id => 16, :trav => [17,18,45], :hidden => 18, :hidden_type => 'path'},
+  {:id => 17, :trav => [14,16,18], :hidden => 14, :hidden_type => 'path'},
+  {:id => 18, :trav => [14,16,17], :hidden => 16, :hidden_type => 'path'},
+  {:id => 19, :trav => [15, 46], :hidden => nil, :hidden_type => nil},
+  {:id => 20, :trav => [21,22], :hidden => 22, :hidden_type => 'passage'},
+  {:id => 21, :trav => [20,22], :hidden => nil, :hidden_type => nil},
+  {:id => 22, :trav => [20,21], :hidden => 20, :hidden_type => 'passage'},
+  {:id => 23, :trav => [24,25], :hidden => nil, :hidden_type => nil},
+  {:id => 24, :trav => [22,23,25], :hidden => 25, :hidden_type => 'path'},
+  {:id => 25, :trav => [23,49,24], :hidden => 24, :hidden_type => 'path'},
+  {:id => 26, :trav => [29,30,31], :hidden => nil, :hidden_type => nil},
+  {:id => 27, :trav => [28,32], :hidden => nil, :hidden_type => nil},
+  {:id => 28, :trav => [27,54], :hidden => nil, :hidden_type => nil},
+  {:id => 29, :trav => [26,56], :hidden => nil, :hidden_type => nil},
+  {:id => 30, :trav => [26], :hidden => nil, :hidden_type => nil},
+  {:id => 31, :trav => [26], :hidden => nil, :hidden_type => nil},
+  {:id => 32, :trav => [27], :hidden => nil, :hidden_type => nil},
+  {:id => 33, :trav => [34], :hidden => nil, :hidden_type => nil},
+  {:id => 34, :trav => [33,37], :hidden => nil, :hidden_type => nil},
+  {:id => 35, :trav => [37,39], :hidden => nil, :hidden_type => nil},
+  {:id => 36, :trav => [12,38], :hidden => nil, :hidden_type => nil},
+  {:id => 37, :trav => [34,35], :hidden => nil, :hidden_type => nil},
+  {:id => 38, :trav => [36,61], :hidden => nil, :hidden_type => nil},
+  {:id => 39, :trav => [35,40], :hidden => nil, :hidden_type => nil},
+  {:id => 40, :trav => [39,68], :hidden => nil, :hidden_type => nil},
+  {:id => 41, :trav => [42,43], :hidden => nil, :hidden_type => nil},
+  {:id => 42, :trav => [13,41], :hidden => nil, :hidden_type => nil},
+  {:id => 43, :trav => [40,41,45], :hidden => nil, :hidden_type => nil},
+  {:id => 44, :trav => [41,45,62], :hidden => nil, :hidden_type => nil},
+  {:id => 45, :trav => [44,43,16], :hidden => nil, :hidden_type => nil},
+  {:id => 46, :trav => [42,47], :hidden => nil, :hidden_type => nil},
+  {:id => 47, :trav => [42,49], :hidden => nil, :hidden_type => nil},
+  {:id => 48, :trav => [69,71], :hidden => nil, :hidden_type => nil},
+  {:id => 49, :trav => [25,47,50,51], :hidden => 51, :hidden_type => 'path'},
+  {:id => 50, :trav => [49,51,53] , :hidden => 53, :hidden_type => 'path'},
+  {:id => 51, :trav => [49,50,52], :hidden => 49, :hidden_type => 'path'},
+  {:id => 52, :trav => [51,53,71], :hidden => nil, :hidden_type => nil},
+  {:id => 53, :trav => [50,52,54], :hidden => 50, :hidden_type => 'path'},
+  {:id => 54, :trav => [28,53,55], :hidden => nil, :hidden_type => nil},
+  {:id => 55, :trav => [29,54,57], :hidden => nil, :hidden_type => nil},
+  {:id => 56, :trav => [54,58], :hidden => nil, :hidden_type => nil},
+  {:id => 57, :trav => [55, 59], :hidden => nil, :hidden_type => nil},
+  {:id => 58, :trav => [56,60,74], :hidden => nil, :hidden_type => nil},
+  {:id => 59, :trav => [57], :hidden => nil, :hidden_type => nil},
+  {:id => 60, :trav => [58], :hidden => nil, :hidden_type => nil},
+  {:id => 61, :trav => [38,63,66], :hidden => 63, :hidden_type => 'passage'},
+  {:id => 62, :trav => [44,63], :hidden => nil, :hidden_type => nil},
+  {:id => 63, :trav => [62,61,64,65], :hidden => 61, :hidden_type => 'passage'},
+  {:id => 64, :trav => [63,67,66], :hidden => 66, :hidden_type => 'passage'},
+  {:id => 65, :trav => [63,66], :hidden => nil, :hidden_type => nil},
+  {:id => 66, :trav => [61,64,65], :hidden => 64, :hidden_type => 'passage'},
+  {:id => 67, :trav => [64,69,81],  :hidden => nil, :hidden_type => nil},
+  {:id => 68, :trav => [40,70], :hidden => nil, :hidden_type => nil},
+  {:id => 69, :trav => [48,67], :hidden => nil, :hidden_type => nil},
+  {:id => 70, :trav => [68,86],  :hidden => nil, :hidden_type => nil},
+  {:id => 71, :trav => [48,52], :hidden => nil, :hidden_type => nil},
+  {:id => 72, :trav => [73,88],  :hidden => nil, :hidden_type => nil},
+  {:id => 73, :trav => [72,74,91], :hidden => nil, :hidden_type => nil},
+  {:id => 74, :trav => [58,73], :hidden => nil, :hidden_type => nil},
+  {:id => 75, :trav => [76,92],  :hidden => nil, :hidden_type => nil},
+  {:id => 76, :trav => [75,77,98], :hidden => nil, :hidden_type => nil},
+  {:id => 77, :trav => [76], :hidden => nil, :hidden_type => nil},
+  {:id => 78, :trav => [79], :hidden => nil, :hidden_type => nil},
+  {:id => 79, :trav => [80,84], :hidden => 80, :hidden_type => 'path'},
+  {:id => 80, :trav => [79,81,83], :hidden => 79, :hidden_type => 'path'},
+  {:id => 81, :trav => [67,80,84], :hidden => nil, :hidden_type => nil},
+  {:id => 82, :trav => [83], :hidden => nil, :hidden_type => nil},
+  {:id => 83, :trav => [80,82], :hidden => nil, :hidden_type => nil},
+  {:id => 84, :trav => [79,81], :hidden => nil, :hidden_type => nil},
+  {:id => 85, :trav => [86,90], :hidden => nil, :hidden_type => nil},
+  {:id => 86, :trav => [70,85,87],  :hidden => nil, :hidden_type => nil},
+  {:id => 87, :trav => [86,88], :hidden => nil, :hidden_type => nil},
+  {:id => 88, :trav => [72,87],  :hidden => nil, :hidden_type => nil},
+  {:id => 89, :trav => [90,107], :hidden => nil, :hidden_type => nil},
+  {:id => 90, :trav => [85,89], :hidden => nil, :hidden_type => nil},
+  {:id => 91, :trav => [73,92,95], :hidden => 92, :hidden_type => 'path'},
+  {:id => 92, :trav => [75,91,93,96], :hidden => 91, :hidden_type => 'path'},
+  {:id => 93, :trav => [115], :hidden => nil, :hidden_type => nil},
+  {:id => 94, :trav => [95,115], :hidden => nil, :hidden_type => nil},
+  {:id => 95, :trav => [91,94], :hidden => nil, :hidden_type => nil},
+  {:id => 96, :trav => [92], :hidden => nil, :hidden_type => nil},
+  {:id => 97, :trav => [96,99], :hidden => nil, :hidden_type => nil},
+  {:id => 98, :trav => [76,100],  :hidden => nil, :hidden_type => nil},
+  {:id => 99, :trav => [97,101,102], :hidden => nil, :hidden_type => nil},
+  {:id => 100, :trav => [98,112], :hidden => nil, :hidden_type => nil},
+  {:id => 101, :trav => [99], :hidden => nil, :hidden_type => nil},
+  {:id => 102, :trav => [99], :hidden => nil, :hidden_type => nil},
+  {:id => 103, :trav => [84,105], :hidden => nil, :hidden_type => nil},
+  {:id => 104, :trav => [105], :hidden => nil, :hidden_type => nil},
+  {:id => 105, :trav => [104,106], :hidden => nil, :hidden_type => nil},
+  {:id => 106, :trav => [105], :hidden => nil, :hidden_type => nil},
+  {:id => 107, :trav => [89,108], :hidden => nil, :hidden_type => nil},
+  {:id => 108, :trav => [107], :hidden => nil, :hidden_type => nil},
+  {:id => 109, :trav => [110], :hidden => nil, :hidden_type => nil},
+  {:id => 110, :trav => [114,109,111], :hidden => nil, :hidden_type => nil},
+  {:id => 111, :trav => [96,110], :hidden => nil, :hidden_type => nil},
+  {:id => 112, :trav => [113,100], :hidden => nil, :hidden_type => nil},
+  {:id => 113, :trav => [112], :hidden => nil, :hidden_type => nil},
+  {:id => 114, :trav => [110], :hidden => nil, :hidden_type => nil},
+  {:id => 115, :trav => [93,95], :hidden => nil, :hidden_type => nil}
 ]
 
 travs.each do |t|
   t[:trav].each do |trav_id|
     t_new = TraversableClearing.new(clearing_id: t[:id], traversable_id: trav_id, hidden: false)
     t_new.hidden = true if t[:hidden] == trav_id
+    t_new.hidden_type = t[:hidden_type]
     t_new.save
   end
 end
 
+  ## Tiles
 tile_travs =[
   {:tl_id => 1,  :adj_tile => [2,3], :directions => ['sw','se']},
   {:tl_id => 2,  :adj_tile => [1,3,6,7], :directions => ['ne','e','sw','se']},
@@ -294,13 +296,78 @@ tile_travs.each do |tl|
   end
 end
 
-game = Game.create(time_of_day: 'select_classes')
+## Weapons
+Weapon.create(weapon_name: 'Medium Bow', ranged: true, length: 16, price: 8, harm: 2, alerted_harm: 2, time: 0, alerted_time: 1, sharp: 0, alerted_sharp: 2)
+Weapon.create(weapon_name: 'Light Bow', ranged: true, length: 14, price: 6, harm: 1, alerted_harm: 1, time: 0, alerted_time: 1, sharp: 0, alerted_sharp: 2)
+Weapon.create(weapon_name: 'Crossbow', ranged: true, length: 12, price: 10, harm: 3, alerted_harm: 3, time: 0, alerted_time: 1, sharp: 0, alerted_sharp: 1)
+Weapon.create(weapon_name: 'Spear', ranged: false, length: 10, price: 6, harm: 0, alerted_harm: 2, time: 6, alerted_time: 0, sharp: 0, alerted_sharp: 1)
+Weapon.create(weapon_name: 'Staff', ranged: false, length: 9, price: 1, harm: 1, alerted_harm: 1, time: 0, alerted_time: 0, sharp: 0, alerted_sharp: 0)
+Weapon.create(weapon_name: 'Great Sword', ranged: false, length: 8, price: 10, harm: 3, alerted_harm: 3, time: 6, alerted_time: 0, sharp: 1, alerted_sharp: 1)
+Weapon.create(weapon_name: 'Broadsword', ranged: false, length: 7, price: 8, harm: 2, alerted_harm: 2, time: 5, alerted_time: 0, sharp: 1, alerted_sharp: 1)
+Weapon.create(weapon_name: 'Morning Star', ranged: false, length: 6, price: 8, harm: 3, alerted_harm: 3, time: 0, alerted_time: 3, sharp: 0, alerted_sharp: 0)
+Weapon.create(weapon_name: 'Great Axe', ranged: false, length: 5, price: 8, harm: 3, alerted_harm: 3, time: 0, alerted_time: 4, sharp: 1, alerted_sharp: 1)
+Weapon.create(weapon_name: 'Thrusting Sword', ranged: false, length: 4, price: 6, harm: 1, alerted_harm: 1, time: 4, alerted_time: 0, sharp: 1, alerted_sharp: 1)
+Weapon.create(weapon_name: 'Short Sword', ranged: false, length: 3, price: 4, harm: 1, alerted_harm: 1, time: 0, alerted_time: 0, sharp: 1, alerted_sharp: 1)
+Weapon.create(weapon_name: 'Axe', ranged: false, length: 2, price: 4, harm: 2, alerted_harm: 2, time: 5, alerted_time: 0, sharp: 1, alerted_sharp: 1)
+Weapon.create(weapon_name: 'Mace', ranged: false, length: 1, price: 6, harm: 2, alerted_harm: 2, time: 0, alerted_time: 3, sharp: 0, alerted_sharp: 0)
+
+## Armor
+Armor.create(armor_name: 'Suit of Armor', armor_type: 'suit', protect_thrust: true, protect_swing: true, protect_smash: true, tremendous: false, price_intact: 17, price_damaged: 12, price_destroyed: 0)
+Armor.create(armor_name: 'Breastplate', armor_type: 'breastplate', protect_thrust: true, protect_swing: true, protect_smash: false, tremendous: false, price_intact: 9, price_damaged: 6, price_destroyed: 0)
+Armor.create(armor_name: 'Helmet', armor_type: 'helmet', protect_thrust: false, protect_swing: false, protect_smash: true, tremendous: false, price_intact: 5, price_damaged: 3, price_destroyed: 0)
+Armor.create(armor_name: 'Shield', armor_type: 'shield', protect_thrust: true, protect_swing: true, protect_smash: true, tremendous: false, price_intact: 7, price_damaged: 5, price_destroyed: 0)
+Armor.create(armor_name: 'Tremendous Armor', armor_type: 'suit', protect_thrust: true, protect_swing: true, protect_smash: true, tremendous: true, price_intact: 25, price_damaged: 18, price_destroyed: 5)
+Armor.create(armor_name: 'Silver Breastplate', armor_type: 'breastplate', protect_thrust: true, protect_swing: true, protect_smash: false, tremendous: true, price_intact: 25, price_damaged: 21, price_destroyed: 15)
+Armor.create(armor_name: 'Gold Helmet', armor_type: 'helmet', protect_thrust: false, protect_swing: false, protect_smash: true, tremendous: true, price_intact: 30, price_damaged: 27, price_destroyed: 20)
+Armor.create(armor_name: 'Jade Shield', armor_type: 'shield', protect_thrust: true, protect_swing: true, protect_smash: true, tremendous: false, price_intact: 20, price_damaged: 16, price_destroyed: 10)
+
+## Characters
+character_seed = [
+  {name: 'Amazon', weapon: 'Short Sword', vulnerability: 2, starting_breastplate: 'Breastplate', starting_helmet: 'Helmet', starting_shield: 'Shield'},
+  {name: 'Berserker', weapon: 'Great Axe', vulnerability: 3, starting_helmet: 'Helmet'},
+  {name: 'Black Knight', weapon: 'Mace', vulnerability: 2, starting_suit: 'Suit of Armor', starting_shield: 'Shield'},
+  {name: 'Captain', weapon: 'Short Sword', vulnerability: 2, starting_breastplate: 'Breastplate', starting_helmet: 'Helmet', starting_shield: 'Shield'},
+  {name: 'Druid', vulnerability: 1},
+  {name: 'Dwarf', weapon: 'Great Axe', vulnerability: 3, starting_helmet: 'Helmet'},
+  {name: 'Magician', vulnerability: 1},
+  {name: 'Pilgrim', weapon: 'Staff', vulnerability: 2},
+  {name: 'Elf', weapon: 'Light Bow', vulnerability: 1},
+  {name: 'Sorceror', vulnerability: 1},
+  {name: 'Swordsman', weapon: 'Thrusting Sword', vulnerability: 1},
+  {name: 'White Knight', weapon: 'Great Sword', vulnerability: 3, starting_suit: 'Suit of Armor'},
+  {name: 'Witch', vulnerability: 1},
+  {name: 'Witch King', vulnerability: 1},
+  {name: 'Wizard', weapon: 'Staff', vulnerability: 2},
+  {name: 'Woods Girl', weapon: 'Light Bow', vulnerability: 1}
+]
+
+character_seed.each do |cs|
+
+  weapon = Weapon.where(weapon_name: cs[:weapon]).first.id if cs[:weapon].present?
+  suit = Armor.where(armor_name: cs[:starting_suit]).first.id if cs[:starting_suit].present?
+  breastplate = Armor.where(armor_name: cs[:starting_breastplate]).first.id if cs[:starting_breastplate].present?
+  helmet = Armor.where(armor_name: cs[:starting_helmet]).first.id if cs[:starting_helmet].present?
+  shield = Armor.where(armor_name: cs[:starting_shield]).first.id if cs[:starting_shield].present?
+  CharacterClass.create(name: cs[:name], 
+                        vulnerability: cs[:vulnerability], 
+                        movement_cost: 1, 
+                        cave_movement_cost: 1, 
+                        mountain_movement_cost: 2, 
+                        starting_weapon_id: weapon, 
+                        starting_suit_id: suit, 
+                        starting_breastplate_id: breastplate, 
+                        starting_helmet_id: helmet, 
+                        starting_shield_id: shield, 
+                        starting_gold: 10)
+end
+
+game = Game.create(state: 'select_classes')
+
 Player.create(game_id: game.id, clearing_id: 1, first_name: 'Joe', last_name: 'Blow', character_class_id: 1)
 
 Game.create(time_of_day: 'select_classes')
 Game.create(time_of_day: 'select_classes')
 
-character_names = ['Amazon','Berserker','Black Knight','Captain','Druid','Dwarf','Elf','Magician','Pilgrim','Sorceror','Swordsman','White Knight','Witch','Witch King','Wizard','Woodsgirl']
-character_names.each do |cn|
-  CharacterClass.create(name: cn)
-end
+#  character_names = ['Amazon','Berserker','Black Knight','Captain','Druid','Dwarf','Elf','Magician','Pilgrim','Sorceror','Swordsman','White Knight','Witch','Witch King','Wizard','Woodsgirl']
+#  character_names.each do |cn|
+#  CharacterClass.create(name: cn)
