@@ -49,7 +49,7 @@ class Player < ActiveRecord::Base
 
   def perform_move(action)
     self.clearing_id = action.clearing_id && save
-    record("Player #{self.id} moved to clearing #{action.clearing}.", false)
+    record("Player #{self.name} moved to clearing #{action.clearing}.", false)
 
     # check if monster or player is blocking
     all_monsters = Monsters.all
@@ -82,7 +82,7 @@ class Player < ActiveRecord::Base
       hidden = true
       result = "failed to hide"
     end
-    record("Player #{self.id} #{result} in clearing #{action.clearing}.", false)
+    record("Player #{self.name} #{result} in clearing #{action.clearing.id}.", false)
   end
 
   def perform_search(search_action)
@@ -101,15 +101,15 @@ class Player < ActiveRecord::Base
     when 1
       return 1
     when 2
-      search_clues(action.clearing.tile)
-      search_paths(action.clearing)
+      search_clues(action.clearing.tile, roll)
+      search_paths(action.clearing, roll)
     when 3
-      search_hidden_enemies
-      search_paths(action.clearing)
+      search_hidden_enemies(1)
+      search_paths(action.clearing, roll)
     when 4
-      search_hidden_enemies
+      search_hidden_enemies(1)
     when 5
-      search_clues(action.clearing.tile)
+      search_clues(action.clearing.tile, roll)
     end
     action.complete_action!
   end
@@ -121,12 +121,12 @@ class Player < ActiveRecord::Base
     when 1
       return 1
     when 2
-      search_passages(action.clearing)
-      search_clues(action.clearing.tile)
+      search_passages(action.clearing, roll)
+      search_clues(action.clearing.tile, roll)
     when 3
-      search_passages(action.clearing)
+      search_passages(action.clearing, roll)
     when 4
-      search_discover_chits(action.clearing.tile, action.clearing)
+      search_discover_chits(action.clearing.tile, action.clearing, roll)
     end
     action.complete_action!
   end
@@ -136,35 +136,35 @@ class Player < ActiveRecord::Base
     action = ActionQueue.next_turn(self, self.game)
     case search_choice
     when 'Clues and Paths'
-      search_clues(action.clearing.tile)
-      search_paths(action.clearing)
+      search_clues(action.clearing.tile, 1)
+      search_paths(action.clearing, 1)
     when 'Hidden Enemies & Paths'
-      search_hidden_enemies
-      search_paths(action.clearing)
+      search_hidden_enemies(1)
+      search_paths(action.clearing, 1)
     when 'Passages & Clues'
-      search_passages(action.clearing)
-      search_clues(action.clearing.tile)
+      search_passages(action.clearing, 1)
+      search_clues(action.clearing.tile, 1)
     when 'Hidden Enemies'
-      search_hidden_enemies
+      search_hidden_enemies(1)
     when 'Clues'
-      search_clues(action.clearing.tile)
+      search_clues(action.clearing.tile, 1)
     when 'Passages'
-      search_passages(action.clearing)
+      search_passages(action.clearing, 1)
     when 'Discover Chits'
-      search_discover_chits(action.clearing.tile, action.clearing)
+      search_discover_chits(action.clearing.tile, action.clearing, 1)
     end
     action.complete_action!
   end
 
-  def search_paths(clearing)
-    # found_path = FoundHiddenPath.new(self, self.game, clearing.id)
+  def search_paths(clearing, roll)
+    found_path = FoundHiddenPath.new(player: self, game: self.game, clearing: clearing.id)
     found_path.save
-    record("Player #{self.id} found hidden paths in clearing #{clearing.id}", false)
+    record("Player #{self.name} rolled a #{roll} and found hidden paths in clearing #{clearing.id}", false)
   end
 
-  def search_hidden_enemies
+  def search_hidden_enemies(roll)
     found_hidden_enemies = true
-    record("Player #{self.id} found hidden enemies in clearing #{clearing.id}", false)
+    record("Player #{self.name} rolled a #{roll} and found hidden enemies in clearing #{clearing.id}", false)
   end
 
   def search_clues(tile)
@@ -174,23 +174,23 @@ class Player < ActiveRecord::Base
     record("Clues in tile #{tile.name}", true)
   end
 
-  def search_passages(clearing)
+  def search_passages(clearing, roll)
     found_passage = FoundHiddenPassage.new(player: self, game: self.game, clearing: clearing.id)
     found_path.save
-    record("Player #{self.id} found hidden passages in clearing #{clearing.id}", false)
+    record("Player #{self.name} rolled a #{roll} and found hidden passages in clearing #{clearing.id}", false)
   end
 
-  def search_discover_chits(tile, clearing)
+  def search_discover_chits(tile, clearing, roll)
     search_clues(tile)
     discovered_chits = DiscoveredChitsClearing.new(player: self, game: self.game, clearing: clearing.id)
     discovered_chits.save
     record("Discovered in clearing #{clearing.id}", true)
-    record("Player #{self.id} discovered chits in clearing #{clearing.id}", false)
+    record("Player #{self.name} rolled a #{roll} and discovered chits in clearing #{clearing.id}", false)
   end
 
   def perform_rest(action)
     #harmed_chits = ActionChits.where(player_id: self.id).where('damage > 0')
-    record("Player #{self.id} rested in clearing #{clearing.id}", false)
+    record("Player #{self.name} rested in clearing #{clearing.id}", false)
   end
 
   def blocked!
@@ -199,12 +199,16 @@ class Player < ActiveRecord::Base
       action.complete_action!
       # in the future, this might be changing to a blocked action, where you can still trade, if trade is to be implemented
     end
-    record("Player #{self.id} was blocked by an evil #{monster.name}!", false)
+    record("Player #{self.name} was blocked by an evil #{monster.name}!", false)
   end
 
   def record(notification, private_action)
     r = Notification.new(player: self, game: self.game, action: notification, private_notification: private_action, turn: self.game.turn)
     r.save
+  end
+
+  def name
+    self.first_name + self.last_name
   end
 
   def current_action

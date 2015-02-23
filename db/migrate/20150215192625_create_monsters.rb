@@ -9,7 +9,7 @@ class CreateMonsters < ActiveRecord::Migration
       t.references :clearing, index: true
       t.boolean :prowling
       t.boolean :blocked
-      t.string :monster
+      t.string :monster_name
 
       t.timestamps null: false
     end
