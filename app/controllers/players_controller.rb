@@ -1,10 +1,19 @@
 class PlayersController < ApplicationController
   before_action :find_player_and_action_queue
   skip_before_action :find_player_and_action_queue, :only => [:create]
-  respond_to :json
 
   def create
-    @player = Player.create(player_params)
+    @player = Player.new()
+    @player.game_id = params[:game_id]
+    @player.save
+    render json: @player
+  end
+
+  def update
+    @player.update_attributes(player_params)
+    @player.character_class_id = params[:character_class_id]
+    @player.save
+    @player.game.check_votes
     render json: @player
   end
 
@@ -42,16 +51,14 @@ class PlayersController < ApplicationController
     render 'players/show'
   end
 
-  def choose_search
-    @player = Player.find params[:id]
-    @player.search_choice(params[:search_choice])
-    @action_queues = @player.action_queues
+  def next_turn
+    @player.end_turn
     render 'players/show'
   end
 
   private
   def player_params
-    params.require(:player).permit(:first_name, :last_name, :game_id, :great_treasures_vps, :usable_spells_vps, :fame_vps, :notoriety_vps, :gold_vps)
+    params.require(:player).permit(:first_name, :last_name, :game_id, :great_treasures_vps, :usable_spells_vps, :fame_vps, :notoriety_vps, :gold_vps, :ready)
   end
   def find_player_and_action_queue
     @player = Player.find params[:id]

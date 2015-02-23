@@ -3,6 +3,7 @@ class Player < ActiveRecord::Base
   belongs_to :clearing
   has_many :action_queues
   has_many :action_chits
+  has_many :notifications
   belongs_to :weapon
   belongs_to :boots
   belongs_to :suit_of_armor
@@ -27,7 +28,8 @@ class Player < ActiveRecord::Base
   end
 
   def change_action_state
-    actions_submitted = true
+    self.actions_submitted = true
+    save
     game.actions_submitted
   end
 
@@ -95,8 +97,7 @@ class Player < ActiveRecord::Base
   end
 
   def peer(action)
-    # roll = Random.rand(1..6)
-    roll = 1
+    roll = Random.rand(1..6)
     case roll
     when 1
       return 1
@@ -115,8 +116,7 @@ class Player < ActiveRecord::Base
   end
 
   def locate(action)
-    # roll = Random.rand(1..6)
-    roll = 1
+    roll = Random.rand(1..6)
     case roll
     when 1
       return 1
@@ -156,8 +156,8 @@ class Player < ActiveRecord::Base
     action.complete_action!
   end
 
-  def search_paths(clearing, roll)
-    found_path = FoundHiddenPath.new(player: self, game: self.game, clearing: clearing.id)
+  def search_paths(clearing)
+    found_path = FoundHiddenPath.new(player: self, game: self.game, clearing: clearing)
     found_path.save
     record("Player #{self.name} rolled a #{roll} and found hidden paths in #{clearing.tile.name} - #{clearing.clearing_number}", false)
   end
@@ -174,15 +174,15 @@ class Player < ActiveRecord::Base
     record("Clues in tile #{tile.name}", true)
   end
 
-  def search_passages(clearing, roll)
-    found_passage = FoundHiddenPassage.new(player: self, game: self.game, clearing: clearing.id)
+  def search_passages(clearing)
+    found_passage = FoundHiddenPassage.new(player: self, game: self.game, clearing: clearing)
     found_path.save
     record("Player #{self.name} rolled a #{roll} and found hidden passages in #{clearing.tile.name} - #{clearing.clearing_number}", false)
   end
 
   def search_discover_chits(tile, clearing, roll)
     search_clues(tile)
-    discovered_chits = DiscoveredChitsClearing.new(player: self, game: self.game, clearing: clearing.id)
+    discovered_chits = DiscoveredChitsClearing.new(player: self, game: self.game, clearing: clearing)
     discovered_chits.save
     record("Discovered in clearing #{clearing.id}", true)
     record("Player #{self.name} rolled a #{roll} and discovered chits #{clearing.tile.name} - #{clearing.clearing_number}", false)
@@ -213,5 +213,17 @@ class Player < ActiveRecord::Base
 
   def current_action
     return ActionQueue.next_turn(self, self.game).try(:action_this_turn)
+  end
+
+  def last_unseen_notificaiton
+    note = Notification.where(player_id: id).is_private.not_shown.last
+    note.shown = true && note.save unless note.nil?
+    return note
+  end
+
+  def end_turn
+    player_queue = PlayQueue.where(player_id: id).incomplete.first
+    player_queue.complete = true && player_queue.save
+    game.start_next_turn
   end
 end

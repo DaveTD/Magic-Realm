@@ -397,7 +397,7 @@ gold_chit_seed.each do |sc|
   GoldSite.create(game_id: sc[:game_id], lost_city: false, lost_castle: false, name: sc[:name], tile_clearing_number: sc[:tile_clearing_number])
 
 ## Monsters
-Monster.create(monster: 'Ghosts', damage_type: 1, attack_time: 2, maneuver_time: 2, vulnerability: 2, attacks: 1, 
+Monster.create(monster: 'Ghosts', damage_type: 1, attack_time: 2, maneuver_time: 2, vulnerability: 2, attacks: 1,
           clearing_id: 12, prowling: false, blocked: false)
 
 ## Sound Chits
@@ -417,14 +417,5 @@ sound_chit_seed.each do |sc|
   SoundChit.create(game_id: sc[:game_id], lost_city: false, lost_castle: false, name: sc[:name], tile_clearing_number: sc[:tile_clearing_number])
 end
 
-game = Game.create(time_of_day: 'select_classes')
-
-Player.create(game_id: game.id, clearing_id: 1, first_name: 'Joe', last_name: 'Blow', character_class_id: 1)
-
-Game.create(time_of_day: 'select_classes')
-Game.create(time_of_day: 'select_classes')
-<<<<<<< HEAD
-
-
-=======
->>>>>>> Ghosts added, and all sound chits
+game = Game.create()
+Player.create(game_id: game.id, first_name: 'Joe', last_name: 'Blow', character_class_id: 1)
