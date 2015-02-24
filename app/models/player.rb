@@ -227,7 +227,6 @@ class Player < ActiveRecord::Base
   end
 
   def end_turn
-    binding.pry
     player_queue = PlayersQueue.where(player_id: id).incomplete.first
     player_queue.complete = true
     player_queue.save

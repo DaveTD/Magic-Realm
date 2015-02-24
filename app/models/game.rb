@@ -181,7 +181,6 @@ class Game < ActiveRecord::Base
 
   def start_next_turn
     turn = PlayersQueue.where(game_id: id).incomplete.order('turn_number ASC').first
-    binding.pry
     unless turn
       denizen_actions_completed!
       self.current_players_turn = nil

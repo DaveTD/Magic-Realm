@@ -52,7 +52,6 @@ class PlayersController < ApplicationController
   end
 
   def end_turn
-    binding.pry
     @player.end_turn
     render 'players/show'
   end
