@@ -7,8 +7,5 @@ class CreateFoundHiddenPassages < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :found_hidden_passages, :players
-    add_foreign_key :found_hidden_passages, :games
-    add_foreign_key :found_hidden_passages, :clearings
   end
 end

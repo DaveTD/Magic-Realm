@@ -10,7 +10,5 @@ class CreateNotifications < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :notifications, :players
-    add_foreign_key :notifications, :games
   end
 end

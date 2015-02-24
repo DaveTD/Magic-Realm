@@ -9,6 +9,5 @@ class CreateClearings < ActiveRecord::Migration
       t.integer :clearing_number
       t.references :tile
     end
-    add_foreign_key :clearings, :title
   end
 end

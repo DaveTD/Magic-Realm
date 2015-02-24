@@ -7,8 +7,5 @@ class CreateFoundHiddenPaths < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :found_hidden_paths, :players
-    add_foreign_key :found_hidden_paths, :games
-    add_foreign_key :found_hidden_paths, :clearings
   end
 end

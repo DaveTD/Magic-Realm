@@ -14,6 +14,5 @@ class CreateMonsters < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :monsters, :clearings
   end
 end

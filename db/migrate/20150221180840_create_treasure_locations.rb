@@ -10,9 +10,5 @@ class CreateTreasureLocations < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :treasure_locations, :games
-    add_foreign_key :treasure_locations, :treasures
-    add_foreign_key :treasure_locations, :tiles
-    add_foreign_key :treasure_locations, :clearings
   end
 end

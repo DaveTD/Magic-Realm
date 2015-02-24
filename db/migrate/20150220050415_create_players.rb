@@ -30,26 +30,11 @@ class CreatePlayers < ActiveRecord::Migration
       t.boolean :wounded
       t.boolean :fatigued
       t.boolean :dead
-      t.references :curses, index: true
       t.references :character_class, index: true
       t.integer :level
-      t.references :inventory, index: true
       t.integer :between_clearing_1
       t.integer :between_clearing_2
       t.timestamps null: false
     end
-    add_foreign_key :players, :clearings
-    add_foreign_key :players, :action_queues
-    add_foreign_key :players, :weapons
-    add_foreign_key :players, :boots
-    add_foreign_key :players, :suit_of_armors
-    add_foreign_key :players, :shields
-    add_foreign_key :players, :helmets
-    add_foreign_key :players, :breast_plates
-    add_foreign_key :players, :horses
-    add_foreign_key :players, :hirelings
-    add_foreign_key :players, :curses
-    add_foreign_key :players, :character_classes
-    add_foreign_key :players, :inventories
   end
 end

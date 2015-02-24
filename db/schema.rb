@@ -238,10 +238,8 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.boolean  "wounded"
     t.boolean  "fatigued"
     t.boolean  "dead"
-    t.integer  "curses_id"
     t.integer  "character_class_id"
     t.integer  "level"
-    t.integer  "inventory_id"
     t.integer  "between_clearing_1"
     t.integer  "between_clearing_2"
     t.datetime "created_at",           null: false
@@ -253,11 +251,9 @@ ActiveRecord::Schema.define(version: 20150223024233) do
   add_index "players", ["breast_plate_id"], name: "index_players_on_breast_plate_id"
   add_index "players", ["character_class_id"], name: "index_players_on_character_class_id"
   add_index "players", ["clearing_id"], name: "index_players_on_clearing_id"
-  add_index "players", ["curses_id"], name: "index_players_on_curses_id"
   add_index "players", ["helmet_id"], name: "index_players_on_helmet_id"
   add_index "players", ["hirelings_id"], name: "index_players_on_hirelings_id"
   add_index "players", ["horse_id"], name: "index_players_on_horse_id"
-  add_index "players", ["inventory_id"], name: "index_players_on_inventory_id"
   add_index "players", ["shield_id"], name: "index_players_on_shield_id"
   add_index "players", ["suit_of_armor_id"], name: "index_players_on_suit_of_armor_id"
   add_index "players", ["weapon_id"], name: "index_players_on_weapon_id"
@@ -330,18 +326,15 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.integer  "fame_value"
     t.boolean  "great"
     t.integer  "fame_price_number"
-    t.integer  "fame_price_natives_id"
     t.string   "enchanted"
     t.integer  "weight"
     t.integer  "notoriety_value"
     t.integer  "price"
     t.boolean  "metatreasure"
     t.boolean  "movable"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
-
-  add_index "treasures", ["fame_price_natives_id"], name: "index_treasures_on_fame_price_natives_id"
 
   create_table "weapons", force: :cascade do |t|
     t.string   "weapon_name"

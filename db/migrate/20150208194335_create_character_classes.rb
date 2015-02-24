@@ -24,12 +24,5 @@ class CreateCharacterClasses < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :character_classes, :allies
-    add_foreign_key :character_classes, :friendlies
-    add_foreign_key :character_classes, :unfriendlies
-    add_foreign_key :character_classes, :enemies
-    add_foreign_key :character_classes, :development_chits
-    add_foreign_key :character_classes, :armors
-    add_foreign_key :character_classes, :weapons
   end
 end

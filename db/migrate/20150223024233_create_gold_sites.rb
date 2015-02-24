@@ -10,7 +10,5 @@ class CreateGoldSites < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :gold_sites, :games
-    add_foreign_key :gold_sites, :tiles
   end
 end

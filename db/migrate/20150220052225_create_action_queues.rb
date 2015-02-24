@@ -12,8 +12,5 @@ class CreateActionQueues < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :action_queues, :players
-    add_foreign_key :action_queues, :action_chits
-    add_foreign_key :action_queues, :clearings
   end
 end

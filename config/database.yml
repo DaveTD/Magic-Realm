@@ -15,5 +15,3 @@ production:
   encoding: unicode
   database: Magic_Realm_production
   pool: 5
-  username: Magic_Realm
-  password: <%= ENV['MAGIC_REALM_DATABASE_PASSWORD'] %>

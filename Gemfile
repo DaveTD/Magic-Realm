@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'aasm', '~> 4.0.8'
 gem 'coffee-rails', '~> 4.0.0'
+gem 'jquery-rails', '~> 4.0.3'
+gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'json', '~> 1.8.2'
 gem 'rabl', '~> 0.11.6'
 gem 'rails', '4.2'
@@ -25,6 +27,7 @@ group :production do
   gem 'pg', '~> 0.18.1'
 end
 
+ruby '2.1.5'
 
 
 

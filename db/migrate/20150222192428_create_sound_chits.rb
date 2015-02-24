@@ -10,7 +10,5 @@ class CreateSoundChits < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :sound_chits, :games
-    add_foreign_key :sound_chits, :tiles
   end
 end

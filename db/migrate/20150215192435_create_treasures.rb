@@ -6,7 +6,6 @@ class CreateTreasures < ActiveRecord::Migration
       t.integer :fame_value
       t.boolean :great
       t.integer :fame_price_number
-      t.references :fame_price_natives, index: true
       t.string :enchanted
       t.integer :weight
       t.integer :notoriety_value
@@ -16,6 +15,5 @@ class CreateTreasures < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :treasures, :fame_price_natives
   end
 end

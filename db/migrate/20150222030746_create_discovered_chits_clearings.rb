@@ -7,8 +7,5 @@ class CreateDiscoveredChitsClearings < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :discovered_chits_clearings, :players
-    add_foreign_key :discovered_chits_clearings, :games
-    add_foreign_key :discovered_chits_clearings, :clearings
   end
 end
