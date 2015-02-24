@@ -346,7 +346,7 @@ Armor.create(armor_name: 'Jade Shield', armor_type: 'shield', protect_thrust: tr
 character_seed = [
   {name: 'Amazon', weapon: 'Short Sword', vulnerability: 2, starting_breastplate: 'Breastplate', starting_helmet: 'Helmet', starting_shield: 'Shield'},
   {name: 'Berserker', weapon: 'Great Axe', vulnerability: 3, starting_helmet: 'Helmet'},
-  {name: 'Black Knight', weapon: 'Mace', vulnerability: 2, starting_suit: 'Suit of Armor', starting_shield: 'Shield'},
+  {name: 'BlackKnight', weapon: 'Mace', vulnerability: 2, starting_suit: 'Suit of Armor', starting_shield: 'Shield'},
   {name: 'Captain', weapon: 'Short Sword', vulnerability: 2, starting_breastplate: 'Breastplate', starting_helmet: 'Helmet', starting_shield: 'Shield'},
   {name: 'Druid', vulnerability: 1},
   {name: 'Dwarf', weapon: 'Great Axe', vulnerability: 3, starting_helmet: 'Helmet'},
@@ -355,11 +355,11 @@ character_seed = [
   {name: 'Elf', weapon: 'Light Bow', vulnerability: 1},
   {name: 'Sorceror', vulnerability: 1},
   {name: 'Swordsman', weapon: 'Thrusting Sword', vulnerability: 1},
-  {name: 'White Knight', weapon: 'Great Sword', vulnerability: 3, starting_suit: 'Suit of Armor'},
+  {name: 'WhiteKnight', weapon: 'Great Sword', vulnerability: 3, starting_suit: 'Suit of Armor'},
   {name: 'Witch', vulnerability: 1},
-  {name: 'Witch King', vulnerability: 1},
+  {name: 'WitchKing', vulnerability: 1},
   {name: 'Wizard', weapon: 'Staff', vulnerability: 2},
-  {name: 'Woods Girl', weapon: 'Light Bow', vulnerability: 1}
+  {name: 'WoodsGirl', weapon: 'Light Bow', vulnerability: 1}
 ]
 
 character_seed.each do |cs|
@@ -395,7 +395,7 @@ gold_chit_seed = [
 
 gold_chit_seed.each do |sc|
   GoldSite.create(game_id: sc[:game_id], lost_city: false, lost_castle: false, name: sc[:name], tile_clearing_number: sc[:tile_clearing_number])
-
+end
 ## Monsters
 Monster.create(monster: 'Ghosts', damage_type: 1, attack_time: 2, maneuver_time: 2, vulnerability: 2, attacks: 1,
           clearing_id: 12, prowling: false, blocked: false)
@@ -411,7 +411,8 @@ sound_chit_seed = [
   {game_id: 1, name: 'Roar', tile_clearing_number: 4},
   {game_id: 1, name: 'Roar', tile_clearing_number: 6},
   {game_id: 1, name: 'Slither', tile_clearing_number: 3},
-  {game_id: 1, name: 'Slither', tile_clearing_number: 6}]
+  {game_id: 1, name: 'Slither', tile_clearing_number: 6}
+]
 
 sound_chit_seed.each do |sc|
   SoundChit.create(game_id: sc[:game_id], lost_city: false, lost_castle: false, name: sc[:name], tile_clearing_number: sc[:tile_clearing_number])

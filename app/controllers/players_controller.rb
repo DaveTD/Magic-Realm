@@ -51,7 +51,8 @@ class PlayersController < ApplicationController
     render 'players/show'
   end
 
-  def next_turn
+  def end_turn
+    binding.pry
     @player.end_turn
     render 'players/show'
   end

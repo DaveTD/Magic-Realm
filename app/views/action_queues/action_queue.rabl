@@ -1,5 +1,4 @@
 object @action_queue
-cache @action_queue
 
 attributes :id, :action_name, :turn, :action_this_turn, :clearing_id, :completed
 

@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   #Game Routes
   match '/games', :controller => 'game', :action => 'create', via: [:options]
 
-  resources :games, only: [:index, :create, :show]
-  match '/games/:id/lost_items', :controller => 'games', :action => 'lost_items', via: [:get]
+  resources :games, only: [:index, :create, :show] do
+    member do
+      get 'lost_items'
+    end
+  end
 
   #Player Routes
   match '/players', :controller => 'players', :action => 'create', via: [:options]
@@ -20,7 +23,7 @@ Rails.application.routes.draw do
       put 'destroy_last_action'
       put 'submit_actions'
       put 'next_action'
-      get 'next_turn'
+      get 'end_turn'
     end
   end
 

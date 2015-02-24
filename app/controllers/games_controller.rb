@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+
   def index
     @games = Game.where(time_of_day: 'select_classes')
     render 'games/index'
@@ -13,6 +14,23 @@ class GamesController < ApplicationController
     @game = Game.find params[:id]
     render 'games/game'
   end
+
+  def lost_items
+      binding.pry
+     @lost_city_tile = SpecialChit.where(name: 'Lost City').tile
+     @lost_castle_tile = SpecialChit.where(name: 'Lost Castle').tile
+
+     @lost_city_pile_sounds = SoundChit.where(lost_city: true)
+     @lost_castle_pile_sounds = SoundChit.where(lost_castle: true)
+     @lost_city_pile_treasures = GoldSite.where(lost_city: true)
+     @lost_castle_pile_treasures = GoldSite.where(lost_castle: true)
+
+     @lost_city_tile_sounds = SoundChit.where(tile: @lost_city_tile)
+     @lost_castle_tile_sounds = SoundChit.where(tile: @lost_castle_tile)
+     @lost_city_tile_treasures = GoldSite.where(tile: @lost_city_tile)
+     @lost_castle_tile_treasures = GoldSite.where(tile: @lost_castle_tile)
+     render :template => 'games/lost_items'
+   end
 
   private
   def game_params

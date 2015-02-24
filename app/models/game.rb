@@ -64,8 +64,9 @@ class Game < ActiveRecord::Base
   end
 
   def card_setup
-    all_cave_tiles = Tile.where(tile_type: 'cave')
-    all_mountain_tiles = Tile.where(tile_type: 'mountain')
+
+    all_cave_tiles_ids = Tile.where(tile_type: 'cave').pluck(:id)
+    all_mountain_tiles_ids = Tile.where(tile_type: 'mountain').pluck(:id)
 
     all_sound_chits = SoundChit.all
     #all_warning_chits = WarningChit.all
@@ -81,9 +82,6 @@ class Game < ActiveRecord::Base
     chit_mixer = chit_mixer - cave_tile_set
     mountain_tile_set = chit_mixer
     chit_mixer = nil
-
-    mountain_tile_set = mountain_tile_set << SpecialChit.where(name: 'Lost Castle')
-    cave_tile_set = cave_tile_set << SpecialChit.where(name: 'Lost City')
 
     lost_city_pile = lost_city_pile.shuffle
     lost_castle_pile = lost_castle_pile.shuffle
@@ -101,12 +99,12 @@ class Game < ActiveRecord::Base
     end
 
     mountain_tile_set.each do |chit|
-      chit.tile = all_mountain_tiles.shift
+      chit.tile_id = all_mountain_tiles_ids.shift
       chit.save
     end
 
     cave_tile_set.each do |chit|
-      chit.tile = all_cave_tiles.shift
+      chit.tile_id = all_cave_tiles_ids.shift
       chit.save
     end
   end
@@ -153,23 +151,6 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def lost_items
-    @lost_city_tile = SpecialChit.where(name: 'Lost City').tile
-    @lost_castle_tile = SpecialChit.where(name: 'Lost Castle').tile
-
-    @lost_city_pile_sounds = SoundChit.where(lost_city: true)
-    @lost_castle_pile_sounds = SoundChit.where(lost_castle: true)
-    @lost_city_pile_treasures = GoldSite.where(lost_city: true)
-    @lost_castle_pile_treasures = GoldSite.where(lost_castle: true)
-
-    @lost_city_tile_sounds = SoundChit.where(tile: @lost_city_tile)
-    @lost_castle_tile_sounds = SoundChit.where(tile: @lost_castle_tile)
-    @lost_city_tile_treasures = GoldSite.where(tile: @lost_city_tile)
-    @lost_castle_tile_treasures = GoldSite.where(tile: @lost_castle_tile)
-
-    render 'lost_items'
-  end
-
   def select_action_order
     all_players = Player.where(game_id: self.id).where(dead: false)
     all_players.shuffle.each_with_index do |player, i|
@@ -181,10 +162,20 @@ class Game < ActiveRecord::Base
 
   def start_next_turn
     turn = PlayersQueue.where(game_id: id).incomplete.order('turn_number ASC').first
+    binding.pry
     unless turn
       denizen_actions_completed!
+      self.current_players_turn = nil
+      save
+      self.go_to_bird_song
+      return
     end
     self.current_players_turn = turn.player_id
     save
+  end
+
+  def go_to_bird_song
+    combat_completed!
+    day_complete!
   end
 end

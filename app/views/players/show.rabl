@@ -1,5 +1,4 @@
 object @player
-cache @player
 
 attributes :id, :first_name, :last_name
 
