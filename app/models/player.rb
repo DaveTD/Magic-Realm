@@ -50,20 +50,25 @@ class Player < ActiveRecord::Base
   end
 
   def perform_move(action)
-    self.clearing_id = action.clearing_id && save
-    record("Player #{self.name} moved to #{action.clearing.tile.name} - #{action.clearing.clearing_number}.", false)
-
-    # check if monster or player is blocking
-    all_monsters = Monsters.all
-    #all_players = Players.all
+    all_monsters = Monster.all
 
     all_monsters.each do |monster|
       if self.clearing_id == monster.clearing.id && !self.hidden
         blocked!
         monster.prowling = false
         monster.blocked = true
+        return
       end
     end
+
+    self.clearing_id = action.clearing_id
+    save
+    record("Player #{self.name} moved to #{action.clearing.tile.name} - #{action.clearing.clearing_number}.", false)
+
+    # check if monster or player is blocking
+
+    #all_players = Players.all
+
     #all_players.each do |other_player|
     #  if self.clearing_id == other_player.clearing.id
     #  case self.hidden
@@ -167,16 +172,16 @@ class Player < ActiveRecord::Base
     record("Player #{self.name} rolled a #{roll} and found hidden enemies in #{clearing.tile.name} - #{clearing.clearing_number}", false)
   end
 
-  def search_clues(tile)
+  def search_clues(tile, roll)
     # give the player a modal that shows all the map chits on this tile
     # give the option to swap out replacement tiles
 
-    record("Clues in tile #{tile.name}", true)
+    record("Player #{self.name} rolled a #{roll} and looked for clues in tile #{tile.name}", true)
   end
 
-  def search_passages(clearing)
+  def search_passages(clearing, roll)
     found_passage = FoundHiddenPassage.new(player: self, game: self.game, clearing: clearing)
-    found_path.save
+    found_passage.save
     record("Player #{self.name} rolled a #{roll} and found hidden passages in #{clearing.tile.name} - #{clearing.clearing_number}", false)
   end
 
@@ -222,8 +227,10 @@ class Player < ActiveRecord::Base
   end
 
   def end_turn
-    player_queue = PlayQueue.where(player_id: id).incomplete.first
-    player_queue.complete = true && player_queue.save
+    binding.pry
+    player_queue = PlayersQueue.where(player_id: id).incomplete.first
+    player_queue.complete = true
+    player_queue.save
     game.start_next_turn
   end
 end
