@@ -16,19 +16,17 @@ class GamesController < ApplicationController
   end
 
   def lost_items
-      binding.pry
-     @lost_city_tile = SpecialChit.where(name: 'Lost City').tile
-     @lost_castle_tile = SpecialChit.where(name: 'Lost Castle').tile
+     @lost_city_tile = SpecialChit.where(name: 'Lost City').first.tile
+     @lost_castle_tile = SpecialChit.where(name: 'Lost Castle').first.tile
 
      @lost_city_pile_sounds = SoundChit.where(lost_city: true)
      @lost_castle_pile_sounds = SoundChit.where(lost_castle: true)
      @lost_city_pile_treasures = GoldSite.where(lost_city: true)
      @lost_castle_pile_treasures = GoldSite.where(lost_castle: true)
 
-     @lost_city_tile_sounds = SoundChit.where(tile: @lost_city_tile)
-     @lost_castle_tile_sounds = SoundChit.where(tile: @lost_castle_tile)
-     @lost_city_tile_treasures = GoldSite.where(tile: @lost_city_tile)
-     @lost_castle_tile_treasures = GoldSite.where(tile: @lost_castle_tile)
+     @lost_tile_sounds = SoundChit.where.not(tile_id: nil)
+     @lost_tile_sites = GoldSite.where.not(tile_id: nil)
+
      render :template => 'games/lost_items'
    end
 
