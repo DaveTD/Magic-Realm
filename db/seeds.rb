@@ -418,5 +418,8 @@ sound_chit_seed.each do |sc|
   SoundChit.create(game_id: sc[:game_id], lost_city: false, lost_castle: false, name: sc[:name], tile_clearing_number: sc[:tile_clearing_number])
 end
 
+SpecialChit.create(game_id: 1, name: 'Lost City')
+SpecialChit.create(game_id: 1, name: 'Lost Castle')
+
 game = Game.create()
 Player.create(game_id: game.id, first_name: 'Joe', last_name: 'Blow', character_class_id: 1)

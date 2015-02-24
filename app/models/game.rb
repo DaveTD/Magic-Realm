@@ -69,8 +69,9 @@ class Game < ActiveRecord::Base
     all_mountain_tiles_ids = Tile.where(tile_type: 'mountain').pluck(:id)
 
     all_sound_chits = SoundChit.all
-    #all_warning_chits = WarningChit.all
     all_treasure_site_chits = GoldSite.all
+    lost_city_chit = SpecialChit.where(name: 'Lost City').first
+    lost_castle_chit = SpecialChit.where(name: 'Lost Castle').first
 
     chit_mixer = all_sound_chits + all_treasure_site_chits
     lost_city_pile = chit_mixer.sample(5)
@@ -80,33 +81,51 @@ class Game < ActiveRecord::Base
 
     cave_tile_set = chit_mixer.sample(4)
     chit_mixer = chit_mixer - cave_tile_set
-    mountain_tile_set = chit_mixer
+    mountain_tile_set = chit_mixer.sample(4)
     chit_mixer = nil
 
     lost_city_pile = lost_city_pile.shuffle
     lost_castle_pile = lost_castle_pile.shuffle
+
     mountain_tile_set = mountain_tile_set.shuffle
     cave_tile_set = cave_tile_set.shuffle
 
     lost_city_pile.each do |chit|
+      p chit.id
       chit.lost_city = true
+      chit.lost_castle = false
+      chit.tile_id = nil
       chit.save
     end
 
     lost_castle_pile.each do |chit|
+      p chit.id
       chit.lost_castle = true
+      chit.lost_city = false
+      chit.tile_id = nil
       chit.save
     end
 
     mountain_tile_set.each do |chit|
+      chit.lost_castle = false
+      chit.lost_city = false
       chit.tile_id = all_mountain_tiles_ids.shift
       chit.save
     end
 
+    lost_castle_chit.tile_id = 5
+    lost_castle_chit.save
+
     cave_tile_set.each do |chit|
+      chit.lost_castle = false
+      chit.lost_city = false
       chit.tile_id = all_cave_tiles_ids.shift
       chit.save
     end
+
+    lost_city_chit.tile_id = all_cave_tiles_ids.shift
+    lost_city_chit.save
+
   end
 
   def board_randomization
