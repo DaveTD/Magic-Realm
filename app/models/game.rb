@@ -1,17 +1,13 @@
 class Game < ActiveRecord::Base
   include AASM
+  include ChitsetCreator
+  include ChitSetup
 
   has_many :players
   has_many :notifications
 
   after_create :board_randomization
   after_initialize :init
-
-  def init
-    self.turn ||= 1
-    card_setup
-    # we're going to have to set this up so that it creates all of its own chits
-  end
 
   aasm  :column => 'time_of_day' do
     state :board_setup, :initial => true
@@ -59,77 +55,19 @@ class Game < ActiveRecord::Base
     self.state || "unread"
   end
 
+  def init
+    self.turn ||= 1
+    card_setup
+    # we're going to have to set this up so that it creates all of its own chits
+  end
+
   def get_players
     players
   end
 
-  def card_setup
-
-    all_cave_tiles_ids = Tile.where(tile_type: 'cave').pluck(:id)
-    all_mountain_tiles_ids = Tile.where(tile_type: 'mountain').pluck(:id)
-
-    all_sound_chits = SoundChit.all
-    all_treasure_site_chits = GoldSite.all
-    lost_city_chit = SpecialChit.where(name: 'Lost City').first
-    lost_castle_chit = SpecialChit.where(name: 'Lost Castle').first
-
-    chit_mixer = all_sound_chits + all_treasure_site_chits
-    lost_city_pile = chit_mixer.sample(5)
-    chit_mixer = chit_mixer - lost_city_pile
-    lost_castle_pile = chit_mixer.sample(5)
-    chit_mixer = chit_mixer - lost_castle_pile
-
-    cave_tile_set = chit_mixer.sample(4)
-    chit_mixer = chit_mixer - cave_tile_set
-    mountain_tile_set = chit_mixer.sample(4)
-    chit_mixer = nil
-
-    lost_city_pile = lost_city_pile.shuffle
-    lost_castle_pile = lost_castle_pile.shuffle
-
-    mountain_tile_set = mountain_tile_set.shuffle
-    cave_tile_set = cave_tile_set.shuffle
-
-    lost_city_pile.each do |chit|
-      p chit.id
-      chit.lost_city = true
-      chit.lost_castle = false
-      chit.tile_id = nil
-      chit.save
-    end
-
-    lost_castle_pile.each do |chit|
-      p chit.id
-      chit.lost_castle = true
-      chit.lost_city = false
-      chit.tile_id = nil
-      chit.save
-    end
-
-    mountain_tile_set.each do |chit|
-      chit.lost_castle = false
-      chit.lost_city = false
-      chit.tile_id = all_mountain_tiles_ids.shift
-      chit.save
-    end
-
-    lost_castle_chit.tile_id = 5
-    lost_castle_chit.save
-
-    cave_tile_set.each do |chit|
-      chit.lost_castle = false
-      chit.lost_city = false
-      chit.tile_id = all_cave_tiles_ids.shift
-      chit.save
-    end
-
-    lost_city_chit.tile_id = all_cave_tiles_ids.shift
-    lost_city_chit.save
-
-  end
-
   def board_randomization
-    self.card_setup
+    self.lost_c_setup
+    self.treasure_chit_setup
     board_complete!
   end
 
@@ -195,5 +133,11 @@ class Game < ActiveRecord::Base
   def go_to_bird_song
     combat_completed!
     day_complete!
+  end
+
+  def determine_winner
+    all_players = Player.where(game_id: self.id).where(dead: flase)
+
+
   end
 end

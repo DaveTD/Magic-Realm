@@ -382,44 +382,5 @@ character_seed.each do |cs|
                         starting_gold: 10)
 end
 
-## Gold Sites
-gold_chit_seed = [
-  {game_id: 1, name: 'Altar', tile_clearing_number: 1},
-  {game_id: 1, name: 'Statue', tile_clearing_number: 2},
-  {game_id: 1, name: 'Lair', tile_clearing_number: 3},
-  {game_id: 1, name: 'Vault', tile_clearing_number: 3},
-  {game_id: 1, name: 'Shrine', tile_clearing_number: 4},
-  {game_id: 1, name: 'Cairns', tile_clearing_number: 5},
-  {game_id: 1, name: 'Hoard', tile_clearing_number: 6},
-  {game_id: 1, name: 'Pool', tile_clearing_number: 6}]
-
-gold_chit_seed.each do |sc|
-  GoldSite.create(game_id: sc[:game_id], lost_city: false, lost_castle: false, name: sc[:name], tile_clearing_number: sc[:tile_clearing_number])
-end
-## Monsters
-Monster.create(monster: 'Ghosts', damage_type: 1, attack_time: 2, maneuver_time: 2, vulnerability: 2, attacks: 1,
-          clearing_id: 12, prowling: false, blocked: false)
-
-## Sound Chits
-sound_chit_seed = [
-  {game_id: 1, name: 'Flutter', tile_clearing_number: 1},
-  {game_id: 1, name: 'Flutter', tile_clearing_number: 2},
-  {game_id: 1, name: 'Howl', tile_clearing_number: 4},
-  {game_id: 1, name: 'Howl', tile_clearing_number: 5},
-  {game_id: 1, name: 'Patter', tile_clearing_number: 2},
-  {game_id: 1, name: 'Patter', tile_clearing_number: 5},
-  {game_id: 1, name: 'Roar', tile_clearing_number: 4},
-  {game_id: 1, name: 'Roar', tile_clearing_number: 6},
-  {game_id: 1, name: 'Slither', tile_clearing_number: 3},
-  {game_id: 1, name: 'Slither', tile_clearing_number: 6}
-]
-
-sound_chit_seed.each do |sc|
-  SoundChit.create(game_id: sc[:game_id], lost_city: false, lost_castle: false, name: sc[:name], tile_clearing_number: sc[:tile_clearing_number])
-end
-
-SpecialChit.create(game_id: 1, name: 'Lost City')
-SpecialChit.create(game_id: 1, name: 'Lost Castle')
-
 game = Game.create()
 Player.create(game_id: game.id, first_name: 'Joe', last_name: 'Blow', character_class_id: 1)
