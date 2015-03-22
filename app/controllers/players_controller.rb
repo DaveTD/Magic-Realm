@@ -1,6 +1,5 @@
 class PlayersController < ApplicationController
-  before_action :find_player_and_action_queue
-  skip_before_action :find_player_and_action_queue, :only => [:create]
+  before_action :find_player, expect: [:create]
 
   def create
     @player = Player.new()
@@ -20,11 +19,6 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find params[:id]
     @action_queues = @player.action_queues
-    render 'players/show'
-  end
-
-  def destroy_last_action
-    @action_queues.last.destroy
     render 'players/show'
   end
 
@@ -60,8 +54,7 @@ class PlayersController < ApplicationController
   def player_params
     params.require(:player).permit(:first_name, :last_name, :game_id, :great_treasures_vps, :usable_spells_vps, :fame_vps, :notoriety_vps, :gold_vps, :ready)
   end
-  def find_player_and_action_queue
+  def find_player
     @player = Player.find params[:id]
-    @action_queues = @player.action_queues
   end
 end
