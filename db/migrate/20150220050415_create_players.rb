@@ -27,8 +27,8 @@ class CreatePlayers < ActiveRecord::Migration
       t.references :hirelings, index: true
       t.boolean :hidden
       t.boolean :found_hidden_enemies
-      t.boolean :wounded
-      t.boolean :fatigued
+      t.integer :wounds
+      t.integer :fatigue
       t.boolean :dead
       t.references :character_class, index: true
       t.integer :level
