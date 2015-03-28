@@ -57,7 +57,7 @@ class Game < ActiveRecord::Base
 
   def init
     self.turn ||= 1
-    card_setup
+    #card_setup
     # we're going to have to set this up so that it creates all of its own chits
   end
 
@@ -66,6 +66,7 @@ class Game < ActiveRecord::Base
   end
 
   def board_randomization
+    self.make_chits
     self.lost_c_setup
     self.treasure_chit_setup
     board_complete!

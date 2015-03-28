@@ -99,7 +99,7 @@ class Player < ActiveRecord::Base
     #looting_pile ||= NativesCamp.where(tile: my_tile).where(clearing_number: my_clearing)
     #looting_pile ||= Building.where(tile: my_tile).where(clearing_number: my_clearing)
 
-    loot_collection = Treasures.where(game_id: game_id).where(pile: looting_pile.name).where(found: false)
+    loot_collection = Treasure.where(game_id: game_id).where(pile: looting_pile.name)
 
     item_found = loot_collection[roll] if loot_collection
 

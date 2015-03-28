@@ -1,5 +1,7 @@
+require 'active_support/concern'
+
 module ChitSetup
-  extend ActiveRecord::Concern
+  extend ActiveSupport::Concern
 
   def sample! source_set, number, target_set = []
     small_set = source_set.sample(number)
@@ -14,7 +16,11 @@ module ChitSetup
     chit.lost_city = lostcity
     chit.lost_castle = lostcastle
     chit.tile_id = tile
-    chit.clearing = clearing
+    if clearing != nil
+      chit.clearing_id = clearing
+    else
+      chit.clearing_id = nil
+    end
     chit.save
   end
 
@@ -67,9 +73,9 @@ module ChitSetup
 
   def treasure_chit_setup
 
-    large_treasures = Treasures.where(large: true)
-    meta_treasures = Treasures.where(metatreasure: true)
-    small_treasures  = (Treasures.all - large_treasures) - meta_treasures
+    large_treasures = Treasure.where(large: true)
+    meta_treasures = Treasure.where(metatreasure: true)
+    small_treasures  = (Treasure.all - large_treasures) - meta_treasures
 
     large_treasures.shuffle
     meta_treasures.shuffle
@@ -88,15 +94,24 @@ module ChitSetup
     crypt_of_the_knight_pile.pile = "crypt_of_the_knight"
     crypt_of_the_knight_pile.save
 
-    large_treasures, hoard_pile = large_treasures.sample!(5)
+    large_treasures, hoard_pile = sample!(large_treasures, 5)
     large_treasures, lair_pile = sample!(large_treasures, 3)
-    large_treasures, altar_pile = sample(large_treasures, 4)
+    large_treasures, altar_pile = sample!(large_treasures, 4)
     large_treasures, shrine_pile = sample!(large_treasures, 2)
     large_treasures, pool_pile = sample!(large_treasures, 3)
     large_treasures, vault_pile = sample!(large_treasures, 5)
     large_treasures, statue_pile = sample!(large_treasures, 3)
-
-    cairns_pile = large_treasures.shift
+    large_treasures, cairns_pile = sample!(large_treasures, 1)
+    company_pile = []
+    woodfolk_pile = []
+    patrol_pile = []
+    lancers_pile = []
+    bashkars_pile = []
+    chapel_pile = []
+    house_pile = []
+    inn_pile = []
+    guard_house_pile = []
+    scholar_pile = []
 
     small_treasures, hoard_pile = sample!(small_treasures, 4, hoard_pile)
     small_treasures, lair_pile = sample!(small_treasures, 4, lair_pile)

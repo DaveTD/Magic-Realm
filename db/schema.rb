@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
   create_table "gold_sites", force: :cascade do |t|
     t.integer  "game_id"
     t.integer  "tile_id"
+    t.integer  "clearing_id"
     t.boolean  "lost_city"
     t.boolean  "lost_castle"
     t.string   "name"
@@ -155,6 +156,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.datetime "updated_at",           null: false
   end
 
+  add_index "gold_sites", ["clearing_id"], name: "index_gold_sites_on_clearing_id"
   add_index "gold_sites", ["game_id"], name: "index_gold_sites_on_game_id"
   add_index "gold_sites", ["tile_id"], name: "index_gold_sites_on_tile_id"
 
@@ -167,6 +169,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
   end
 
   create_table "monsters", force: :cascade do |t|
+    t.integer  "game_id"
     t.string   "monster"
     t.integer  "damage_type"
     t.integer  "attack_time"
@@ -182,6 +185,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
   end
 
   add_index "monsters", ["clearing_id"], name: "index_monsters_on_clearing_id"
+  add_index "monsters", ["game_id"], name: "index_monsters_on_game_id"
 
   create_table "natives", force: :cascade do |t|
     t.text     "type"
@@ -270,6 +274,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
   create_table "sound_chits", force: :cascade do |t|
     t.integer  "game_id"
     t.integer  "tile_id"
+    t.integer  "clearing_id"
     t.boolean  "lost_city"
     t.boolean  "lost_castle"
     t.string   "name"
@@ -278,6 +283,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.datetime "updated_at",           null: false
   end
 
+  add_index "sound_chits", ["clearing_id"], name: "index_sound_chits_on_clearing_id"
   add_index "sound_chits", ["game_id"], name: "index_sound_chits_on_game_id"
   add_index "sound_chits", ["tile_id"], name: "index_sound_chits_on_tile_id"
 
@@ -309,34 +315,36 @@ ActiveRecord::Schema.define(version: 20150223024233) do
   create_table "treasure_locations", force: :cascade do |t|
     t.integer  "game_id"
     t.integer  "treasure_id"
-    t.integer  "tile_id"
     t.integer  "clearing_id"
-    t.boolean  "lost_city"
-    t.boolean  "lost_castle"
+    t.string   "pile"
+    t.boolean  "found"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  add_index "treasure_locations", ["clearing_id"], name: "index_treasure_locations_on_clearing_id"
   add_index "treasure_locations", ["game_id"], name: "index_treasure_locations_on_game_id"
-  add_index "treasure_locations", ["tile_id"], name: "index_treasure_locations_on_tile_id"
   add_index "treasure_locations", ["treasure_id"], name: "index_treasure_locations_on_treasure_id"
 
   create_table "treasures", force: :cascade do |t|
+    t.integer  "game_id"
+    t.string   "name"
     t.boolean  "large"
-    t.integer  "spell_type"
+    t.string   "spell_type"
     t.integer  "fame_value"
     t.boolean  "great"
     t.integer  "fame_price_number"
     t.string   "enchanted"
-    t.integer  "weight"
+    t.string   "weight"
     t.integer  "notoriety_value"
     t.integer  "price"
     t.boolean  "metatreasure"
     t.boolean  "movable"
+    t.string   "pile"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
+
+  add_index "treasures", ["game_id"], name: "index_treasures_on_game_id"
 
   create_table "weapons", force: :cascade do |t|
     t.string   "weapon_name"

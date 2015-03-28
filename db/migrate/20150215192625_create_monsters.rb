@@ -1,6 +1,7 @@
 class CreateMonsters < ActiveRecord::Migration
   def change
     create_table :monsters do |t|
+      t.references :game, index: true
       t.string :monster
       t.integer :damage_type
       t.integer :attack_time
