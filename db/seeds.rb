@@ -1,24 +1,24 @@
   ## Tiles
-  Tile.create(name: "cliff", tile_type: 'mountain')
-  Tile.create(name: "evil valley", tile_type: 'valley')
-  Tile.create(name: "ledges", tile_type: 'mountain')
-  Tile.create(name: "crag", tile_type: 'mountain')
-  Tile.create(name: "highpass", tile_type: 'cave')
-  Tile.create(name: "dark valley", tile_type: 'valley')
-  Tile.create(name: "borderland", tile_type: 'cave')
-  Tile.create(name: "oak woods", tile_type: 'woods')
-  Tile.create(name: "deep woods", tile_type: 'woods')
-  Tile.create(name: "curst valley", tile_type: 'valley')
-  Tile.create(name: "cavern", tile_type: 'cave')
-  Tile.create(name: "bad valley", tile_type: 'valley')
-  Tile.create(name: "maple woods", tile_type: 'woods')
-  Tile.create(name: "nut woods", tile_type: 'woods')
-  Tile.create(name: "mountain", tile_type: 'mountain')
-  Tile.create(name: "caves", tile_type: 'cave')
-  Tile.create(name: "ruins", tile_type: 'cave')
-  Tile.create(name: "awful valley", tile_type: 'valley')
-  Tile.create(name: "pine woods", tile_type: 'woods')
-  Tile.create(name: "linden woods", tile_type: 'woods')
+  Tile.create(name: "cliff", tile_type: 'mountain', enchanted: false)
+  Tile.create(name: "evil valley", tile_type: 'valley', enchanted: false)
+  Tile.create(name: "ledges", tile_type: 'mountain', enchanted: false)
+  Tile.create(name: "crag", tile_type: 'mountain', enchanted: false)
+  Tile.create(name: "highpass", tile_type: 'cave', enchanted: false)
+  Tile.create(name: "dark valley", tile_type: 'valley', enchanted: false)
+  Tile.create(name: "borderland", tile_type: 'cave', enchanted: false)
+  Tile.create(name: "oak woods", tile_type: 'woods', enchanted: false)
+  Tile.create(name: "deep woods", tile_type: 'woods', enchanted: false)
+  Tile.create(name: "curst valley", tile_type: 'valley', enchanted: false)
+  Tile.create(name: "cavern", tile_type: 'cave', enchanted: false)
+  Tile.create(name: "bad valley", tile_type: 'valley', enchanted: false)
+  Tile.create(name: "maple woods", tile_type: 'woods', enchanted: false)
+  Tile.create(name: "nut woods", tile_type: 'woods', enchanted: false)
+  Tile.create(name: "mountain", tile_type: 'mountain', enchanted: false)
+  Tile.create(name: "caves", tile_type: 'cave', enchanted: false)
+  Tile.create(name: "ruins", tile_type: 'cave', enchanted: false)
+  Tile.create(name: "awful valley", tile_type: 'valley', enchanted: false)
+  Tile.create(name: "pine woods", tile_type: 'woods', enchanted: false)
+  Tile.create(name: "linden woods", tile_type: 'woods', enchanted: false)
 
   ## Clearings
   ## Tile 1 - Cliff
@@ -278,7 +278,7 @@ travs = [
 
 travs.each do |t|
   t[:trav].each do |trav_id|
-    t_new = TraversableClearing.new(clearing_id: t[:id], traversable_id: trav_id, hidden: false)
+    t_new = TraversableClearing.new(clearing_id: t[:id], traversable_id: trav_id, hidden: false, enchanted: false)
     t_new.hidden = true if t[:hidden] == trav_id
     t_new.hidden_type = t[:hidden_type]
     t_new.save
@@ -344,22 +344,22 @@ Armor.create(armor_name: 'Jade Shield', armor_type: 'shield', protect_thrust: tr
 
 ## Characters
 character_seed = [
-  {name: 'Amazon', weapon: 'Short Sword', vulnerability: 2, starting_breastplate: 'Breastplate', starting_helmet: 'Helmet', starting_shield: 'Shield'},
-  {name: 'Berserker', weapon: 'Great Axe', vulnerability: 3, starting_helmet: 'Helmet'},
-  {name: 'BlackKnight', weapon: 'Mace', vulnerability: 2, starting_suit: 'Suit of Armor', starting_shield: 'Shield'},
-  {name: 'Captain', weapon: 'Short Sword', vulnerability: 2, starting_breastplate: 'Breastplate', starting_helmet: 'Helmet', starting_shield: 'Shield'},
-  {name: 'Druid', vulnerability: 1},
-  {name: 'Dwarf', weapon: 'Great Axe', vulnerability: 3, starting_helmet: 'Helmet'},
-  {name: 'Magician', vulnerability: 1},
-  {name: 'Pilgrim', weapon: 'Staff', vulnerability: 2},
-  {name: 'Elf', weapon: 'Light Bow', vulnerability: 1},
-  {name: 'Sorceror', vulnerability: 1},
-  {name: 'Swordsman', weapon: 'Thrusting Sword', vulnerability: 1},
-  {name: 'WhiteKnight', weapon: 'Great Sword', vulnerability: 3, starting_suit: 'Suit of Armor'},
-  {name: 'Witch', vulnerability: 1},
-  {name: 'WitchKing', vulnerability: 1},
-  {name: 'Wizard', weapon: 'Staff', vulnerability: 2},
-  {name: 'WoodsGirl', weapon: 'Light Bow', vulnerability: 1}
+  {name: 'Amazon', weapon: 'Short Sword', vulnerability: 12, starting_breastplate: 'Breastplate', starting_helmet: 'Helmet', starting_shield: 'Shield'},
+  {name: 'Berserker', weapon: 'Great Axe', vulnerability: 12, starting_helmet: 'Helmet'},
+  {name: 'BlackKnight', weapon: 'Mace', vulnerability: 12, starting_suit: 'Suit of Armor', starting_shield: 'Shield'},
+  {name: 'Captain', weapon: 'Short Sword', vulnerability: 12, starting_breastplate: 'Breastplate', starting_helmet: 'Helmet', starting_shield: 'Shield'},
+  {name: 'Druid', vulnerability: 12},
+  {name: 'Dwarf', weapon: 'Great Axe', vulnerability: 12, starting_helmet: 'Helmet'},
+  {name: 'Magician', vulnerability: 12},
+  {name: 'Pilgrim', weapon: 'Staff', vulnerability: 12},
+  {name: 'Elf', weapon: 'Light Bow', vulnerability: 12},
+  {name: 'Sorceror', vulnerability: 12},
+  {name: 'Swordsman', weapon: 'Thrusting Sword', vulnerability: 12},
+  {name: 'WhiteKnight', weapon: 'Great Sword', vulnerability: 12, starting_suit: 'Suit of Armor'},
+  {name: 'Witch', vulnerability: 12},
+  {name: 'WitchKing', vulnerability: 12},
+  {name: 'Wizard', weapon: 'Staff', vulnerability: 12},
+  {name: 'WoodsGirl', weapon: 'Light Bow', vulnerability: 12}
 ]
 
 character_seed.each do |cs|

@@ -235,8 +235,8 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.integer  "hirelings_id"
     t.boolean  "hidden"
     t.boolean  "found_hidden_enemies"
-    t.boolean  "wounded"
-    t.boolean  "fatigued"
+    t.integer  "wounds"
+    t.integer  "fatigue"
     t.boolean  "dead"
     t.integer  "character_class_id"
     t.integer  "level"
@@ -293,13 +293,15 @@ ActiveRecord::Schema.define(version: 20150223024233) do
   add_index "special_chits", ["tile_id"], name: "index_special_chits_on_tile_id"
 
   create_table "tiles", force: :cascade do |t|
-    t.string "name"
-    t.string "tile_type"
+    t.string  "name"
+    t.string  "tile_type"
+    t.boolean "enchanted"
   end
 
   create_table "traversable_clearings", force: :cascade do |t|
     t.integer "clearing_id"
     t.integer "traversable_id"
+    t.boolean "enchanted"
     t.boolean "hidden"
     t.string  "hidden_type"
   end
