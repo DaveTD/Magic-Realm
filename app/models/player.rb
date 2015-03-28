@@ -92,6 +92,24 @@ class Player < ActiveRecord::Base
     record("Player #{self.name} #{result} in clearing #{action.clearing.id}.", false)
   end
 
+  def perform_standard_loot
+    roll = Random.rand(1..6)
+
+    looting_pile = GoldSite.where(game_id: game_id).where(clearing: self.clearing_id)
+    #looting_pile ||= NativesCamp.where(tile: my_tile).where(clearing_number: my_clearing)
+    #looting_pile ||= Building.where(tile: my_tile).where(clearing_number: my_clearing)
+
+    loot_collection = Treasure.where(game_id: game_id).where(pile: looting_pile.name)
+
+    item_found = loot_collection[roll] if loot_collection
+
+    if item_found
+      record("Player #{self.name} found #{item_found}.", false)
+    else
+      record("Player #{self.name} looted, but found nothing", false)
+    end
+  end
+
   def perform_search(search_action)
     action = ActionQueue.next_turn(self, self.game)
     if search_action == 'peer'

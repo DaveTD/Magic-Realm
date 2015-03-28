@@ -3,6 +3,7 @@ class CreateGoldSites < ActiveRecord::Migration
     create_table :gold_sites do |t|
       t.references :game, index: true
       t.references :tile, index: true
+      t.references :clearing, index: true
       t.boolean :lost_city
       t.boolean :lost_castle
       t.string :name
