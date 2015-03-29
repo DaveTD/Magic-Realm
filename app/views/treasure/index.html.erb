@@ -1,0 +1,43 @@
+<h1>Treasure Index</h1>
+
+<table>
+    <th>Name</th>
+    <th>Large</th>
+    <th>Spell Type</th>
+    <th>Fame Value</th>
+    <th>Great</th>
+    <th>Fame Price Number</th>
+    <th>Enchanted</th>
+    <th>Weight</th>
+    <th>Notoriety Value</th>
+    <th>Price</th>
+    <th>Metatreasure (TWT)</th>
+    <th>Movable</th>
+    <th>Pile</th>
+    <th>Edit</th>
+    <th>Delete</th>
+
+  <% @treasures.each do |a| %>
+    <tr>
+      <td><%= link_to "#{a.name}", game_treasure_path(params[:game_id], a.id) %></td>
+      <td><%= a.large %></td>
+      <td><%= a.spell_type %></td>
+      <td><%= a.fame_value %></td>
+      <td><%= a.great %></td>
+      <td><%= a.fame_price_number %></td>
+      <td><%= a.enchanted %></td>
+      <td><%= a.weight %></td>
+      <td><%= a.notoriety_value %></td>
+      <td><%= a.price %></td>
+      <td><%= a.metatreasure %></td>
+      <td><%= a.movable %></td>
+      <td><%= a.pile %></td>
+      <td><%= link_to "Edit #{a.name}", edit_game_treasure_path(params[:game_id], a.id) %></td>
+      <td><%= link_to "Delete #{a.name}", game_treasure_path(params[:game_id], a.id), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Create Treasure", new_game_treasure_path(params[:game_id]) %>
+
+

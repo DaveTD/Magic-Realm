@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     end
     resources :sound_chit do
     end
+    resources :treasure do
+    end
 
   end
 
