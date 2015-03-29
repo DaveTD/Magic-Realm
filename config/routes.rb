@@ -7,7 +7,13 @@ Rails.application.routes.draw do
     member do
       get 'lost_items'
     end
+    resources :gold_site do
+    end
+    resources :sound_chit do
+    end
+
   end
+
 
   #Player Routes
   match '/players', :controller => 'players', :action => 'create', via: [:options]
