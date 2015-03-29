@@ -7,11 +7,6 @@ class ApplicationController < ActionController::Base
 
   after_filter :cors_set_access_control_headers
   before_filter :cors_preflight_check
-  before_filter :set_default_response_format
-
-  def set_default_response_format
-    request.format = :json unless params[:format]
-  end
 
   #header stuff
   def cors_set_access_control_headers

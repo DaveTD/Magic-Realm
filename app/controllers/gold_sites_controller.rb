@@ -1,12 +1,10 @@
-class GoldSiteController < ApplicationController
+class GoldSitesController < ApplicationController
   def index
     @gold_sites = GoldSite.where(game_id: params[:game_id])
-    render :template => 'gold_site/index.html'
   end
 
   def edit
     @gold_site = GoldSite.where(game_id: params[:game_id]).where(id: params[:id]).first
-    render :template => 'gold_site/edit.html'
   end
 
   def update
@@ -17,7 +15,6 @@ class GoldSiteController < ApplicationController
 
   def show
     @gold_site = GoldSite.where(game_id: params[:game_id]).where(id: params[:id]).first
-    render :template => 'gold_site/show.html'
   end
 
   def create
@@ -28,7 +25,6 @@ class GoldSiteController < ApplicationController
 
   def new
     @gold_site = GoldSite.new
-    render :template => 'gold_site/new.html'
   end
 
   def destroy
@@ -37,9 +33,12 @@ class GoldSiteController < ApplicationController
     redirect_to game_gold_site_index_path
   end
 
+  def set_default_response_format
+    request.format = [:html] unless params[:format]
+  end
+
 private
   def gold_site_params
     params.require(:gold_site).permit(:game_id, :name, :tile_id, :tile_clearing_number, :clearing_id, :lost_city, :lost_castle)
   end
-
 end

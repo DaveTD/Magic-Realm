@@ -1,12 +1,12 @@
-class TreasureController < ApplicationController
+class TreasuresController < ApplicationController
   def index
     @treasures = Treasure.where(game_id: params[:game_id])
-    render :template => 'treasure/index.html'
+    render :template => 'treasures/index.html'
   end
 
   def edit
     @treasure = Treasure.where(game_id: params[:game_id]).where(id: params[:id]).first
-    render :template => 'treasure/edit.html'
+    render :template => 'treasures/edit.html'
   end
 
   def update
@@ -17,7 +17,7 @@ class TreasureController < ApplicationController
 
   def show
     @treasure = Treasure.where(game_id: params[:game_id]).where(id: params[:id]).first
-    render :template => 'treasure/show.html'
+    render :template => 'treasures/show.html'
   end
 
   def create
@@ -27,7 +27,7 @@ class TreasureController < ApplicationController
 
   def new
     @treasure = Treasure.new
-    render :template => 'treasure/new.html'
+    render :template => 'treasures/new.html'
   end
 
   def destroy
