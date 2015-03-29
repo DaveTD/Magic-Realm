@@ -23,7 +23,6 @@ class TreasureController < ApplicationController
   def create
     Treasure.create(treasure_params)
     redirect_to game_treasure_index_path
-    #treasure.save
   end
 
   def new

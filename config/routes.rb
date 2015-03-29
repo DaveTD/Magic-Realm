@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     end
     resources :treasure do
     end
+    resources :monster do
+    end
+    resources :special_chit do
+    end
 
   end
 

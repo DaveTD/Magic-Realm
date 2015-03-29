@@ -1,0 +1,32 @@
+<h1>Monster Index</h1>
+
+<table>
+    <th>Name</th>
+    <th>Damage Type</th>
+    <th>Attack Time</th>
+    <th>Maneuver Time</th>
+    <th>Vulnerability</th>
+    <th>Attacks</th>
+    <th>Clearing ID</th>
+    <th>Prowling</th>
+    <th>Blocked</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  <% @monsters.each do |a| %>
+    <tr>
+      <td><%= link_to "#{a.monster}", game_monster_path(params[:game_id], a.id) %></td>
+      <td><%= a.damage_type %></td>
+      <td><%= a.attack_time %></td>
+      <td><%= a.maneuver_time %></td>
+      <td><%= a.vulnerability %></td>
+      <td><%= a.attacks %></td>
+      <td><%= a.clearing_id %></td>
+      <td><%= a.prowling %></td>
+      <td><%= a.blocked %></td>
+      <td><%= link_to "Edit #{a.monster}", edit_game_monster_path(params[:game_id], a.id) %></td>
+      <td><%= link_to "Delete #{a.monster}", game_monster_path(params[:game_id], a.id), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Create Monster", new_game_monster_path(params[:game_id]) %>
