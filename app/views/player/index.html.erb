@@ -37,7 +37,7 @@
     <th>Edit</th>
   <% @players.each do |a| %>
     <tr>
-      <td><%= link_to "#{a.first_name}", game_player_path(params[:game_id], a.id) %></td>
+      <td><%= link_to "#{a.first_name}", game_players_path(params[:game_id], a.id) %></td>
       <td><%= a.last_name %></td>
       <td><%= a.game_id %></td>
       <td><%= a.clearing_id %></td>

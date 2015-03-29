@@ -152,7 +152,7 @@ class Player < ActiveRecord::Base
       search_passages(action.clearing, roll)
     when 4
       search_discover_chits(action.clearing.tile, action.clearing, roll)
-    when 5 or 6
+    when 5, 6
       record("Player #{self.name} located, rolled a 5 or 6 and did nothing.")
     end
     action.complete_action!

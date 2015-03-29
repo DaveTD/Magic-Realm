@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   before_action :find_player_and_action_queue
-  skip_before_action :find_player_and_action_queue, :only => [:create]
+  skip_before_action :find_player_and_action_queue, :only => [:create, :index, :edit]
 
   def edit
     @player = Player.where(game_id: params[:game_id]).where(id: params[:id]).first
