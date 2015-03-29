@@ -8,19 +8,12 @@ Rails.application.routes.draw do
       get 'lost_items'
       get 'cheat_mode'
     end
-    resources :gold_site do
-    end
-    resources :sound_chit do
-    end
-    resources :treasure do
-    end
-    resources :monster do
-    end
-    resources :special_chit do
-    end
-    resources :players, only: [:index, :edit, :update] do
-    end
-
+    resources :gold_sites
+    resources :sound_chits
+    resources :treasures
+    resources :monsters
+    resources :special_chits
+    resources :players, only: [:index, :edit, :update]
   end
 
 

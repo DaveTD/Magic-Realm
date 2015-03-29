@@ -1,12 +1,12 @@
-class SoundChitController < ApplicationController
+class SoundChitsController < ApplicationController
   def index
     @sound_chits = SoundChit.where(game_id: params[:game_id])
-    render :template => 'sound_chit/index.html'
+    render :template => 'sound_chits/index.html'
   end
 
   def edit
     @sound_chit = SoundChit.where(game_id: params[:game_id]).where(id: params[:id]).first
-    render :template => 'sound_chit/edit.html'
+    render :template => 'sound_chits/edit.html'
   end
 
   def update
@@ -17,7 +17,7 @@ class SoundChitController < ApplicationController
 
   def show
     @sound_chit = SoundChit.where(game_id: params[:game_id]).where(id: params[:id]).first
-    render :template => 'sound_chit/show.html'
+    render :template => 'sound_chits/show.html'
   end
 
   def create
@@ -28,7 +28,7 @@ class SoundChitController < ApplicationController
 
   def new
     @sound_chit = SoundChit.new
-    render :template => 'sound_chit/new.html'
+    render :template => 'sound_chits/new.html'
   end
 
   def destroy

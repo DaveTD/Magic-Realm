@@ -4,12 +4,12 @@ class PlayersController < ApplicationController
 
   def edit
     @player = Player.where(game_id: params[:game_id]).where(id: params[:id]).first
-    render :template => 'player/edit.html'
+    render :template => 'players/edit.html'
   end
 
   def index
     @players = Player.where(game_id: params[:game_id])
-    render :template => 'player/index.html'
+    render :template => 'players/index.html'
   end
 
   def create
