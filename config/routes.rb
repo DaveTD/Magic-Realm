@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     end
     resources :special_chit do
     end
+    resources :players, only: [:index, :edit] do
+    end
 
   end
 

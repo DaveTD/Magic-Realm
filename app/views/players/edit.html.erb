@@ -1,0 +1,37 @@
+<h1>Player Edit</h1>
+
+<%= form_for :player, url: game_player_path, html: { method: :patch } do |f| %>
+  <b>First Name</b> <%= f.text_field :first_name %></br>
+  <b>Last Name</b> <%= f.text_field :last_name %></br>
+  <b>Clearing</b> <%= f.text_field :clearing_id %></br>
+  <b>Ready</b> <%= f.text_field :ready %></br>
+  <b>Actions Submitted</b> <%= f.text_field :actions_submitted %></br>
+  <b>Great Treasures VPs</b> <%= f.text_field :great_treasures_vps %></br>
+  <b>Usable Spells VPs</b> <%= f.text_field :usable_spells_vps %></br>
+  <b>Fame VPs</b> <%= f.text_field :fame_vps %></br>
+  <b>Notoriety VPs</b> <%= f.text_field :notoriety_vps %></br>
+  <b>Gold VPs</b> <%= f.text_field :gold_vps %></br>
+  <b>Gold</b> <%= f.text_field :gold %></br>
+  <b>Fame</b> <%= f.text_field :fame %></br>
+  <b>Notoriety</b> <%= f.text_field :notoriety %></br>
+  <b>Action Queue</b> <%= f.text_field :action_queue_id %></br>
+  <b>Weapon</b> <%= f.text_field :weapon_id %></br>
+  <b>Weapon Alerted</b> <%= f.text_field :weapon_alerted %></br>
+  <b>Boots</b> <%= f.text_field :boots_id %></br>
+  <b>Suit of Armor</b> <%= f.text_field :suit_of_armor_id %></br>
+  <b>Shield</b> <%= f.text_field :shield_id %></br>
+  <b>Helmet</b> <%= f.text_field :helmet_id %></br>
+  <b>Breast Plate</b> <%= f.text_field :breast_plate_id %></br>
+  <b>Horse</b> <%= f.text_field :horse_id %></br>
+  <b>Hirelings</b> <%= f.text_field :hirelings_id %></br>
+  <b>Hidden</b> <%= f.text_field :hidden %></br>
+  <b>Found Hidden Enemies</b> <%= f.text_field :found_hidden_enemies %></br>
+  <b>Wounds</b> <%= f.text_field :wounds %></br>
+  <b>Fatigue</b> <%= f.text_field :fatigue %></br>
+  <b>Dead</b> <%= f.text_field :dead %></br>
+  <b>Character Class</b> <%= f.text_field :character_class_id %></br>
+  <b>Level</b> <%= f.text_field :level %></br>
+  <b>Between Clearing...</b> <%= f.text_field :between_clearing_1 %></br>
+  <b>And Clearing</b> <%= f.text_field :between_clearing_2 %></br>
+  <%= f.submit "Update" %>
+<% end %>
