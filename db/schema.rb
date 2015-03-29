@@ -310,6 +310,8 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.boolean "enchanted"
     t.boolean "hidden"
     t.string  "hidden_type"
+    t.boolean "e_hidden"
+    t.string  "e_hidden_type"
   end
 
   create_table "treasure_locations", force: :cascade do |t|
