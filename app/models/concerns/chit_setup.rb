@@ -9,7 +9,9 @@ module ChitSetup
   end
 
   def map_to_internal_clearing chit, tile
-    return Clearing.where(tile_id: tile).where(tile_clearing_number: chit.tile_clearing_number)
+    clearing = Clearing.where(tile_id: tile).where(clearing_number: chit.tile_clearing_number).first
+    clearing ||= Clearing.where(tile_id: tile).where(clearing_number: 4).first
+    return clearing.id
   end
 
   def pile_setter chit, lostcity, lostcastle, tile, clearing
@@ -29,9 +31,9 @@ module ChitSetup
     all_mountain_tiles_ids = Tile.where(tile_type: 'mountain').pluck(:id)
 
     all_sound_chits = SoundChit.where(game_id: self.id)
-    all_map_treasure_site_chits = GoldSite.all
-    lost_city_chit = SpecialChit.where(name: 'Lost City').first
-    lost_castle_chit = SpecialChit.where(name: 'Lost Castle').first
+    all_map_treasure_site_chits = GoldSite.where(game_id: self.id)
+    lost_city_chit = SpecialChit.where(game_id: self.id).where(name: 'Lost City').first
+    lost_castle_chit = SpecialChit.where(game_id: self.id).where(name: 'Lost Castle').first
 
     chit_mixer = all_sound_chits + all_map_treasure_site_chits
     chit_mixer, lost_city_pile = sample!(chit_mixer, 5)

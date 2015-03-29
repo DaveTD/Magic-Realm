@@ -1,0 +1,2 @@
+module GoldSiteHelper
+end

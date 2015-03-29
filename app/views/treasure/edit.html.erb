@@ -1,0 +1,19 @@
+<h1>Treasure Edit</h1>
+
+<%= form_for :treasure, url: game_treasure_path, html: { method: :patch } do |f| %>
+  <b>Name</b> <%= f.text_field :name %></br>
+  <b>Large</b> <%= f.text_field :large %></br>
+  <b>Spell Type</b> <%= f.text_field :spell_type %></br>
+  <b>Fame Value</b><%= f.text_field :fame_value %></br>
+  <b>Great</b><%= f.text_field :great %></br>
+  <b>Fame Price Number</b><%= f.text_field :fame_price_number %></br>
+  <b>Enchanted</b><%= f.text_field :enchanted %></br>
+  <b>Weight</b><%= f.text_field :weight %></br>
+  <b>Notoriety Value</b><%= f.text_field :notoriety_value %></br>
+  <b>Price</b><%= f.text_field :price %></br>
+  <b>Metatreasure (TWT)</b><%= f.text_field :metatreasure %></br>
+  <b>Movable</b><%= f.text_field :movable %></br>
+  <b>Pile</b><%= f.text_field :pile %></br>
+
+  <%= f.submit "Update" %>
+<% end %>

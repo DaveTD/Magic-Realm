@@ -6,8 +6,23 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :create, :show] do
     member do
       get 'lost_items'
+      get 'cheat_mode'
     end
+    resources :gold_site do
+    end
+    resources :sound_chit do
+    end
+    resources :treasure do
+    end
+    resources :monster do
+    end
+    resources :special_chit do
+    end
+    resources :players, only: [:index, :edit] do
+    end
+
   end
+
 
   #Player Routes
   match '/players', :controller => 'players', :action => 'create', via: [:options]

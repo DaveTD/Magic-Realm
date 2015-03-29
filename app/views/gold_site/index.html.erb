@@ -1,0 +1,26 @@
+<h1>Gold Site Index</h1>
+
+<table>
+    <th>Name</th>
+    <th>Tile Name</th>
+    <th>Tile Clearing Number</th>
+    <th>Internal Clearing ID</th>
+    <th>In Lost City</th>
+    <th>In Lost Castle</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  <% @gold_sites.each do |a| %>
+    <tr>
+      <td><%= link_to "#{a.name}", game_gold_site_path(params[:game_id], a.id) %></td>
+      <td><%= a.tile.try(:name) %></td>
+      <td><%= a.tile_clearing_number %></td>
+      <td><%= a.clearing_id %></td>
+      <td><%= a.lost_city %></td>
+      <td><%= a.lost_castle %></td>
+      <td><%= link_to "Edit #{a.name}", edit_game_gold_site_path(params[:game_id], a.id) %></td>
+      <td><%= link_to "Delete #{a.name}", game_gold_site_path(params[:game_id], a.id), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Create Gold Site", new_game_gold_site_path(params[:game_id]) %>

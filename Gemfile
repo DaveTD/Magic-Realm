@@ -20,6 +20,7 @@ group :development, :test do
   gem 'sqlite3', '~> 1.3.10'
   gem 'rspec-rails', '~> 3.1'
   gem 'terminal-notifier-guard', '~> 1.6.4'
+  gem 'binding_of_caller'
 end
 
 group :production do

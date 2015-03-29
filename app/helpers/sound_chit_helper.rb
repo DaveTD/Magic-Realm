@@ -1,0 +1,2 @@
+module SoundChitHelper
+end

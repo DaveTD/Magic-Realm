@@ -1,0 +1,11 @@
+<h1>Sound Chit Edit</h1>
+
+<%= form_for :sound_chit, url: game_sound_chit_path, html: { method: :patch } do |f| %>
+  <b>Name</b> <%= f.text_field :name %></br>
+  <b>Tile ID</b> <%= f.text_field :tile_id %></br>
+  <b>Tile Clearing Number</b> <%= f.text_field :tile_clearing_number %></br>
+  <b>Internal Clearing ID</b> <%= f.text_field :clearing_id %></br>
+  <b>In Lost City</b> <%= f.text_field :lost_city %></br>
+  <b>In Lost Castle</b> <%= f.text_field :lost_castle %></br>
+  <%= f.submit "Update" %>
+<% end %>

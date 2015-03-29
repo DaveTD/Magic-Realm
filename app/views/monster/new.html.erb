@@ -1,0 +1,15 @@
+<h1>Monster New</h1>
+
+<%= form_for :monster, url: game_monster_index_path, html: { method: :post } do |f| %>
+  <b>Game</b> <%= f.text_field :game_id, :value => "#{params[:game_id]}" %></br>
+  <b>Name</b> <%= f.text_field :monster %></br>
+  <b>Damage Type</b> <%= f.text_field :damage_type %></br>
+  <b>Attack Time</b> <%= f.text_field :attack_time %></br>
+  <b>Maneuver Time</b> <%= f.text_field :maneuver_time %></br>
+  <b>Vulnerability</b> <%= f.text_field :vulnerability %></br>
+  <b>Attacks</b> <%= f.text_field :attacks %></br>
+  <b>Clearing</b> <%= f.text_field :clearing_id %></br>
+  <b>Prowling</b> <%= f.text_field :prowling %></br>
+  <b>Blocked</b> <%= f.text_field :blocked %></br>
+  <%= f.submit "New!" %>
+<% end %>

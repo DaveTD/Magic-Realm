@@ -15,19 +15,23 @@ class GamesController < ApplicationController
     render 'games/game'
   end
 
+  def cheat_mode
+    render :template => 'games/cheat_mode.html'
+  end
+
   def lost_items
-     @lost_city_tile = SpecialChit.where(name: 'Lost City').first.tile
-     @lost_castle_tile = SpecialChit.where(name: 'Lost Castle').first.tile
+     @lost_city_tile = SpecialChit.where(game_id: params[:id]).where(name: 'Lost City').first.tile
+     @lost_castle_tile = SpecialChit.where(game_id: params[:id]).where(name: 'Lost Castle').first.tile
 
-     @lost_city_pile_sounds = SoundChit.where(lost_city: true)
-     @lost_castle_pile_sounds = SoundChit.where(lost_castle: true)
-     @lost_city_pile_treasures = GoldSite.where(lost_city: true)
-     @lost_castle_pile_treasures = GoldSite.where(lost_castle: true)
+     @lost_city_pile_sounds = SoundChit.where(game_id: params[:id]).where(lost_city: true)
+     @lost_castle_pile_sounds = SoundChit.where(game_id: params[:id]).where(lost_castle: true)
+     @lost_city_pile_treasures = GoldSite.where(game_id: params[:id]).where(lost_city: true)
+     @lost_castle_pile_treasures = GoldSite.where(game_id: params[:id]).where(lost_castle: true)
 
-     @lost_tile_sounds = SoundChit.where.not(tile_id: nil)
-     @lost_tile_sites = GoldSite.where.not(tile_id: nil)
+     @lost_tile_sounds = SoundChit.where(game_id: params[:id]).where.not(tile_id: nil)
+     @lost_tile_sites = GoldSite.where(game_id: params[:id]).where.not(tile_id: nil)
 
-     render :template => 'games/lost_items'
+     render :template => 'games/lost_items.html'
    end
 
   private

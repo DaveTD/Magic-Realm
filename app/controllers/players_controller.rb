@@ -2,6 +2,16 @@ class PlayersController < ApplicationController
   before_action :find_player_and_action_queue
   skip_before_action :find_player_and_action_queue, :only => [:create]
 
+  def edit
+    @player = Player.where(game_id: params[:game_id]).where(id: params[:id]).first
+    render :template => 'player/edit.html'
+  end
+
+  def index
+    @players = Player.where(game_id: params[:game_id])
+    render :template => 'player/index.html'
+  end
+
   def create
     @player = Player.new()
     @player.game_id = params[:game_id]

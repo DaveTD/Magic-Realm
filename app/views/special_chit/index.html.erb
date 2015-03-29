@@ -1,0 +1,12 @@
+<h1>Special Chit Index</h1>
+
+<table>
+    <th>Name</th>
+    <th>Tile Name</th>
+  <% @special_chits.each do |a| %>
+    <tr>
+      <td><%= link_to "#{a.name}", game_special_chit_path(params[:game_id], a.id) %></td>
+      <td><%= a.tile.try(:name) %></td>
+    </tr>
+  <% end %>
+</table>

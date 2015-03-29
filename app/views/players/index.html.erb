@@ -1,0 +1,76 @@
+<h1>Player Index</h1>
+
+<table>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Game</th>
+    <th>Clearing ID</th>
+    <th>Ready</th>
+    <th>Actions Submitted</th>
+    <th>Great Treasure VPs</th>
+    <th>Spells VPs</th>
+    <th>Fame VPs</th>
+    <th>Notoriety VPs</th>
+    <th>Gold VPs</th>
+    <th>Gold</th>
+    <th>Fame</th>
+    <th>Notoriety</th>
+    <th>Action Queue</th>
+    <th>Weapon</th>
+    <th>Weapon Alerted</th>
+    <th>Boots</th>
+    <th>Suit of Armor</th>
+    <th>Shield</th>
+    <th>Helmet</th>
+    <th>Breast Plate</th>
+    <th>Horse</th>
+    <th>Hirelings</th>
+    <th>Hidden</th>
+    <th>Found Hidden Enemies</th>
+    <th>Wounds</th>
+    <th>Fatigue</th>
+    <th>Dead</th>
+    <th>Character Class</th>
+    <th>Level</th>
+    <th>Between 1</th>
+    <th>Between 2</th>
+    <th>Edit</th>
+  <% @players.each do |a| %>
+    <tr>
+      <td><%= link_to "#{a.first_name}", game_player_path(params[:game_id], a.id) %></td>
+      <td><%= a.last_name %></td>
+      <td><%= a.game_id %></td>
+      <td><%= a.clearing_id %></td>
+      <td><%= a.ready %></td>
+      <td><%= a.actions_submitted %></td>
+      <td><%= a.great_treasures_vps %></td>
+      <td><%= a.usable_spells_vps %></td>
+      <td><%= a.fame_vps %></td>
+      <td><%= a.notoriety_vps %></td>
+      <td><%= a.gold_vps %></td>
+      <td><%= a.gold %></td>
+      <td><%= a.fame %></td>
+      <td><%= a.notoriety %></td>
+      <td><%= a.action_queue_id %></td>
+      <td><%= a.weapon_id %></td>
+      <td><%= a.weapon_alerted %></td>
+      <td><%= a.boots_id %></td>
+      <td><%= a.suit_of_armor_id %></td>
+      <td><%= a.shield_id %></td>
+      <td><%= a.helmet_id %></td>
+      <td><%= a.breast_plate_id %></td>
+      <td><%= a.horse_id %></td>
+      <td><%= a.hirelings_id %></td>
+      <td><%= a.hidden %></td>
+      <td><%= a.found_hidden_enemies %></td>
+      <td><%= a.wounds %></td>
+      <td><%= a.fatigue %></td>
+      <td><%= a.dead %></td>
+      <td><%= a.character_class_id %></td>
+      <td><%= a.level %></td>
+      <td><%= a.between_clearing_1 %></td>
+      <td><%= a.between_clearing_2 %></td>
+      <td><%= link_to "Edit #{a.first_name} #{a.last_name}", edit_game_player_path(params[:game_id], a.id) %></td>
+    </tr>
+  <% end %>
+</table>

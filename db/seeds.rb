@@ -7,7 +7,7 @@
   Tile.create(name: "dark valley", tile_type: 'valley', enchanted: false)
   Tile.create(name: "borderland", tile_type: 'cave', enchanted: false)
   Tile.create(name: "oak woods", tile_type: 'woods', enchanted: false)
-  Tile.create(name: "deep woods", tile_type: 'woods', enchanted: false)
+  Tile.create(name: "deep woods", tile_type: 'Mountain', enchanted: false)
   Tile.create(name: "curst valley", tile_type: 'valley', enchanted: false)
   Tile.create(name: "cavern", tile_type: 'cave', enchanted: false)
   Tile.create(name: "bad valley", tile_type: 'valley', enchanted: false)

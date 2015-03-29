@@ -1,0 +1,14 @@
+<h1>Monster Edit</h1>
+
+<%= form_for :monster, url: game_monster_path, html: { method: :patch } do |f| %>
+  <b>Name</b> <%= f.text_field :monster %></br>
+  <b>Damage Type</b> <%= f.text_field :damage_type %></br>
+  <b>Attack Time</b> <%= f.text_field :attack_time %></br>
+  <b>Maneuver Time</b> <%= f.text_field :maneuver_time %></br>
+  <b>Vulnerability</b> <%= f.text_field :vulnerability %></br>
+  <b>Attacks</b> <%= f.text_field :attacks %></br>
+  <b>Clearing</b> <%= f.text_field :clearing_id %></br>
+  <b>Prowling</b> <%= f.text_field :prowling %></br>
+  <b>Blocked</b> <%= f.text_field :blocked %></br>
+  <%= f.submit "Update" %>
+<% end %>
