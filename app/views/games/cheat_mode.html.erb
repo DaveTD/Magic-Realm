@@ -1,0 +1,8 @@
+<h1>Cheat Mode for Game: <%= "#{params[:id]}" %></h1>
+
+<h3><%= link_to("Sound Chits",  game_sound_chit_index_path(game_id: params[:id])) %></h3>
+<h3><%= link_to("Treasures",  game_treasure_index_path(game_id: params[:id])) %></h3>
+<h3><%= link_to("Players",  game_players_path(game_id: params[:id])) %></h3>
+<h3><%= link_to("Monsters",  game_monster_index_path(game_id: params[:id])) %></h3>
+<h3><%= link_to("Special Chits",  game_special_chit_index_path(game_id: params[:id])) %></h3>
+<h3><%= link_to("Gold Sites",  game_gold_site_index_path(game_id: params[:id])) %></h3>

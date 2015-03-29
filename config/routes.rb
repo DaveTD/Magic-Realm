@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :create, :show] do
     member do
       get 'lost_items'
+      get 'cheat_mode'
     end
     resources :gold_site do
     end
