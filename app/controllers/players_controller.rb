@@ -44,8 +44,9 @@ class PlayersController < ApplicationController
   end
 
   def next_action
-    @player.do_next_action
-    render 'players/show'
+    # @player.do_next_action
+    @notifications = @player.game.notifications.not_private.last(5)
+    render 'players/next_action'
   end
 
   def chose_selection
@@ -58,12 +59,12 @@ class PlayersController < ApplicationController
     else
       @player.search_choice(params[:search_choice])
     end
-    render 'players/show'
+    render json: @player
   end
 
   def end_turn
     @player.end_turn
-    render 'players/show'
+    render json: @player
   end
 
   private

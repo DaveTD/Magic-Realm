@@ -1,8 +1,8 @@
 class Clearing < ActiveRecord::Base
   belongs_to :tile
   has_many :traversable_clearings
-  scope :not_cave, -> {where('movement_type IS NOT ?', 'cave')}
-  scope :not_exit, -> {where('exit IS NOT ?', true)}
+  scope :not_cave, -> {where('movement_type != ?', 'cave')}
+  scope :not_exit, -> {where('exit != ?', true)}
 
   def wood?
     self.movement_type == 'wood'

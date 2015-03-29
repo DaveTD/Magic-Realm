@@ -10,7 +10,6 @@ gem 'rails', '4.2'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
-  gem 'awesome_print', '~> 1.6.1'
   gem 'better_errors', '~> 2.1.1'
   gem 'guard', '~> 2.6'
   gem 'guard-livereload', '~> 2.3'
@@ -21,6 +20,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.1'
   gem 'terminal-notifier-guard', '~> 1.6.4'
   gem 'binding_of_caller'
+  gem 'zeus'
 end
 
 group :production do

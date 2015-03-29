@@ -7,7 +7,12 @@ class Game < ActiveRecord::Base
   has_many :notifications
 
   after_create :board_randomization
-  after_initialize :init
+  after_create :init
+
+  def init
+    self.turn = 1
+    save
+  end
 
   aasm  :column => 'time_of_day' do
     state :board_setup, :initial => true
@@ -133,12 +138,12 @@ class Game < ActiveRecord::Base
 
   def go_to_bird_song
     combat_completed!
+    self.turn += 1
+    save
     day_complete!
   end
 
   def determine_winner
     all_players = Player.where(game_id: self.id).where(dead: flase)
-
-
   end
 end

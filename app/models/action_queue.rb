@@ -7,10 +7,13 @@ class ActionQueue < ActiveRecord::Base
   scope :hides, -> {where(action_name: 'hide')}
   scope :searches, -> {where(action_name: 'search')}
   scope :rests, -> {where(action_name: 'rest')}
-  scope :active, -> {where(completed: false)}
-  scope :next_turn, ->(player, game) {where(player_id: player.id).where(turn: game.turn).active.order('action_this_turn ASC').first}
+  scope :enchants, -> {where(action_name: 'enchant')}
+  scope :not_complete, -> {where(completed: false)}
+  scope :actions_this_turn, ->(player){where(player_id: player.id, turn: player.game.turn).not_complete}
+  scope :next_turn, ->(player){actions_this_turn(player).not_complete.order('action_this_turn ASC').first}
 
   after_initialize :init
+  after_create :set_action_this_turn
 
   def init
     self.completed = false if completed.nil?
@@ -28,21 +31,28 @@ class ActionQueue < ActiveRecord::Base
   def rest?
     self.action_name == 'rest'
   end
+  def enchant?
+    self.action_name == 'enchant'
+  end
 
   def can_move?
-    return player.action_queues.count < 2 + day_moves
+    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves
   end
 
   def can_hide?
-    return player.action_queues.count < 2 + day_moves
+    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves
   end
 
   def can_search?
-    return player.action_queues.count < 2 + day_moves
+    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves
   end
 
   def can_rest?
-    return player.action_queues.count < 2 + day_moves
+    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves
+  end
+
+  def can_enchant?
+    return ActionQueue.actions_this_turn(self.player).enchants.empty?
   end
 
   def target_clearings
@@ -84,15 +94,23 @@ class ActionQueue < ActiveRecord::Base
 
   private
 
+  def set_action_this_turn
+    count = ActionQueue.actions_this_turn(self.player).count
+    self.action_this_turn = count
+    save
+  end
+
   def day_moves
     return cave_movement? ? 0 : 2
   end
+
   def cave_movement?
     move = self.player.clearing.cave?
-    actions = player.action_queues.all
+    actions = ActionQueue.actions_this_turn(self.player)
     actions.each do |a|
       move &= a.clearing.cave?
     end
     return move
   end
+
 end
