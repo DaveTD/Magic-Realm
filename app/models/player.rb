@@ -10,9 +10,7 @@ class Player < ActiveRecord::Base
   belongs_to :shield
   belongs_to :helmet
   belongs_to :breast_plate
-  belongs_to :horse
   belongs_to :hirelings
-  belongs_to :curses
   belongs_to :character_class
   belongs_to :inventory
 
@@ -42,7 +40,7 @@ class Player < ActiveRecord::Base
   end
 
   def do_next_action
-    action = ActionQueue.next_turn(self, self.game)
+    action = ActionQueue.next_turn(self)
     unless action.search?
       self.send(("perform_#{action.action_name}").to_sym, action)
       action.complete_action!
@@ -111,7 +109,7 @@ class Player < ActiveRecord::Base
   end
 
   def perform_search(search_action)
-    action = ActionQueue.next_turn(self, self.game)
+    action = ActionQueue.next_turn(self)
     if search_action == 'peer'
       self.peer(action)
     else
@@ -160,7 +158,7 @@ class Player < ActiveRecord::Base
 
   def search_choice(search_choice)
     #give the player the choice of any of the peer or locate options
-    action = ActionQueue.next_turn(self, self.game)
+    action = ActionQueue.next_turn(self)
     case search_choice
     when 'Clues and Paths'
       search_clues(action.clearing.tile, 1)
@@ -239,7 +237,7 @@ class Player < ActiveRecord::Base
   end
 
   def current_action
-    return ActionQueue.next_turn(self, self.game).try(:action_this_turn)
+    return ActionQueue.next_turn(self).try(:action_this_turn)
   end
 
   def last_unseen_notificaiton

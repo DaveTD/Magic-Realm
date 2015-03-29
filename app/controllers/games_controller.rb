@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  before_action :load_game, only: [:show, :time_of_day, :current_player]
 
   def index
     @games = Game.where(time_of_day: 'select_classes')
@@ -11,12 +12,23 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find params[:id]
+    @notifications = @game.notifications.not_private.last(5)
+    render 'games/game'
+  end
+
+  def current_player
+    @player = Player.where(id: @game.current_players_turn).first
+    @player_clearing = @player.clearing if @player
+    @exclude_other_players = true
     render 'games/game'
   end
 
   def cheat_mode
     render :template => 'games/cheat_mode.html'
+  end
+
+  def time_of_day
+    render json: [@game.time_of_day, @game.current_players_turn]
   end
 
   def lost_items
@@ -37,5 +49,8 @@ class GamesController < ApplicationController
   private
   def game_params
     params.require(:game).permit(:time_of_day, :game_day, :cards_randomized, :board_complete, :players_ready, :setup_complete, :player_actions_submitted, :activity_order_selected, :denizens_actions_completed, :combat_completed, :day_complete)
+  end
+  def load_game
+    @game = Game.find params[:id]
   end
 end
