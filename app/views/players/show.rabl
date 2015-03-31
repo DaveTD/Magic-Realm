@@ -9,3 +9,5 @@ child(:clearing) {attributes :id, :x, :y, :exit, :movement_type, :tile_id}
 child(:character_class) {attributes :name}
 
 node(:notification) {|p| p.last_unseen_notificaiton}
+
+node(:found_clearings) { @found_clearings }
