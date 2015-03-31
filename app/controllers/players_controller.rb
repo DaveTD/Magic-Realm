@@ -30,6 +30,14 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find params[:id]
     @action_queues = @player.action_queues
+    @found_clearings = []
+    known_clearings = DiscoveredChitsClearing.where(player_id: params[:id]).pluck(:id, :clearing_id)
+    clearing_nums = DiscoveredChitsClearing.where(player_id: params[:id]).pluck(:clearing_id)
+    clearing_data = Clearing.where(id: clearing_nums)
+    known_clearings.each do |c|
+      @found_clearings << { :id => c[0], :x => clearing_data.where(id: c[1]).first.x, :y => clearing_data.where(id: c[1]).first.y }
+    end
+
     render 'players/show'
   end
 
