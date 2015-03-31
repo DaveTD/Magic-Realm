@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get 'time_of_day'
       get 'current_player'
       get 'cheat_mode'
+      get 'showclearingtreasures'
     end
     resources :gold_sites
     resources :sound_chits
