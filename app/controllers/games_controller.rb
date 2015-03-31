@@ -46,6 +46,25 @@ class GamesController < ApplicationController
      render :template => 'games/lost_items.html'
    end
 
+ def showclearingtreasures
+  gold_site = GoldSite.where(game_id: params[:id]).where(clearing_id: params[:clearing]).first
+
+  @treasure_names = []
+  @pile_name = ""
+
+  if gold_site
+    treasure_list = Treasure.where(game_id: params[:id]).where(pile: gold_site.name.downcase)
+    @pile_name = gold_site.name
+
+    treasure_list.each do |t|
+      @treasure_names << t.name
+    end
+  end
+
+  render :template => 'games/treasure_list'
+end
+
+
   private
   def game_params
     params.require(:game).permit(:time_of_day, :game_day, :cards_randomized, :board_complete, :players_ready, :setup_complete, :player_actions_submitted, :activity_order_selected, :denizens_actions_completed, :combat_completed, :day_complete)
