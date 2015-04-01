@@ -6,7 +6,7 @@ class CreateGoldSites < ActiveRecord::Migration
       t.references :clearing, index: true
       t.boolean :lost_city
       t.boolean :lost_castle
-      t.string :name
+      t.string :site_name
       t.integer :tile_clearing_number
 
       t.timestamps null: false

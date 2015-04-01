@@ -1,7 +1,7 @@
 <h1>Gold Site Edit</h1>
 
 <%= form_for :gold_site, url: game_gold_site_path, html: { method: :patch } do |f| %>
-  <b>Name</b> <%= f.text_field :name %></br>
+  <b>Name</b> <%= f.text_field :site_name %></br>
   <b>Tile ID</b> <%= f.text_field :tile_id %></br>
   <b>Tile Clearing Number</b> <%= f.text_field :tile_clearing_number %></br>
   <b>Internal Clearing ID</b> <%= f.text_field :clearing_id %></br>
