@@ -342,6 +342,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.boolean  "metatreasure"
     t.boolean  "movable"
     t.string   "pile"
+    t.integer  "player_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end

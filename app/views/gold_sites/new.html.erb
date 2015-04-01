@@ -1,6 +1,6 @@
 <h1>Gold Site New</h1>
 
-<%= form_for :gold_site, url: game_gold_site_index_path, html: { method: :post } do |f| %>
+<%= form_for :gold_site, url: new_game_gold_site_path, html: { method: :post } do |f| %>
   <b>Game</b> <%= f.text_field :game_id, :value => "#{params[:game_id]}" %></br>
   <b>Name</b> <%= f.text_field :name %></br>
   <b>Tile ID</b> <%= f.text_field :tile_id %></br>

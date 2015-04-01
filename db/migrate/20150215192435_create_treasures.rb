@@ -15,6 +15,7 @@ class CreateTreasures < ActiveRecord::Migration
       t.boolean :metatreasure
       t.boolean :movable
       t.string :pile
+      t.references :player
 
       t.timestamps null: false
     end
