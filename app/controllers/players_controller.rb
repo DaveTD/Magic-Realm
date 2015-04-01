@@ -75,23 +75,6 @@ class PlayersController < ApplicationController
     render json: @player
   end
 
-  def loot_clearing
-    looted_item = nil
-    looting_site = GoldSite.where(clearing_id: @player.clearing_id).first
-    if looting_site != nil
-      pile = looting_site.site_name
-      large_treasures = Treasure.where(pile: pile).where(large: true)
-      small_treasures = Treasure.where(pile: pile).where(large: false)
-      all_treasures = []
-      all_treasures << large_treasures << small_treasures
-      all_treasures.flatten
-
-      roll = Random.rand(1..6)
-      looted_item = all_treasures[roll - 1]
-    end
-    return looted_item
-  end
-
   private
   def player_params
     params.require(:player).permit(:first_name, :last_name, :game_id, :great_treasures_vps, :usable_spells_vps, :fame_vps, :notoriety_vps, :gold_vps, :ready)
