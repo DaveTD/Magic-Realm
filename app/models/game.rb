@@ -148,17 +148,63 @@ class Game < ActiveRecord::Base
   def create_denizens clearing_id
     # get the related tile to this clearing_id
     tile = Clearing.where(game_id: self.id).where(id: clearing_id).tile_id
-    sound_chit_here = SoundChit.where(game_id: self.id).where(tile_id: tile)
-    special_chit_here = SpecialChit.where(game_id: self.id).where(tile_id: tile)
-    warning_chit_here = WarningChit.where(game_id: self.id).where(tile_id: tile)
+    sound_chit_here = SoundChit.where(game_id: self.id).where(tile_id: tile).first
+    gold_site_here = GoldSite.where(game_id: self.id).where(tile_id: tile).first
+    special_chit_here = SpecialChit.where(game_id: self.id).where(tile_id: tile).first
+    warning_chit_here = WarningChit.where(game_id: self.id).where(tile_id: tile).first
     # check if there's anything for that sound, in the current prowling row
     unless sound_chit_here.empty?
+      sound_appears = sound_chit_here.name.downcase + "_appears"
+      tile_appears = Tile.where(id: sound_chit_here.tile_id).first.tile_type[0] + "_appears"
+
+      appearing_monster_name = Monster.where(game_id: self.id).where("#{tile_appears} IS 't' AND #{sound_appears} IS 't'").where(dead: false).where(on_board: false).where(spawn_row: self.spawn_row).first.monster
+      if appearing_monster_name.include? "Goblin"
+        appearing_monster_name.slice! "Small"
+        appearing_monster_name.slice! "Large"
+      end
+      appearing_monsters = Monster.where(game_id: self.id).where("monster LIKE '%#{appearing_monster_name}%'")
+      appearing_monsters.each do |monster|
+        monster.on_board = true
+        monster.clearing_id = sound_chit_here.clearing_id
+        monster.prowling = true
+        monster.save
+      end
+    end
+
+    unless gold_site_here.empty?
+      site_appears = gold_site_here.name.downcase + "_appears"
+
+      appearing_monster = Monster.where(game_id: self.id).where("#{site_appears} IS 't'")
+
+      appearing_monster.on_board = true
+      appearing_monster.clearing_id = gold_site_here.clearing_id
+      appearing_monster.prowling = true
+      appearing_monster.save
 
     end
+
     unless special_chit_here.empty?
 
     end
+
     unless warning_chit_here.empty?
+      warning_appears = warning_chit_here.name.downcase + "_appears"
+      appearing_monster_name = Monster.where(game_id: self.id).where(dead: false).where(on_board: false).where(spawn_row: self.spawn_row).where("#{warning_appears} IS 't'").first.monster
+
+      if appearing_monster_name.include? "Goblin" || appearing_monster_name.include? "Wolf"
+        appearing_monster_name.slice! "Small"
+        appearing_monster_name.slice! "Large"
+        appearing_monster_name.slice! "Light"
+        appearing_monster_name.slice! "Medium"
+      end
+
+      appearing_monsters = Monster.where(game_id: self.id).where("monster LIKE '%#{appearing_monster_name}%'")
+      appearing_monsters.each do |monster|
+        monster.on_board = true
+        monster.clearing_id = clearing_id
+        monster.prowling = true
+        monster.save
+      end
 
     end
 
