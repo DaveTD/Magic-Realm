@@ -33,6 +33,30 @@ module ChitsetCreator
       {game_id: self.id, name: 'Slither', tile_clearing_number: 6}
     ]
 
+    ## Warning Chits
+    warning_chit_seed = [
+      {game_id: self.id, name: 'Bones', letter: 'C'},
+      {game_id: self.id, name: 'Bones', letter: 'M'},
+      {game_id: self.id, name: 'Bones', letter: 'V'},
+      {game_id: self.id, name: 'Bones', letter: 'W'},
+      {game_id: self.id, name: 'Dank', letter: 'C'},
+      {game_id: self.id, name: 'Dank', letter: 'M'},
+      {game_id: self.id, name: 'Dank', letter: 'V'},
+      {game_id: self.id, name: 'Dank', letter: 'W'},
+      {game_id: self.id, name: 'Ruins', letter: 'C'},
+      {game_id: self.id, name: 'Ruins', letter: 'M'},
+      {game_id: self.id, name: 'Ruins', letter: 'V'},
+      {game_id: self.id, name: 'Ruins', letter: 'W'},
+      {game_id: self.id, name: 'Stink', letter: 'C'},
+      {game_id: self.id, name: 'Stink', letter: 'M'},
+      {game_id: self.id, name: 'Stink', letter: 'V'},
+      {game_id: self.id, name: 'Stink', letter: 'W'},
+      {game_id: self.id, name: 'Smoke', letter: 'C'},
+      {game_id: self.id, name: 'Smoke', letter: 'M'},
+      {game_id: self.id, name: 'Smoke', letter: 'V'},
+      {game_id: self.id, name: 'Smoke', letter: 'W'}
+    ]
+
     ## Treasures Chits large, spell type, fame_value, great, fame_price_number, enchanted, weight, noteriety_value, price, metatreasure, movable
     treasures_chit_seed = [
       { game_id: self.id, name: '7-League Boots', large: false, spell_type: nil, fame_value: 0, great: false, fame_price_number: 0, weight: nil, notoriety_value: 2, price: 5, metatreasure: false, movable: true, player_id: nil },
@@ -119,6 +143,10 @@ module ChitsetCreator
 
     sound_chit_seed.each do |sc|
       SoundChit.create(game_id: sc[:game_id], lost_city: false, lost_castle: false, name: sc[:name], tile_clearing_number: sc[:tile_clearing_number])
+    end
+
+    warning_chit_seed.each do |wc|
+      WarningChit.create(game_id: wc[:game_id], name: wc[:name], letter: wc[:letter])
     end
 
     SpecialChit.create(game_id: self.id, name: 'Lost City')
