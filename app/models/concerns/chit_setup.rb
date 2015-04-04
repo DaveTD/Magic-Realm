@@ -84,12 +84,18 @@ module ChitSetup
     mountain_tile_set = mountain_tile_set.shuffle
     cave_tile_set = cave_tile_set.shuffle
 
+    lost_castle_chit.tile_id = all_mountain_tiles_ids.shift
+    lost_castle_chit.save
+
+    lost_city_chit.tile_id = all_cave_tiles_ids.shift
+    lost_city_chit.save
+
     lost_city_pile.each do |chit|
-      pile_setter(chit, true, false, nil, nil)
+      pile_setter(chit, true, false, nil, map_to_internal_clearing(chit, lost_city_chit.tile_id))
     end
 
     lost_castle_pile.each do |chit|
-      pile_setter(chit, false, true, nil, nil)
+      pile_setter(chit, false, true, nil, map_to_internal_clearing(chit, lost_castle_chit.tile_id))
     end
 
     mountain_tile_set.each do |chit|
@@ -97,16 +103,10 @@ module ChitSetup
       pile_setter(chit, false, false, tile , map_to_internal_clearing(chit, tile))
     end
 
-    lost_castle_chit.tile_id = all_mountain_tiles_ids.shift
-    lost_castle_chit.save
-
     cave_tile_set.each do |chit|
       tile = all_cave_tiles_ids.shift
       pile_setter(chit, false, false, tile, map_to_internal_clearing(chit ,tile))
     end
-
-    lost_city_chit.tile_id = all_cave_tiles_ids.shift
-    lost_city_chit.save
   end
 
   def treasure_chit_setup
