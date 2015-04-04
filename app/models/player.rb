@@ -67,15 +67,17 @@ class Player < ActiveRecord::Base
     all_players = all_players - self
     all_players.each do |other_player|
       if self.clearing_id == other_player.clearing.id
-      case self.hidden
-      when true
-        if other_player.found_hidden_enemies
-          # pop a modal for other_player
-        end
+        case self.hidden
+        when true
+          if other_player.found_hidden_enemies
+            # pop a modal for other_player
+          end
 
-      when false
-       # pop a modal for the other_player
+        when false
+        # pop a modal for the other_player
+        end
       end
+    end
   end
 
   def perform_hide(action)

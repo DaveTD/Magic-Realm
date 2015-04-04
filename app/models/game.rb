@@ -75,6 +75,7 @@ class Game < ActiveRecord::Base
     self.make_chits
     self.lost_c_setup
     self.treasure_chit_setup
+    self.warning_chit_setup
     board_complete!
   end
 
@@ -145,12 +146,21 @@ class Game < ActiveRecord::Base
   end
 
   def create_denizens clearing_id
-    # really just creating monsters
     # get the related tile to this clearing_id
     tile = Clearing.where(game_id: self.id).where(id: clearing_id).tile_id
     sound_chit_here = SoundChit.where(game_id: self.id).where(tile_id: tile)
     special_chit_here = SpecialChit.where(game_id: self.id).where(tile_id: tile)
+    warning_chit_here = WarningChit.where(game_id: self.id).where(tile_id: tile)
     # check if there's anything for that sound, in the current prowling row
+    unless sound_chit_here.empty?
+
+    end
+    unless special_chit_here.empty?
+
+    end
+    unless warning_chit_here.empty?
+
+    end
 
   end
 

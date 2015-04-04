@@ -26,6 +26,42 @@ module ChitSetup
     chit.save
   end
 
+  def warning_chit_setup
+    mountain_warning_chits = WarningChit.where(game_id: self.id).where(letter: 'M')
+    mountain_warning_chits.shuffle
+    valley_warning_chits = WarningChit.where(game_id: self.id).where(letter: 'V')
+    valley_warning_chits.shuffle
+    cave_warning_chits = WarningChit.where(game_id: self.id).where(letter: 'C')
+    cave_warning_chits.shuffle
+    woods_warning_chits = WarningChit.where(game_id: self.id).where(letter: 'W')
+    woods_warning_chits.shuffle
+
+    mountain_ids = Tile.where(tile_type: 'mountain').pluck(:id)
+    valley_ids = Tile.where(tile_type: 'valley').pluck(:id)
+    cave_ids = Tile.where(tile_type: 'cave').pluck(:id)
+    wood_ids = Tile.where(tile_type: 'woods').pluck(:id)
+
+    mountain_warning_chits.each do |mountain|
+      mountain.tile_id = mountain_ids.shift
+      mountain.save
+    end
+
+    valley_warning_chits.each do |valley|
+      valley.tile_id = valley_ids.shift
+      valley.save
+    end
+
+    cave_warning_chits.each do |cave|
+      cave.tile_id = cave_ids.shift
+      cave.save
+    end
+
+    woods_warning_chits.each do |wood|
+      wood.tile_id = wood_ids.shift
+      wood.save
+    end
+  end
+
   def lost_c_setup
     all_cave_tiles_ids = Tile.where(tile_type: 'cave').pluck(:id)
     all_mountain_tiles_ids = Tile.where(tile_type: 'mountain').pluck(:id)
