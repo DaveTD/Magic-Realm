@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223024233) do
+ActiveRecord::Schema.define(version: 20150404022543) do
 
   create_table "action_chits", force: :cascade do |t|
     t.integer  "player_id"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.string   "time_of_day"
     t.integer  "turn"
     t.integer  "current_players_turn"
+    t.integer  "prowling_row"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -348,6 +349,18 @@ ActiveRecord::Schema.define(version: 20150223024233) do
   end
 
   add_index "treasures", ["game_id"], name: "index_treasures_on_game_id"
+
+  create_table "warning_chits", force: :cascade do |t|
+    t.integer  "game_id"
+    t.string   "name"
+    t.string   "letter"
+    t.integer  "tile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "warning_chits", ["game_id"], name: "index_warning_chits_on_game_id"
+  add_index "warning_chits", ["tile_id"], name: "index_warning_chits_on_tile_id"
 
   create_table "weapons", force: :cascade do |t|
     t.string   "weapon_name"

@@ -7,7 +7,7 @@
   Tile.create(name: "dark valley", tile_type: 'valley', enchanted: false)
   Tile.create(name: "borderland", tile_type: 'cave', enchanted: false)
   Tile.create(name: "oak woods", tile_type: 'woods', enchanted: false)
-  Tile.create(name: "deep woods", tile_type: 'Mountain', enchanted: false)
+  Tile.create(name: "deep woods", tile_type: 'mountain', enchanted: false)
   Tile.create(name: "curst valley", tile_type: 'valley', enchanted: false)
   Tile.create(name: "cavern", tile_type: 'cave', enchanted: false)
   Tile.create(name: "bad valley", tile_type: 'valley', enchanted: false)
@@ -215,7 +215,7 @@ travs = [
   {:id => 46, :trav => [42,47], :e_trav => [42], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 47, :trav => [46,49], :e_trav => [48,49], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 48, :trav => [69,71], :e_trav => [47,69,71], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
-  ## Tile 9 - Deep Woods 
+  ## Tile 9 - Deep Woods
   {:id => 49, :trav => [25,47,50,51], :e_trav => [51,53], :hidden => 51, :hidden_type => 'path', :e_hidden => nil, :e_hidden_type => nil},
   {:id => 50, :trav => [49,51,53], :e_trav => [54,51,53], :hidden => 53, :hidden_type => 'path', :e_hidden => 51, :e_hidden_type => 'path'},
   {:id => 51, :trav => [49,50,52], :e_trav => [49,50,53], :hidden => 49, :hidden_type => 'path', :e_hidden => 53, :e_hidden_type => 'path'},
@@ -229,7 +229,7 @@ travs = [
   {:id => 58, :trav => [56,60,74], :e_trav => [56,60,74], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 59, :trav => [57], :e_trav => [57], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 60, :trav => [58], :e_trav => [58], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
-  ## Tile 11 - Cavern   
+  ## Tile 11 - Cavern
   {:id => 61, :trav => [38,63,66], :e_trav => [63,66], :hidden => 63, :hidden_type => 'passage', :e_hidden => 66, :e_hidden_type => 'passage'},
   {:id => 62, :trav => [44,63], :e_trav => [65,64], :hidden => nil, :hidden_type => nil, :e_hidden => 64, :e_hidden_type => 'passage'},
   {:id => 63, :trav => [62,61,64,65], :e_trav => [61,65], :hidden => 61, :hidden_type => 'passage', :e_hidden => nil, :e_hidden_type => nil},
@@ -258,14 +258,14 @@ travs = [
   {:id => 82, :trav => [83],  :e_trav => [79,83], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 83, :trav => [80,82], :e_trav => [80,82], :hidden => nil, :hidden_type => nil, :e_hidden => 79, :e_hidden_type => 'path'},
   {:id => 84, :trav => [79,81], :e_trav => [79,81], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
-  ## Tile 16 - Caves   
+  ## Tile 16 - Caves
   {:id => 85, :trav => [86,90], :e_trav => [87,89], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 86, :trav => [70,85,87], :e_trav => [87],  :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 87, :trav => [86,88], :e_trav => [85,86], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 88, :trav => [72,87], :e_trav => [89,87],  :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 89, :trav => [90,107], :e_trav => [85,90], :hidden => nil, :hidden_type => nil, :e_hidden => 90, :e_hidden_type => 'passage'},
   {:id => 90, :trav => [85,89], :e_trav => [88,89], :hidden => nil, :hidden_type => nil, :e_hidden => 89, :e_hidden_type => 'passage'},
-  ## Tile 17 - Ruins 
+  ## Tile 17 - Ruins
   {:id => 91, :trav => [73,92,95], :e_trav => [73,92,95], :hidden => 92, :hidden_type => 'path', :e_hidden => nil, :e_hidden_type => nil},
   {:id => 92, :trav => [75,91,93,96], :e_trav => [75,91,96,93], :hidden => 91, :hidden_type => 'path', :e_hidden => 96, :e_hidden_type => 'path'},
   {:id => 93, :trav => [115], :e_trav => [115,92], :hidden => nil, :hidden_type => nil, :e_hidden => 92, :e_hidden_type => 'path'},
@@ -313,7 +313,7 @@ travs.each do |t|
     t_new.hidden_type = t[:e_hidden_type]
     t_new.save
   end
-end 
+end
 
   ## Tiles
 tile_travs =[
