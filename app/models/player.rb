@@ -90,22 +90,32 @@ class Player < ActiveRecord::Base
     record("Player #{self.name} #{result} in clearing #{action.clearing.id}.", false)
   end
 
-  def perform_standard_loot
+  def peform_loot
+    result = "found nothing"
     roll = Random.rand(1..6)
-
-    looting_pile = GoldSite.where(game_id: game_id).where(clearing: self.clearing_id)
-    #looting_pile ||= NativesCamp.where(tile: my_tile).where(clearing_number: my_clearing)
-    #looting_pile ||= Building.where(tile: my_tile).where(clearing_number: my_clearing)
-
-    loot_collection = Treasure.where(game_id: game_id).where(pile: looting_pile.name)
-
-    item_found = loot_collection[roll] if loot_collection
-
-    if item_found
-      record("Player #{self.name} found #{item_found}.", false)
-    else
-      record("Player #{self.name} looted, but found nothing", false)
+    item = loot_clearing(roll)
+    if item != nil
+      item.pile = nil
+      item.player_id = self.id
+      result = "found #{item.name}"
     end
+    record("Player #{self.name} rolled a #{roll} #{result} when looting", false)
+  end
+
+  def loot_clearing(roll)
+    looted_item = nil
+    looting_site = GoldSite.where(clearing_id: self.clearing_id).first
+    if looting_site != nil
+      pile = looting_site.site_name
+      large_treasures = Treasure.where(pile: pile).where(large: true)
+      small_treasures = Treasure.where(pile: pile).where(large: false)
+      all_treasures = []
+      all_treasures << large_treasures << small_treasures
+      all_treasures.flatten
+
+      looted_item = all_treasures[roll - 1]
+    end
+    return looted_item
   end
 
   def perform_search(search_action)

@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.integer  "clearing_id"
     t.boolean  "lost_city"
     t.boolean  "lost_castle"
-    t.string   "name"
+    t.string   "site_name"
     t.integer  "tile_clearing_number"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
@@ -342,6 +342,7 @@ ActiveRecord::Schema.define(version: 20150223024233) do
     t.boolean  "metatreasure"
     t.boolean  "movable"
     t.string   "pile"
+    t.integer  "player_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end

@@ -14,6 +14,7 @@
     <th>Metatreasure (TWT)</th>
     <th>Movable</th>
     <th>Pile</th>
+    <th>Player ID (Inventory)</th>
     <th>Edit</th>
     <th>Delete</th>
 
@@ -32,6 +33,7 @@
       <td><%= a.metatreasure %></td>
       <td><%= a.movable %></td>
       <td><%= a.pile %></td>
+      <td><%= a.player_id %></td>
       <td><%= link_to "Edit #{a.name}", edit_game_treasure_path(params[:game_id], a.id) %></td>
       <td><%= link_to "Delete #{a.name}", game_treasure_path(params[:game_id], a.id), :method => :delete %></td>
     </tr>

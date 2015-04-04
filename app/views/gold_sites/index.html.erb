@@ -11,7 +11,7 @@
     <th>Delete</th>
   <% @gold_sites.each do |a| %>
     <tr>
-      <td><%= link_to "#{a.name}", game_gold_site_path(params[:game_id], a.id) %></td>
+      <td><%= link_to "#{a.site_name}", game_gold_site_path(params[:game_id], a.id) %></td>
       <td><%= a.tile.try(:name) %></td>
       <td><%= a.tile_clearing_number %></td>
       <td><%= a.clearing_id %></td>
