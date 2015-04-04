@@ -11,6 +11,7 @@ class Game < ActiveRecord::Base
 
   def init
     self.turn = 1
+    self.prowling_row = 0
     save
   end
 
@@ -84,6 +85,13 @@ class Game < ActiveRecord::Base
   def all_player_queues_submitted
     player_actions_submitted!
     select_action_order
+    set_prowling_row
+  end
+
+  def set_prowling_row
+    roll = Random.rand(1..6)
+    self.prowling_row = roll
+    self.save
   end
 
   # player
@@ -124,7 +132,7 @@ class Game < ActiveRecord::Base
   end
 
   def start_next_turn
-    turn = PlayersQueue.where(game_id: id).incomplete.order('turn_number ASC').first
+    turn = PlayersQueue.where(game_id: self.id).incomplete.order('turn_number ASC').first
     unless turn
       denizen_actions_completed!
       self.current_players_turn = nil
@@ -136,6 +144,16 @@ class Game < ActiveRecord::Base
     save
   end
 
+  def create_denizens clearing_id
+    # really just creating monsters
+    # get the related tile to this clearing_id
+    tile = Clearing.where(game_id: self.id).where(id: clearing_id).tile_id
+    sound_chit_here = SoundChit.where(game_id: self.id).where(tile_id: tile)
+    special_chit_here = SpecialChit.where(game_id: self.id).where(tile_id: tile)
+    # check if there's anything for that sound, in the current prowling row
+
+  end
+
   def go_to_bird_song
     combat_completed!
     self.turn += 1
@@ -144,6 +162,6 @@ class Game < ActiveRecord::Base
   end
 
   def determine_winner
-    all_players = Player.where(game_id: self.id).where(dead: flase)
+    all_players = Player.where(game_id: self.id).where(dead: false)
   end
 end

@@ -63,21 +63,19 @@ class Player < ActiveRecord::Base
     save
     record("Player #{self.name} moved to #{action.clearing.tile.name} - #{action.clearing.clearing_number}.", false)
 
-    # check if monster or player is blocking
+    all_players = Players.all
+    all_players = all_players - self
+    all_players.each do |other_player|
+      if self.clearing_id == other_player.clearing.id
+      case self.hidden
+      when true
+        if other_player.found_hidden_enemies
+          # pop a modal for other_player
+        end
 
-    #all_players = Players.all
-
-    #all_players.each do |other_player|
-    #  if self.clearing_id == other_player.clearing.id
-    #  case self.hidden
-    #  when true
-    #    if other_player.found_hidden_enemies
-    #        # pop a modal for other_player
-    #      end
-    #    end
-    #  when false
-    #    # pop a modal for the other_player
-    #  end
+      when false
+       # pop a modal for the other_player
+      end
   end
 
   def perform_hide(action)
@@ -224,8 +222,17 @@ class Player < ActiveRecord::Base
   end
 
   def perform_rest(action)
-    #harmed_chits = ActionChits.where(player_id: self.id).where('damage > 0')
-    record("Player #{self.name} rested in #{action.clearing.tile.name} - #{action.clearing.clearing_number}", false)
+    healed = ""
+    if self.wounds > 0
+      self.wounds = self.wounds - 1
+      self.fatigue = self.fatigue + 1
+      healed = "wound"
+    elsif self.fatigue > 0
+      self.fatigue = self.fatigue - 1
+      healed = "fatigue"
+    end
+    self.save
+    record("Player #{self.name} rested, healing a #{healed} in #{action.clearing.tile.name} - #{action.clearing.clearing_number}", false)
   end
 
   def blocked!
@@ -260,6 +267,7 @@ class Player < ActiveRecord::Base
     player_queue = PlayersQueue.where(player_id: id).incomplete.first
     player_queue.complete = true
     player_queue.save
+    game.create_denizens self.clearing_id
     game.start_next_turn
   end
 end
