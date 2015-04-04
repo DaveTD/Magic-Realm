@@ -15,6 +15,7 @@ node(:buttons) do |a|
     move_b: a.can_move?,
     hide_b: a.can_hide?,
     search_b: a.can_search?,
+    loot_b: a.can_loot?,
     rest_b: a.can_rest?,
     enchant_b: a.can_enchant?
   }

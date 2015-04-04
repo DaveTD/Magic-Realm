@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get 'time_of_day'
       get 'current_player'
       get 'cheat_mode'
-      get 'showclearingtreasures'
+      get 'show_clearing_treasures'
     end
     resources :gold_sites
     resources :sound_chits
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       get 'submit_actions'
       get 'next_action'
       get 'end_turn'
+      get 'update_block'
     end
   end
 

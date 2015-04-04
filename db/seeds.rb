@@ -412,5 +412,8 @@ character_seed.each do |cs|
                         starting_gold: 10)
 end
 
-game = Game.create()
-Player.create(game_id: game.id, first_name: 'Joe', last_name: 'Blow', character_class_id: 1)
+game = Game.create(turn: 1, prowling_row: 0)
+game.players_ready!
+
+Player.create(game_id: game.id, first_name: 'Joe', last_name: 'Blow', character_class_id: 1, wounds: 0, fatigue: 0)
+Player.create(game_id: game.id, first_name: 'Jim', last_name: 'Vim', character_class_id: 2, wounds: 0, fatigue: 0)

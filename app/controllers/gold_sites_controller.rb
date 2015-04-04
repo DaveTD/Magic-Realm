@@ -10,7 +10,7 @@ class GoldSitesController < ApplicationController
   def update
     gold_site = GoldSite.where(game_id: params[:game_id]).where(id: params[:id]).first
     gold_site.update!(gold_site_params)
-    redirect_to game_gold_site_index_path
+    redirect_to game_gold_sites_path
   end
 
   def show
@@ -19,7 +19,7 @@ class GoldSitesController < ApplicationController
 
   def create
     GoldSite.create(gold_site_params)
-    redirect_to game_gold_site_index_path
+    redirect_to game_gold_sites_path
     #gold_site.save
   end
 
@@ -30,7 +30,7 @@ class GoldSitesController < ApplicationController
   def destroy
     @gold_site = GoldSite.where(game_id: params[:game_id]).where(id: params[:id]).first
     @gold_site.destroy
-    redirect_to game_gold_site_index_path
+    redirect_to game_gold_sites_path
   end
 
   def set_default_response_format

@@ -1,23 +1,20 @@
 class MonstersController < ApplicationController
   def index
     @monsters = Monster.where(game_id: params[:game_id])
-    render :template => 'monsters/index.html'
   end
 
   def edit
     @monster = Monster.where(game_id: params[:game_id]).where(id: params[:id]).first
-    render :template => 'monsters/edit.html'
   end
 
   def update
     monster = Monster.where(game_id: params[:game_id]).where(id: params[:id]).first
     monster.update!(monster_params)
-    redirect_to game_monster_index_path
+    redirect_to game_monsters_path
   end
 
   def show
     @monster = Monster.where(game_id: params[:game_id]).where(id: params[:id]).first
-    render :template => 'monsters/show.html'
   end
 
   def create
@@ -28,13 +25,12 @@ class MonstersController < ApplicationController
 
   def new
     @monster = Monster.new
-    render :template => 'monsters/new.html'
   end
 
   def destroy
     @monster = Monster.where(game_id: params[:game_id]).where(id: params[:id]).first
     @monster.destroy
-    redirect_to game_monster_index_path
+    redirect_to game_monsters_path
   end
 
 private
