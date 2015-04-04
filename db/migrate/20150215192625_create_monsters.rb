@@ -42,7 +42,6 @@ class CreateMonsters < ActiveRecord::Migration
       t.integer :wounds
       t.boolean :on_board
       t.boolean :dead
-      t.string :monster_name
 
       t.timestamps null: false
     end
