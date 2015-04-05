@@ -1,0 +1,18 @@
+<h1>Found Hidden Passages Index</h1>
+
+<table>
+    <th>Player</th>
+    <th>Internal Clearing ID</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  <% @found_hidden_passages.each do |a| %>
+    <tr>
+      <td><%= a.player_id %></td>
+      <td><%= a.clearing_id %></td>
+      <td><%= link_to "Edit", edit_game_found_hidden_passage_path(params[:game_id], a.id) %></td>
+      <td><%= link_to "Delete", game_found_hidden_passage_path(params[:game_id], a.id), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Create Found Hidden Passage", new_game_found_hidden_passage_path(params[:game_id]) %>

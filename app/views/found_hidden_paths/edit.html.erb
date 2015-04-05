@@ -1,0 +1,6 @@
+<h1>Found Hidden Path Edit</h1>
+<%= form_for :found_hidden_path, url: game_found_hidden_path_path, html: { method: :patch } do |f| %>
+  <b>Player</b> <%= f.text_field :player_id %></br>
+  <b>Internal Clearing</b><%= f.text_field :clearing_id %></br>
+  <%= f.submit "Update" %>
+<% end %>

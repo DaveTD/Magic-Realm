@@ -1,0 +1,7 @@
+<h1>New Found Hidden Passage</h1>
+<%= form_for :found_hidden_passage, url: game_found_hidden_passages_path, html: { method: :post } do |f| %>
+  <b>Game</b> <%= f.text_field :game_id, :value => "#{params[:game_id]}" %></br>
+  <b>Player</b> <%= f.text_field :player_id %></br>
+  <b>Internal Clearing</b><%= f.text_field :clearing_id %></br>
+  <%= f.submit "New!" %>
+<% end %>

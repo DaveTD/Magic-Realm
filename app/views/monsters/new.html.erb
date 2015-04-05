@@ -1,6 +1,5 @@
 <h1>Monster New</h1>
-
-<%= form_for :monster, url: game_monster_index_path, html: { method: :post } do |f| %>
+<%= form_for :monster, url: game_monsters_path, html: { method: :post } do |f| %>
   <b>Game</b> <%= f.text_field :game_id, :value => "#{params[:game_id]}" %></br>
   <b>Name</b> <%= f.text_field :monster %></br>
   <b>Damage Type</b> <%= f.text_field :damage_type %></br>
@@ -11,5 +10,34 @@
   <b>Clearing</b> <%= f.text_field :clearing_id %></br>
   <b>Prowling</b> <%= f.text_field :prowling %></br>
   <b>Blocked</b> <%= f.text_field :blocked %></br>
+  <b>Spawn Row</b> <%= f.text_field :spawn_row %> </br>
+  <b>Hoard?</b> <%= f.text_field :hoard_appears %> </br>
+  <b>Lair?</b> <%= f.text_field :lair_appears %> </br>
+  <b>Altar?</b><%= f.text_field :altar_appears %> </br>
+  <b>Shrine?</b><%= f.text_field :shrine_appears %> </br>
+  <b>Pool?</b><%= f.text_field :pool_appears %> </br>
+  <b>Vault?</b><%= f.text_field :vault_appears %> </br>
+  <b>Cairns?</b><%= f.text_field :cairns_appears %> </br>
+  <b>Statue?</b><%= f.text_field :statue_appears %> </br>
+  <b>Flutter?</b><%= f.text_field :flutter_appears %> </br>
+  <b>Howl?</b><%= f.text_field :howl_appears %> </br>
+  <b>Patter?</b><%= f.text_field :patter_appears %> </br>
+  <b>Roar?</b><%= f.text_field :roar_appears %> </br>
+  <b>Sliber?</b><%= f.text_field :slither_appears %> </br>
+  <b>Bones?</b><%= f.text_field :bones_appears %> </br>
+  <b>Dank?</b><%= f.text_field :dank_appears %> </br>
+  <b>Ruins?</b><%= f.text_field :ruins_appears %> </br>
+  <b>Stink?</b><%= f.text_field :stink_appears %> </br>
+  <b>Smoke?</b><%= f.text_field :smoke_appears %></br>
+  <b>Mountain?</b><%= f.text_field :m_appears %></br>
+  <b>Valley?</b><%= f.text_field :v_appears %></br>
+  <b>Woods?</b><%= f.text_field :w_appears %></br>
+  <b>Caves?</b><%= f.text_field :c_appears %></br>
+  <b>Fame Reward</b><%= f.text_field :fame_reward %></br>
+  <b>Notoriety Reward</b><%= f.text_field :notoriety_reward %></br>
+  <b>Fatigue</b><%= f.text_field :fatigue %></br>
+  <b>Wounds</b><%= f.text_field :wounds %></br>
+  <b>On Board</b><%= f.text_field :on_board %></br>
+  <b>Dead</b><%= f.text_field :dead %></br>
   <%= f.submit "New!" %>
 <% end %>

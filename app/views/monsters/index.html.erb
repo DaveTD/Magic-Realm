@@ -10,6 +10,35 @@
     <th>Clearing ID</th>
     <th>Prowling</th>
     <th>Blocked</th>
+    <th>Spawn Row</th>
+    <th>Hoard?</th>
+    <th>Lair?</th>
+    <th>Altar?</th>
+    <th>Shrine?</th>
+    <th>Pool?</th>
+    <th>Vault?</th>
+    <th>Cairns?</th>
+    <th>Statue?</th>
+    <th>Flutter?</th>
+    <th>Howl?</th>
+    <th>Patter?</th>
+    <th>Roar?</th>
+    <th>Slither?</th>
+    <th>Bones?</th>
+    <th>Dank?</th>
+    <th>Ruins?</th>
+    <th>Stink?</th>
+    <th>Smoke?</th>
+    <th>Mountain?</th>
+    <th>Valley?</th>
+    <th>Woods?</th>
+    <th>Caves?</th>
+    <th>Fame Reward</th>
+    <th>Notoriety Reward</th>
+    <th>Fatigue</th>
+    <th>Wounds</th>
+    <th>On Board</th>
+    <th>Dead</th>
     <th>Edit</th>
     <th>Delete</th>
   <% @monsters.each do |a| %>
@@ -23,6 +52,35 @@
       <td><%= a.clearing_id %></td>
       <td><%= a.prowling %></td>
       <td><%= a.blocked %></td>
+      <td><%= a.spawn_row %></td>
+      <td><%= a.hoard_appears %></td>
+      <td><%= a.lair_appears %></td>
+      <td><%= a.altar_appears %></td>
+      <td><%= a.shrine_appears %></td>
+      <td><%= a.pool_appears %></td>
+      <td><%= a.vault_appears %></td>
+      <td><%= a.cairns_appears %></td>
+      <td><%= a.statue_appears %></td>
+      <td><%= a.flutter_appears %></td>
+      <td><%= a.howl_appears %></td>
+      <td><%= a.patter_appears %></td>
+      <td><%= a.roar_appears %></td>
+      <td><%= a.slither_appears %></td>
+      <td><%= a.bones_appears %></td>
+      <td><%= a.dank_appears %></td>
+      <td><%= a.ruins_appears %></td>
+      <td><%= a.stink_appears %></td>
+      <td><%= a.smoke_appears %></td>
+      <td><%= a.m_appears %></td>
+      <td><%= a.v_appears %></td>
+      <td><%= a.w_appears %></td>
+      <td><%= a.c_appears %></td>
+      <td><%= a.fame_reward %></td>
+      <td><%= a.notoriety_reward %></td>
+      <td><%= a.fatigue %></td>
+      <td><%= a.wounds %></td>
+      <td><%= a.on_board %></td>
+      <td><%= a.dead %></td>
       <td><%= link_to "Edit #{a.monster}", edit_game_monster_path(params[:game_id], a.id) %></td>
       <td><%= link_to "Delete #{a.monster}", game_monster_path(params[:game_id], a.id), :method => :delete %></td>
     </tr>

@@ -1,0 +1,6 @@
+<h1>Discovered Clearing Edit</h1>
+<%= form_for :discovered_chits_clearing, url: game_discovered_chits_clearing_path, html: { method: :patch } do |f| %>
+  <b>Player</b> <%= f.text_field :player_id %></br>
+  <b>Internal Clearing</b><%= f.text_field :clearing_id %></br>
+  <%= f.submit "Update" %>
+<% end %>

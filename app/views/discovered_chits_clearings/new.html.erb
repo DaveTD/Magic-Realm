@@ -1,0 +1,7 @@
+<h1>New Discovered Clearing</h1>
+<%= form_for :discovered_chits_clearing, url: game_discovered_chits_clearings_path, html: { method: :post } do |f| %>
+  <b>Game</b> <%= f.text_field :game_id, :value => "#{params[:game_id]}" %></br>
+  <b>Player</b> <%= f.text_field :player_id %></br>
+  <b>Internal Clearing</b><%= f.text_field :clearing_id %></br>
+  <%= f.submit "New!" %>
+<% end %>
