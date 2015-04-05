@@ -145,7 +145,7 @@ class Game < ActiveRecord::Base
     save
   end
 
-  def create_denizens clearing_id
+  def create_denizens clearing_id, player_id
     # get the related tile to this clearing_id
     tile = Clearing.find(clearing_id).tile_id
     sound_chits_here = SoundChit.where(game_id: self.id).where(tile_id: tile)
@@ -154,6 +154,7 @@ class Game < ActiveRecord::Base
     # check if there's anything for that sound, in the current prowling row
     unless sound_chits_here.empty?
       sound_chits_here.each do |sound_chit|
+        record(player_id, "Player #{player_id} hears a #{sound_chit.name.downcase}!", false)
         sound_appears = sound_chit.name.downcase + "_appears"
         tile_appears = Tile.where(id: sound_chit.tile_id).first.tile_type[0] + "_appears"
 
@@ -176,6 +177,7 @@ class Game < ActiveRecord::Base
 
     unless gold_sites_here.empty?
       gold_sites_here.each do |gold_site|
+        record(player_id, "Player #{player_id} sees the #{gold_site.name}.", false)
         site_appears = gold_site.name.downcase + "_appears"
         appearing_monster = Monster.where(game_id: self.id).where("#{site_appears} IS 't'").where(dead: false).where(on_board: false).where(spawn_row: self.spawn_row)
         if appearing_monster != nil
@@ -189,6 +191,7 @@ class Game < ActiveRecord::Base
 
     unless warning_chits_here.empty?
       warning_chits_here.each do |warning_chit|
+        record(player_id, "There's #{warning_chit.name.downcase} in player #{player_id}'s tile.", false)
         warning_appears = warning_chit.name.downcase + "_appears"
         appearing_monster_name = Monster.where(game_id: self.id).where(dead: false).where(on_board: false).where(spawn_row: self.spawn_row).where("#{warning_appears} IS 't'").first.monster
         unless appearing_monster_name.empty?
@@ -210,6 +213,11 @@ class Game < ActiveRecord::Base
       end
     end
 
+  end
+
+  def record(player_id, notification, private_action)
+    r = Notification.new(player: player_id, game: self, action: notification, private_notification: private_action, turn: self.turn)
+    r.save
   end
 
   def go_to_bird_song
