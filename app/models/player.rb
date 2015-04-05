@@ -108,6 +108,13 @@ class Player < ActiveRecord::Base
     record("Player #{self.name} #{result} in clearing #{action.clearing.id}.", false)
   end
 
+  def perform_enchant(action, dice)
+    tile = self.clearing.tile
+    tile.enchanted = true
+    tile.save
+    record("Player #{self.name} enchanted the #{tile.name} tile", false)
+  end
+
   def perform_loot(action, dice)
     result = "found nothing"
     roll = Random.rand(1..6)

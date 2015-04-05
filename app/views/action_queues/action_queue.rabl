@@ -4,6 +4,9 @@ attributes :id, :action_name, :action_this_turn, :clearing_id, :completed
 
 child :clearing do
   attributes :id, :x, :y, :exit, :movement_type, :tile_id
+  child :tile do
+    attributes :name
+  end
 end
 
 child(:target_clearings, :object_root => false, :if => lambda { |a| a.search? || a.move?}) do

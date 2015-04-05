@@ -3,6 +3,7 @@ class ActionQueuesController < ApplicationController
 
   def create
     @action_queue = ActionQueue.create(action_queue_params)
+    @tile = @player.clearing.tile
     render 'action_queues/action_queue'
   end
 

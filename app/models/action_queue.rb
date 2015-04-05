@@ -10,7 +10,7 @@ class ActionQueue < ActiveRecord::Base
   scope :enchants, -> {where(action_name: 'enchant')}
   scope :not_complete, -> {where(completed: false)}
   scope :actions_this_turn, ->(player){where(player_id: player.id, turn: player.game.turn).not_complete}
-  scope :next_turn, ->(player){actions_this_turn(player).order('action_this_turn ASC').first}
+  scope :next_turn, ->(player){actions_this_turn(player).not_complete.order('action_this_turn ASC').first}
 
   after_create :init
   after_create :set_action_this_turn
