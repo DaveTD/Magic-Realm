@@ -290,7 +290,7 @@ class Player < ActiveRecord::Base
     player_queue = PlayersQueue.where(player_id: id).incomplete.first
     player_queue.complete = true
     player_queue.save
-    game.create_denizens self.clearing_id
+    game.create_denizens self.clearing_id, self.id
     game.start_next_turn
   end
 end
