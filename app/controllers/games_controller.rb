@@ -46,22 +46,25 @@ class GamesController < ApplicationController
      render :template => 'games/lost_items.html'
    end
 
- def showclearingtreasures
-  gold_site = GoldSite.where(game_id: params[:id]).where(clearing_id: params[:clearing]).first
+ def show_clearing_treasures
+  gold_site = GoldSite.where(game_id: params[:id]).where(clearing_id: params[:clearing].to_i).first
 
   @treasure_names = []
   @pile_name = ""
 
   if gold_site
-    treasure_list = Treasure.where(game_id: params[:id]).where(pile: gold_site.name.downcase)
-    @pile_name = gold_site.name
+    treasure_list = Treasure.where(game_id: params[:id]).where(pile: gold_site.site_name.downcase)
+    @clearing = Clearing.where(id: params[:clearing]).first
+    @clearing_info = {number: @clearing.clearing_number, tile_name: @clearing.tile.name}
+    @pile_name = gold_site.site_name
 
     treasure_list.each do |t|
       @treasure_names << t.name
     end
+    render :template => 'games/treasure_list'
+  else
+    render json: nil
   end
-
-  render :template => 'games/treasure_list'
 end
 
 

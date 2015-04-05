@@ -12,11 +12,11 @@ class ActionQueue < ActiveRecord::Base
   scope :actions_this_turn, ->(player){where(player_id: player.id, turn: player.game.turn).not_complete}
   scope :next_turn, ->(player){actions_this_turn(player).not_complete.order('action_this_turn ASC').first}
 
-  after_initialize :init
+  after_create :init
   after_create :set_action_this_turn
 
   def init
-    self.completed = false if completed.nil?
+    self.completed = false
   end
 
   def move?
@@ -24,6 +24,9 @@ class ActionQueue < ActiveRecord::Base
   end
   def hide?
     self.action_name == 'hide'
+  end
+  def loot?
+    self.action_name == 'loot'
   end
   def search?
     self.action_name == 'search'
@@ -51,8 +54,14 @@ class ActionQueue < ActiveRecord::Base
     return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves
   end
 
+  def can_loot?
+    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves
+  end
+
   def can_enchant?
-    return ActionQueue.actions_this_turn(self.player).enchants.empty?
+    only_one = ActionQueue.actions_this_turn(self.player).enchants.empty?
+    count = ActionQueue.actions_this_turn(self.player).count < 2 + day_moves
+    return only_one && count
   end
 
   def target_clearings

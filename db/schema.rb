@@ -271,6 +271,7 @@ ActiveRecord::Schema.define(version: 20150404022543) do
     t.integer  "wounds"
     t.integer  "fatigue"
     t.boolean  "dead"
+    t.boolean  "block"
     t.integer  "character_class_id"
     t.integer  "level"
     t.integer  "between_clearing_1"

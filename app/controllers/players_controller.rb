@@ -35,7 +35,7 @@ class PlayersController < ApplicationController
     clearing_nums = DiscoveredChitsClearing.where(player_id: params[:id]).pluck(:clearing_id)
     clearing_data = Clearing.where(id: clearing_nums)
     known_clearings.each do |c|
-      @found_clearings << { :id => c[0], :x => clearing_data.where(id: c[1]).first.x, :y => clearing_data.where(id: c[1]).first.y }
+      @found_clearings << { :id => c.first, :clearing_id => c.last, :x => clearing_data.where(id: c.last).first.x, :y => clearing_data.where(id: c.last).first.y }
     end
 
     render 'players/show'
@@ -52,14 +52,17 @@ class PlayersController < ApplicationController
   end
 
   def next_action
-    # @player.do_next_action
+    # dice = params[:dice] == '0' ? nil : params[:dice].to_i
+    # @player.do_next_action(dice)
     @notifications = @player.game.notifications.not_private.last(5)
+    @aq_complete = ActionQueue.where(player_id: @player.id, completed: false).order('action_this_turn ASC').first.try(:completed)
     render 'players/next_action'
   end
 
   def chose_selection
+    dice = params[:dice] == '0' ? nil : params[:dice].to_i
     if params[:search_action]
-      roll = @player.perform_search(params[:search_action].downcase)
+      roll = @player.perform_search(params[:search_action].downcase, dice)
       if roll == 1
         render 'players/roll_one'
         return
@@ -72,6 +75,12 @@ class PlayersController < ApplicationController
 
   def end_turn
     @player.end_turn
+    render json: @player
+  end
+
+  def update_block
+    @player.block = params[:block]
+    @player.save
     render json: @player
   end
 

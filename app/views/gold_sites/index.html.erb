@@ -17,8 +17,8 @@
       <td><%= a.clearing_id %></td>
       <td><%= a.lost_city %></td>
       <td><%= a.lost_castle %></td>
-      <td><%= link_to "Edit #{a.name}", edit_game_gold_site_path(params[:game_id], a.id) %></td>
-      <td><%= link_to "Delete #{a.name}", game_gold_site_path(params[:game_id], a.id), :method => :delete %></td>
+      <td><%= link_to "Edit #{a.site_name}", edit_game_gold_site_path(params[:game_id], a.id) %></td>
+      <td><%= link_to "Delete #{a.site_name}", game_gold_site_path(params[:game_id], a.id), :method => :delete %></td>
     </tr>
   <% end %>
 </table>

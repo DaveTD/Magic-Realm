@@ -30,6 +30,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.integer :wounds
       t.integer :fatigue
       t.boolean :dead
+      t.boolean :block
       t.references :character_class, index: true
       t.integer :level
       t.integer :between_clearing_1

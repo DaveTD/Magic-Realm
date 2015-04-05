@@ -14,15 +14,19 @@ class Player < ActiveRecord::Base
   belongs_to :character_class
   belongs_to :inventory
 
-  after_initialize :init
+  after_create :init
 
   def init
-    self.clearing_id ||= 68
-    self.ready = false if ready.nil?
-    self.dead = false if dead.nil?
-    self.actions_submitted = false if self.actions_submitted.nil?
-    self.hidden = false if hidden.nil?
-    self.found_hidden_enemies = false if hidden.nil?
+    self.clearing_id = 68
+    self.ready = false
+    self.dead = false
+    self.actions_submitted = false
+    self.hidden = false
+    self.found_hidden_enemies = false
+    self.wounds = 0
+    self.fatigue = 0
+    self.block = false
+    save
   end
 
   def change_action_state
@@ -39,22 +43,21 @@ class Player < ActiveRecord::Base
     # prevent them from trading until the evening
   end
 
-  def do_next_action
+  def do_next_action dice
     action = ActionQueue.next_turn(self)
     unless action.search?
-      self.send(("perform_#{action.action_name}").to_sym, action)
+      self.send(("perform_#{action.action_name}").to_sym, action, dice)
       action.complete_action!
     end
   end
 
-  def perform_move(action)
+  def perform_move(action, dice)
     all_monsters = Monster.all
 
     all_monsters.each do |monster|
       if self.clearing_id == monster.clearing.id && !self.hidden
-        blocked!
+        self.blocked!
         monster.prowling = false
-        monster.blocked = true
         return
       end
     end
@@ -63,26 +66,41 @@ class Player < ActiveRecord::Base
     save
     record("Player #{self.name} moved to #{action.clearing.tile.name} - #{action.clearing.clearing_number}.", false)
 
-    all_players = Players.all
-    all_players = all_players - self
-    all_players.each do |other_player|
-      if self.clearing_id == other_player.clearing.id
-        case self.hidden
-        when true
-          if other_player.found_hidden_enemies
-            # pop a modal for other_player
-          end
+    all_players = Player.where(game: self.game)
+    all_players = all_players - [self]
+    return if all_players.empty?
 
-        when false
-        # pop a modal for the other_player
+    all_players.each do |other_player|
+      next if self.clearing_id != other_player.clearing_id
+
+      if self.block?
+        if (other_player.hidden? && self.found_hidden_enemies?) || !other_player.hidden?
+          other_player.blocked!
+          self.blocked!
+          break
+        end
+      end
+      if other_player.block?
+        if (self.hidden? && other_player.found_hidden_enemies?) || !self.hidden?
+          self.blocked!
+          other_player.blocked!
+          break
         end
       end
     end
   end
 
-  def perform_hide(action)
+  def blocked!
+    aqs = self.action_queues.update_all(completed: true)
+    self.hidden = false
+    record("Player #{self.name} was blocked and have no more actions this turn", false)
+    save
+  end
+
+  def perform_hide(action, dice)
     result = "successfully hid"
     roll = Random.rand(1..6)
+    roll = dice if dice
     if roll != 6
       hidden = true
       result = "failed to hide"
@@ -90,13 +108,22 @@ class Player < ActiveRecord::Base
     record("Player #{self.name} #{result} in clearing #{action.clearing.id}.", false)
   end
 
-  def peform_loot
+  def perform_enchant(action, dice)
+    tile = self.clearing.tile
+    tile.enchanted = true
+    tile.save
+    record("Player #{self.name} enchanted the #{tile.name} tile", false)
+  end
+
+  def perform_loot(action, dice)
     result = "found nothing"
     roll = Random.rand(1..6)
+    roll = dice if dice
     item = loot_clearing(roll)
     if item != nil
       item.pile = nil
       item.player_id = self.id
+      item.save
       result = "found #{item.name}"
     end
     record("Player #{self.name} rolled a #{roll} #{result} when looting", false)
@@ -106,29 +133,27 @@ class Player < ActiveRecord::Base
     looted_item = nil
     looting_site = GoldSite.where(clearing_id: self.clearing_id).first
     if looting_site != nil
-      pile = looting_site.site_name
+      pile = looting_site.site_name.downcase
       large_treasures = Treasure.where(pile: pile).where(large: true)
       small_treasures = Treasure.where(pile: pile).where(large: false)
-      all_treasures = []
-      all_treasures << large_treasures << small_treasures
-      all_treasures.flatten
-
+      all_treasures = large_treasures + small_treasures
       looted_item = all_treasures[roll - 1]
     end
     return looted_item
   end
 
-  def perform_search(search_action)
+  def perform_search(search_action, dice)
     action = ActionQueue.next_turn(self)
     if search_action == 'peer'
-      self.peer(action)
+      self.peer(action, dice)
     else
-      self.locate(action)
+      self.locate(action, dice)
     end
   end
 
-  def peer(action)
+  def peer(action, dice)
     roll = Random.rand(1..6)
+    roll = dice if dice
     case roll
     when 1
       return 1
@@ -148,8 +173,9 @@ class Player < ActiveRecord::Base
     action.complete_action!
   end
 
-  def locate(action)
+  def locate(action, dice)
     roll = Random.rand(1..6)
+    roll = dice if dice
     case roll
     when 1
       return 1
@@ -191,7 +217,7 @@ class Player < ActiveRecord::Base
     action.complete_action!
   end
 
-  def search_paths(clearing)
+  def search_paths(clearing, roll)
     found_path = FoundHiddenPath.new(player: self, game: self.game, clearing: clearing)
     found_path.save
     record("Player #{self.name} rolled a #{roll} and found hidden paths in #{clearing.tile.name} - #{clearing.clearing_number}", false)
@@ -216,14 +242,18 @@ class Player < ActiveRecord::Base
   end
 
   def search_discover_chits(tile, clearing, roll)
-    search_clues(tile)
-    discovered_chits = DiscoveredChitsClearing.new(player: self, game: self.game, clearing: clearing)
-    discovered_chits.save
-    record("Discovered in clearing #{clearing.id}", true)
-    record("Player #{self.name} rolled a #{roll} and discovered chits #{clearing.tile.name} - #{clearing.clearing_number}", false)
+    search_clues(tile, roll)
+    discovered_chits = DiscoveredChitsClearing.where(player: self, game: self.game, clearing: clearing).first
+    if discovered_chits.nil?
+      discovered_chits = DiscoveredChitsClearing.new(player: self, game: self.game, clearing: clearing)
+      discovered_chits.save
+      record("Player #{self.name} rolled a #{roll} and discovered chits #{clearing.tile.name} - #{clearing.clearing_number}", false)
+    else
+      record("Player #{self.name} rolled a #{roll}, but alrady discovered the chits in #{clearing.tile.name} - #{clearing.clearing_number}", false)
+    end
   end
 
-  def perform_rest(action)
+  def perform_rest(action, dice)
     healed = ""
     if self.wounds > 0
       self.wounds = self.wounds - 1
@@ -235,15 +265,6 @@ class Player < ActiveRecord::Base
     end
     self.save
     record("Player #{self.name} rested, healing a #{healed} in #{action.clearing.tile.name} - #{action.clearing.clearing_number}", false)
-  end
-
-  def blocked!
-    actions_to_remove = ActionQueue.where(player_id: self.id).where(turn: game.turn).where(game: self.game)
-    actions_to_remove.each do |action|
-      action.complete_action!
-      # in the future, this might be changing to a blocked action, where you can still trade, if trade is to be implemented
-    end
-    record("Player #{self.name} was blocked by an evil #{monster.name}!", false)
   end
 
   def record(notification, private_action)

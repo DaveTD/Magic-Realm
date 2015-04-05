@@ -147,7 +147,7 @@ class Game < ActiveRecord::Base
 
   def create_denizens clearing_id
     # get the related tile to this clearing_id
-    tile = Clearing.where(id: clearing_id).tile_id
+    tile = Clearing.find(clearing_id).tile_id
     sound_chits_here = SoundChit.where(game_id: self.id).where(tile_id: tile)
     gold_sites_here = GoldSite.where(game_id: self.id).where(tile_id: tile)
     warning_chits_here = WarningChit.where(game_id: self.id).where(tile_id: tile)
