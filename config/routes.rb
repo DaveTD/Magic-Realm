@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     resources :treasures
     resources :monsters
     resources :special_chits
+    resources :discovered_chits_clearings
+    resources :found_hidden_paths
+    resources :found_hidden_passages
     resources :players, only: [:index, :edit, :update]
   end
 

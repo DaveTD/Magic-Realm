@@ -39,6 +39,6 @@ class GoldSitesController < ApplicationController
 
 private
   def gold_site_params
-    params.require(:gold_site).permit(:game_id, :name, :tile_id, :tile_clearing_number, :clearing_id, :lost_city, :lost_castle)
+    params.require(:gold_site).permit(:game_id, :site_name, :tile_id, :tile_clearing_number, :clearing_id, :lost_city, :lost_castle)
   end
 end

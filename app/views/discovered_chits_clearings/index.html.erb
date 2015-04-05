@@ -1,0 +1,18 @@
+<h1>Discovered Chits Index</h1>
+
+<table>
+    <th>Player</th>
+    <th>Internal Clearing ID</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  <% @discovered_chits_clearings.each do |a| %>
+    <tr>
+      <td><%= a.player_id %></td>
+      <td><%= a.clearing_id %></td>
+      <td><%= link_to "Edit", edit_game_discovered_chits_clearing_path(params[:game_id], a.id) %></td>
+      <td><%= link_to "Delete", game_discovered_chits_clearing_path(params[:game_id], a.id), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Create Discovered Clearing", new_game_discovered_chits_clearing_path(params[:game_id]) %>
