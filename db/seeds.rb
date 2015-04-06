@@ -412,7 +412,7 @@ character_seed.each do |cs|
                         starting_gold: 10)
 end
 
-game = Game.create(turn: 1, prowling_row: 0)
+game = Game.create(turn: 1, prowling_row: 0, complete: false, name: "seeded game")
 game.players_ready!
 
 Player.create(game_id: game.id, first_name: 'Joe', last_name: 'Blow', character_class_id: 1, wounds: 0, fatigue: 0)

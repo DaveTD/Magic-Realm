@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   #Game Routes
   match '/games', :controller => 'game', :action => 'create', via: [:options]
+  match '/master_cheat_mode', :controller => 'master_cheat_mode', :action => 'master_cheat_mode', via: [:get]
 
   resources :games, only: [:index, :create, :show] do
     member do
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
       get 'time_of_day'
       get 'current_player'
       get 'cheat_mode'
-      get 'show_clearing_treasures'
+      get 'master_cheat_mode'
     end
     resources :gold_sites
     resources :sound_chits

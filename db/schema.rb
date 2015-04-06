@@ -138,9 +138,11 @@ ActiveRecord::Schema.define(version: 20150404022543) do
 
   create_table "games", force: :cascade do |t|
     t.string   "time_of_day"
+    t.string   "name"
     t.integer  "turn"
     t.integer  "current_players_turn"
     t.integer  "prowling_row"
+    t.string   "complete"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
