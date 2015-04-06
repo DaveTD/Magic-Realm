@@ -63,12 +63,6 @@ class Game < ActiveRecord::Base
     self.state || "unread"
   end
 
-  #def init
-   # self.turn ||= 1
-    #card_setup
-    # we're going to have to set this up so that it creates all of its own chits
-  #end
-
   def get_players
     players
   end
