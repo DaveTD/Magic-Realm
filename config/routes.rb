@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'current_player'
       get 'cheat_mode'
       get 'master_cheat_mode'
+      get 'show_clearing_treasures'
     end
     resources :gold_sites
     resources :sound_chits
