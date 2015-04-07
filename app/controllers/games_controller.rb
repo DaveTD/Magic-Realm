@@ -46,26 +46,32 @@ class GamesController < ApplicationController
      render :template => 'games/lost_items.html'
    end
 
- def show_clearing_treasures
-  gold_site = GoldSite.where(game_id: params[:id]).where(clearing_id: params[:clearing].to_i).first
+  def show_clearing_treasures
+    gold_site = GoldSite.where(game_id: params[:id]).where(clearing_id: params[:clearing].to_i).first
 
-  @treasure_names = []
-  @pile_name = ""
+    @treasure_names = []
+    @pile_name = ""
 
-  if gold_site
-    treasure_list = Treasure.where(game_id: params[:id]).where(pile: gold_site.site_name.downcase)
-    @clearing = Clearing.where(id: params[:clearing]).first
-    @clearing_info = {number: @clearing.clearing_number, tile_name: @clearing.tile.name}
-    @pile_name = gold_site.site_name
+    if gold_site
+      treasure_list = Treasure.where(game_id: params[:id]).where(pile: gold_site.site_name.downcase)
+      @clearing = Clearing.where(id: params[:clearing]).first
+      @clearing_info = {number: @clearing.clearing_number, tile_name: @clearing.tile.name}
+      @pile_name = gold_site.site_name
 
-    treasure_list.each do |t|
-      @treasure_names << t.name
+      treasure_list.each do |t|
+        @treasure_names << t.name
+      end
+      render :template => 'games/treasure_list'
+      else
+        render json: nil
     end
-    render :template => 'games/treasure_list'
-  else
-    render json: nil
   end
-end
+
+  def winning
+    load_game
+    @victor, @player_points = @game.determine_winners
+    render :template => 'games/winning'
+  end
 
 
   private

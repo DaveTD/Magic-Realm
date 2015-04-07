@@ -32,9 +32,14 @@ class TreasuresController < ApplicationController
     redirect_to game_treasures_path
   end
 
+  def inventory
+    @inventory = Treasure.where(game_id: params[:game_id]).where(player_id: params[:player_id]).pluck(:name)
+    render json: @inventory
+  end
+
 private
   def treasure_params
-    params.require(:treasure).permit(:game_id, :name, :large, :spell_type, :fame_value, :great, :fame_price_number, :enchanted, :weight, :notoriety_value, :price, :metatreasure, :movable, :pile)
+    params.require(:treasure).permit(:game_id, :name, :large, :spell_type, :fame_value, :great, :fame_price_number, :enchanted, :weight, :notoriety_value, :price, :metatreasure, :movable, :pile, :player_id)
   end
 
 end

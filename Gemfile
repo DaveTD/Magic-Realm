@@ -21,6 +21,7 @@ group :development, :test do
   gem 'terminal-notifier-guard', '~> 1.6.4'
   gem 'binding_of_caller'
   gem 'zeus'
+  gem 'rails-erd'
 end
 
 group :production do
