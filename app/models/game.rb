@@ -99,6 +99,8 @@ class Game < ActiveRecord::Base
       all_players.each do |player|
         all_ready &= player.ready
       end
+    else
+      all_ready = false
     end
 
     if all_ready
@@ -223,7 +225,67 @@ class Game < ActiveRecord::Base
     day_complete!
   end
 
-  def determine_winner
+  def determine_winners
+    great_treasures_multiplier, fame_multiplier, notoriety_multiplier, gold_multiplier = 1, 10, 20, 30
+    player_points = {}
+    gt_points, fame_points, notoriety_points, gold_points = 0, 0, 0, 0
+
     all_players = Player.where(game_id: self.id).where(dead: false)
+    all_players.each do |player|
+
+      great_treasures_vps = Treasure.where(game_id: self.id).where(player_id: player.id).where(great: true).count
+      fame_from_items = Treasure.where(game_id: self.id).where(player_id: player.id).sum(:fame_value)
+      fame_vps = player.fame + fame_from_items
+      notoriety_from_items = Treasure.where(game_id: self.id).where(player_id: player.id).sum(:notoriety_value)
+      notoriety_vps = player.notoriety + notoriety_from_items
+      gold_vps = player.gold - 10
+
+      if player.great_treasures_vps > 0
+        gt_needed = player.great_treasures_vps * great_treasures_multiplier
+        gt_points = great_treasures_vps - gt_needed
+        if gt_points < 0
+          gt_points = gt_points * 3
+        end
+        base_gt = gt_points/great_treasures_multiplier
+        bonus_gt = base_gt * great_treasures_vps
+      end
+      if player.fame_vps > 0
+        fame_needed = player.fame_vps * fame_multiplier
+        fame_points = fame_vps - fame_needed
+        if fame_points < 0
+          fame_points = fame_points * 3
+        end
+        base_fame = fame_points/fame_multiplier
+        bonus_fame = base_fame * fame_vps
+      end
+      if player.notoriety_vps > 0
+        notoriety_needed = player.notoriety_vps * notoriety_multiplier
+        notoriety_points = notoriety_vps - notoriety_needed
+        if notoriety_points < 0
+          notority_points = notoriety_points * 3
+        end
+        base_notoriety = notoriety_points/notoriety_multiplier
+        bonus_notoriety = base_notoriety * notoriety_vps
+      end
+      if player.gold_vps > 0
+        gold_needed = player.gold_vps * gold_multiplier
+        gold_points = gold_vps - gold_needed
+        if gold_points < 0
+          gold_points = gold_points * 3
+        end
+        base_gold = gold_points/gold_multiplier
+        bonus_gold = base_gold * gold_vps
+      end
+
+      grand_total = base_gold + base_notoriety + base_fame + base_gt + bonus_gt + bonus_fame + bonus_notoriety + bonus_gold
+      player_points["#{player.id}"] = grand_total
+    end
+
+    dead_players = Player.where(game_id: self.id).where(dead: true)
+    dead_players.each do |player|
+      player_points["#{player_id}"] = -100
+    end
+
+    return player_points.max_by{ |k,v| v }, player_points
   end
 end

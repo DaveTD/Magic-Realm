@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   #Game Routes
   match '/games', :controller => 'game', :action => 'create', via: [:options]
   match '/master_cheat_mode', :controller => 'master_cheat_mode', :action => 'master_cheat_mode', via: [:get]
+  match '/inventory/:game_id/:player_id', :controller => 'treasures', :action => 'inventory', via: [:get]
 
   resources :games, only: [:index, :create, :show] do
     member do
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
       get 'cheat_mode'
       get 'master_cheat_mode'
       get 'show_clearing_treasures'
+      get 'winning'
     end
     resources :gold_sites
     resources :sound_chits
