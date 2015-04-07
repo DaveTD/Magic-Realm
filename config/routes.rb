@@ -53,4 +53,18 @@ Rails.application.routes.draw do
       get 'actions_this_turn'
     end
   end
+
+  resources :fight_queues, only: [] do
+    member do
+      get 'fight'
+      get 'other_fights'
+      get 'submit_fight'
+      get 'current_state'
+      get 'player_choice'
+    end
+    collection do
+      get 'find_fight'
+    end
+  end
+
 end

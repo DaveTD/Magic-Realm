@@ -210,7 +210,6 @@ class Game < ActiveRecord::Base
         end
       end
     end
-
   end
 
   def record(player_id, notification, private_action)

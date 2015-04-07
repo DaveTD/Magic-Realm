@@ -54,13 +54,13 @@ class Player < ActiveRecord::Base
   def perform_move(action, dice)
     all_monsters = Monster.all
 
-    all_monsters.each do |monster|
-      if self.clearing_id == monster.clearing.id && !self.hidden
-        self.blocked!
-        monster.prowling = false
-        return
-      end
-    end
+    # all_monsters.each do |monster|
+    #   if self.clearing_id == monster.clearing.id && !self.hidden
+    #     self.blocked!
+    #     monster.prowling = false
+    #     return
+    #   end
+    # end
 
     self.clearing_id = action.clearing_id
     save
@@ -292,5 +292,11 @@ class Player < ActiveRecord::Base
     player_queue.save
     game.create_denizens self.clearing_id, self.id
     game.start_next_turn
+  end
+
+  def wound!(results)
+    self.wounds += results[:wounds]
+    self.fatigue += results[:fatigue]
+    save
   end
 end
