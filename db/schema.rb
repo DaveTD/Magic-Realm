@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150404022543) do
+ActiveRecord::Schema.define(version: 20150405011259) do
 
   create_table "action_chits", force: :cascade do |t|
     t.integer  "player_id"
@@ -111,6 +111,34 @@ ActiveRecord::Schema.define(version: 20150404022543) do
   add_index "discovered_chits_clearings", ["clearing_id"], name: "index_discovered_chits_clearings_on_clearing_id"
   add_index "discovered_chits_clearings", ["game_id"], name: "index_discovered_chits_clearings_on_game_id"
   add_index "discovered_chits_clearings", ["player_id"], name: "index_discovered_chits_clearings_on_player_id"
+
+  create_table "fight_actions", force: :cascade do |t|
+    t.string  "attack"
+    t.string  "defence"
+    t.integer "fight_queue_id"
+    t.integer "fight_actor_id"
+    t.integer "target_id"
+    t.integer "fight_round"
+    t.boolean "complete"
+  end
+
+  create_table "fight_actors", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "player_id"
+    t.integer "monster_id"
+    t.integer "fight_queue_id"
+    t.string  "state"
+    t.boolean "dead"
+    t.integer "turn"
+  end
+
+  create_table "fight_queues", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "clearing_id"
+    t.integer "turn"
+    t.integer "fight_round"
+    t.string  "state"
+  end
 
   create_table "found_hidden_passages", force: :cascade do |t|
     t.integer  "player_id"

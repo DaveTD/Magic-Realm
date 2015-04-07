@@ -293,4 +293,10 @@ class Player < ActiveRecord::Base
     game.create_denizens self.clearing_id, self.id
     game.start_next_turn
   end
+
+  def wound!(results)
+    self.wounds += results[:wounds]
+    self.fatigue += results[:fatigue]
+    save
+  end
 end
