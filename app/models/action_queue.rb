@@ -39,15 +39,15 @@ class ActionQueue < ActiveRecord::Base
   end
 
   def can_move?
-    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves + class_moves
+    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves + class_moves + item_moves
   end
 
   def can_hide?
-    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves + class_hides
+    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves + class_hides + item_hides
   end
 
   def can_search?
-    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves
+    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves + item_searches
   end
 
   def can_rest?
@@ -80,6 +80,30 @@ class ActionQueue < ActiveRecord::Base
 
   def class_hides
     if self.player.character_class.id == 9
+      return 1
+    end
+    return 0
+  end
+
+  def item_hides
+    cloak_owner = Treasure.where(game_id: self.player.game.id).where(name: 'Cloak of Mist').pluck(:player_id).first
+    if cloak_owner == self.player.id
+      return 1
+    end
+    return 0
+  end
+
+  def item_moves
+    seven_league_owner = Treasure.where(game_id: self.player.game.id).where(name: '7-League Boots').pluck(:player_id).first
+    if seven_league_owner == self.player.id
+      return 1
+    end
+    return 0
+  end
+
+  def item_searches
+    spectacles_owner = Treasure.where(game_id: self.player.game.id).where(name: 'Magic Spectacles').pluck(:player_id).first
+    if spectacles_owner == self.player.id
       return 1
     end
     return 0

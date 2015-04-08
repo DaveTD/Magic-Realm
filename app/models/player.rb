@@ -134,7 +134,23 @@ class Player < ActiveRecord::Base
 
   def loot_clearing(roll)
     looted_item = nil
-    looting_site = GoldSite.where(clearing_id: self.clearing_id).first
+    looting_site = GoldSite.where(game_id: self.game.id).where(clearing_id: self.clearing_id).first
+    in_city = looting_site.lost_city
+    in_castle = looting_site.lost_castle
+    city_map_owner = Treasure.where(game_id: self.game.id).where(name: 'Map of Lost City').pluck(:player_id).first
+    castle_map_owner = Treasure.where(game_id: self.game.id).where(name: 'Map of Lost Castle').pluck(:player_id).first
+    if in_city && (city_map_owner == self.id)
+      if roll > 1
+        roll = roll - 1
+      end
+      record("Player #{self.name} is looting in the lost city tile and owns the Map of Lost City! Roll reduced!", false)
+    end
+    if in_castle && (castle_map_owner == self.id)
+      if roll > 1
+        roll = roll - 1
+      end
+      record("Player #{self.name} is looting in the lost castle tile and owns the Map of Lost Castle! Roll reduced!", false)
+    end
     if looting_site != nil
       pile = looting_site.site_name.downcase
       large_treasures = Treasure.where(pile: pile).where(large: true)
@@ -171,7 +187,7 @@ class Player < ActiveRecord::Base
     when 5
       search_clues(action.clearing.tile, roll)
     when 6
-      record("Player #{self.name} peered, rolled a 6 and did nothing")
+      record("Player #{self.name} peered, rolled a 6 and did nothing", false)
     end
     action.complete_action!
   end
@@ -190,7 +206,7 @@ class Player < ActiveRecord::Base
     when 4
       search_discover_chits(action.clearing.tile, action.clearing, roll)
     when 5, 6
-      record("Player #{self.name} located, rolled a 5 or 6 and did nothing.")
+      record("Player #{self.name} located, rolled a 5 or 6 and did nothing.", false)
     end
     action.complete_action!
   end
