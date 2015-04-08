@@ -203,6 +203,7 @@ module ChitsetCreator
     monster_seed.each do |monster|
       Monster.create(game_id: monster[:game_id],
         monster: monster[:monster],
+        url: monster[:url],
         spawn_row: monster[:spawn_row],
         vulnerability: monster[:vulnerability],
         attacks: monster[:attacks],

@@ -1,5 +1,10 @@
 <h1>Master Cheat Mode</h1>
 
-<% @games.each do |game| %>
+<% @games_and_players.each do |game, player_ids| %>
   <%= link_to("#{game.name}", cheat_mode_game_path(id: game.id)) %><br>
+  <ul>
+  <% player_ids.each do |id| %>
+    <li><%= link_to("Player #{id}", "http://localhost:9000/#/games/#{game.id}/players/#{id}", method: false) %></li>
+  <% end %>
+  </ul>
 <% end %>
