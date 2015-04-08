@@ -104,6 +104,7 @@ class FightQueue < ActiveRecord::Base
 
     if agree_to_end && monsters.empty? || players.nil?
       complete!
+      self.game.go_to_bird_song
     else
       continue!
       create_round

@@ -114,7 +114,7 @@ class ActionQueue < ActiveRecord::Base
   end
 
   def cave_movement?
-    move = self.player.clearing.cave?
+    move = self.clearing.cave?
     actions = ActionQueue.actions_this_turn(self.player)
     actions.each do |a|
       move &= a.clearing.cave?

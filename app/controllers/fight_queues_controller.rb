@@ -14,6 +14,13 @@ class FightQueuesController < ApplicationController
     @player = Player.find params[:player_id]
     @game = @player.game
     fight_actor = FightActor.where(player_id: @player.id, turn: @game.turn).first
+
+    should_fight = @game.should_fight?(@player)
+    if !should_fight
+      render json: nil
+      return
+    end
+
     unless fight_actor
       @fight_queue = FightQueue.create(game_id: @game.id, clearing_id: @player.clearing.id)
       @fight_queue.create_fight

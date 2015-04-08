@@ -52,10 +52,10 @@ class Player < ActiveRecord::Base
   end
 
   def perform_move(action, dice)
-    all_monsters = Monster.all
+    all_monsters = Monster.where(game_id: self.game_id, clearing_id: action.clearing_id)
 
     all_monsters.each do |monster|
-      if self.clearing_id == monster.clearing.id && !self.hidden
+      if !self.hidden
         self.blocked!
         monster.prowling = false
         return
