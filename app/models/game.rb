@@ -209,6 +209,22 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def move_denizens_in_tile tile, player
+    tile_clearings = Clearing.where(tile_id: tile_id)
+    moving_monsters = Monster.where(game_id: self.id).where(clearing_id: tile_clearings).where(dead: false).where(prowling: true)
+
+    unless player.hidden
+      moving_monsters.each do |monster|
+        monster.clearing_id = player.clearing_id
+        monster.blocked = true
+        monster.prowling = false
+        monster.save
+        player.blocked!
+        record(player.id, "#{monster.monster} moved to #{player.name}'s clearing!")
+      end
+    end
+  end
+
   def record(player_id, notification, private_action)
     r = Notification.new(player_id: player_id, game: self, action: notification, private_notification: private_action, turn: self.turn)
     r.save
