@@ -310,6 +310,7 @@ class Player < ActiveRecord::Base
     player_queue.complete = true
     player_queue.save
     game.create_denizens self.clearing_id, self.id
+    game.move_denizens_in_tile self.clearing_id.tile, self
     game.start_next_turn
   end
 
