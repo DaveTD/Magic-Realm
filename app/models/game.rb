@@ -12,8 +12,8 @@ class Game < ActiveRecord::Base
   def init
     self.turn = 1
     self.prowling_row = 0
-    self.name ||= "generated game"
-    self.complete ||= false
+    self.name = "generated game"
+    self.complete = false
     save
   end
 
@@ -54,9 +54,6 @@ class Game < ActiveRecord::Base
     event :day_complete do
       transitions :from => :midnight, :to => :birdsong
     end
-
-    #event :everybody_died do
-    #end
   end
 
   def aasm_state
@@ -136,7 +133,6 @@ class Game < ActiveRecord::Base
       denizen_actions_completed!
       self.current_players_turn = nil
       save
-      self.go_to_bird_song
       return
     end
     self.current_players_turn = turn.player_id
@@ -156,13 +152,13 @@ class Game < ActiveRecord::Base
         sound_appears = sound_chit.name.downcase + "_appears"
         tile_appears = Tile.where(id: sound_chit.tile_id).first.tile_type[0] + "_appears"
 
-        appearing_monster_name = Monster.where(game_id: self.id).where("#{tile_appears} IS 't' AND #{sound_appears} IS 't'").where(dead: false).where(on_board: false).where(spawn_row: self.spawn_row).first.monster
-        unless appearing_monster_name.empty?
-          if appearing_monster_name.include? "Goblin"
-            appearing_monster_name.slice! "Small"
-            appearing_monster_name.slice! "Large"
+        appearing_monster_name = Monster.where(game_id: self.id).where("#{tile_appears} IS 't' AND #{sound_appears} IS 't'").where(dead: false).where(on_board: false).where(spawn_row: self.prowling_row).first
+        unless appearing_monster_name.nil?
+          if appearing_monster_name.monster.include? "Goblin"
+            appearing_monster_name.monster.slice! "Small"
+            appearing_monster_name.monster.slice! "Large"
           end
-          appearing_monsters = Monster.where(game_id: self.id).where("monster LIKE '%#{appearing_monster_name}%'")
+          appearing_monsters = Monster.where(game_id: self.id).where("monster LIKE '%#{appearing_monster_name.monster}%'")
           appearing_monsters.each do |monster|
             monster.on_board = true
             monster.clearing_id = sound_chit.clearing_id
@@ -177,7 +173,7 @@ class Game < ActiveRecord::Base
       gold_sites_here.each do |gold_site|
         record(player_id, "Player #{player_id} sees the #{gold_site.name}.", false)
         site_appears = gold_site.name.downcase + "_appears"
-        appearing_monster = Monster.where(game_id: self.id).where("#{site_appears} IS 't'").where(dead: false).where(on_board: false).where(spawn_row: self.spawn_row)
+        appearing_monster = Monster.where(game_id: self.id).where("#{site_appears} IS 't'").where(dead: false).where(on_board: false).where(spawn_row: self.prowling_row).first
         if appearing_monster != nil
           appearing_monster.on_board = true
           appearing_monster.clearing_id = gold_site.clearing_id
@@ -191,16 +187,16 @@ class Game < ActiveRecord::Base
       warning_chits_here.each do |warning_chit|
         record(player_id, "There's #{warning_chit.name.downcase} in player #{player_id}'s tile.", false)
         warning_appears = warning_chit.name.downcase + "_appears"
-        appearing_monster_name = Monster.where(game_id: self.id).where(dead: false).where(on_board: false).where(spawn_row: self.spawn_row).where("#{warning_appears} IS 't'").first.monster
-        unless appearing_monster_name.empty?
-          if (appearing_monster_name.include? "Goblin") || (appearing_monster_name.include? "Wolf")
-            appearing_monster_name.slice! "Small"
-            appearing_monster_name.slice! "Large"
-            appearing_monster_name.slice! "Light"
-            appearing_monster_name.slice! "Medium"
+        appearing_monster_name = Monster.where(game_id: self.id).where(dead: false).where(on_board: false).where(spawn_row: self.prowling_row).where("#{warning_appears} IS 't'").first
+        unless appearing_monster_name.nil?
+          if (appearing_monster_name.monster.include? "Goblin") || (appearing_monster_name.monster.include? "Wolf")
+            appearing_monster_name.monster.slice! "Small"
+            appearing_monster_name.monster.slice! "Large"
+            appearing_monster_name.monster.slice! "Light"
+            appearing_monster_name.monster.slice! "Medium"
           end
 
-          appearing_monsters = Monster.where(game_id: self.id).where("monster LIKE '%#{appearing_monster_name}%'")
+          appearing_monsters = Monster.where(game_id: self.id).where("monster LIKE '%#{appearing_monster_name.monster}%'")
           appearing_monsters.each do |monster|
             monster.on_board = true
             monster.clearing_id = clearing_id
@@ -213,7 +209,7 @@ class Game < ActiveRecord::Base
   end
 
   def record(player_id, notification, private_action)
-    r = Notification.new(player: player_id, game: self, action: notification, private_notification: private_action, turn: self.turn)
+    r = Notification.new(player_id: player_id, game: self, action: notification, private_notification: private_action, turn: self.turn)
     r.save
   end
 
@@ -228,6 +224,7 @@ class Game < ActiveRecord::Base
     great_treasures_multiplier, fame_multiplier, notoriety_multiplier, gold_multiplier = 1, 10, 20, 30
     player_points = {}
     gt_points, fame_points, notoriety_points, gold_points = 0, 0, 0, 0
+    base_gold, base_notoriety, base_fame, base_gt, bonus_gt, bonus_fame, bonus_notoriety, bonus_gold = 0,0,0,0,0,0,0,0
 
     all_players = Player.where(game_id: self.id).where(dead: false)
     all_players.each do |player|
@@ -286,5 +283,17 @@ class Game < ActiveRecord::Base
     end
 
     return player_points.max_by{ |k,v| v }, player_points
+  end
+  def should_fight?(player)
+    clearing_id = player.clearing_id
+
+    players = Player.where(game_id: self.id, clearing_id: clearing_id) - [player]
+    monsters = Monster.where(game_id: self.id, clearing_id: clearing_id)
+
+    if players.count < 0 && monsters.count < 0
+      return true
+    else
+      return false
+    end
   end
 end
