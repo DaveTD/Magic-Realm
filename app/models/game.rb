@@ -86,6 +86,7 @@ class Game < ActiveRecord::Base
     roll = Random.rand(1..6)
     self.prowling_row = roll
     self.save
+    record(nil, "Game prowling row rolled to #{self.prowling_row}", false)
   end
 
   # player
