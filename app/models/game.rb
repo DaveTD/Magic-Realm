@@ -86,6 +86,18 @@ class Game < ActiveRecord::Base
     roll = Random.rand(1..6)
     self.prowling_row = roll
     self.save
+
+    all_mosters = Monster.where(game_id: self.id)
+    all_monsters.each do |m|
+      m.prowling = false
+      m.save
+    end
+    prowling_monsters = Monster.where(game_id: self.id).where(spawn_row: roll)
+    prowling_monsters.each do |m|
+      m.prowling = true
+      m.save
+    end
+
     record(nil, "Game prowling row rolled to #{self.prowling_row}", false)
   end
 
