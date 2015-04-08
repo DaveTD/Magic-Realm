@@ -12,6 +12,15 @@ class GamesController < ApplicationController
   end
 
   def show
+    @monsters = []
+    monsters = Monster.where(game_id: @game.id).where(on_board: true)
+    unless monsters.nil?
+      monsters.each do |monster|
+        this_x = monster.clearing.x
+        this_y = monster.clearing.y
+        @monsters = @monsters + [{ :url => monster.url, :x => this_x, :y => this_y }]
+      end
+    end
     @notifications = @game.notifications.not_private.last(5)
     render 'games/game'
   end
@@ -70,7 +79,7 @@ class GamesController < ApplicationController
   def winning
     load_game
     @victor, @player_points = @game.determine_winners
-    render :template => 'games/winning'
+    render :template => 'games/winning.html'
   end
 
 

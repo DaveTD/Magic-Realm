@@ -274,15 +274,17 @@ class Game < ActiveRecord::Base
       end
 
       grand_total = base_gold + base_notoriety + base_fame + base_gt + bonus_gt + bonus_fame + bonus_notoriety + bonus_gold
-      player_points["#{player.id}"] = grand_total
+      player_points["#{player.first_name}"] = grand_total
     end
 
     dead_players = Player.where(game_id: self.id).where(dead: true)
     dead_players.each do |player|
-      player_points["#{player_id}"] = -100
+      player_points["#{player.first_name}"] = -100
     end
 
-    return player_points.max_by{ |k,v| v }, player_points
+    victor = player_points.max_by{ |k,v| v }
+
+    return victor, player_points
   end
   def should_fight?(player)
     clearing_id = player.clearing_id

@@ -1,0 +1,11 @@
+<h1>Your Game Has Ended!</h1>
+
+<h3>Victor:</h3>
+<b><%= @victor[0] %></b> with <b><%= @victor[1] %>pts!</b>
+
+<h3>Thank you for playing</h3>
+<ul>
+<% @player_points.each do |player, points| %>
+  <li><%= player %> played and got <%= points %>pts</li>
+<% end %>
+</ul>

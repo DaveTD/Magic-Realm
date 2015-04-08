@@ -21,3 +21,5 @@ if !@exclude_other_players
     extends "games/player"
   end
 end
+
+node(:monsters) { @monsters }
