@@ -47,6 +47,9 @@ class Player < ActiveRecord::Base
     action = ActionQueue.next_turn(self)
     unless action.search?
       self.send(("perform_#{action.action_name}").to_sym, action, dice)
+      if (action.action_name == "rest") && self.character_class.id == 6
+        perform_rest action, dice
+      end
       action.complete_action!
     end
   end
