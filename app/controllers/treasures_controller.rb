@@ -33,7 +33,17 @@ class TreasuresController < ApplicationController
   end
 
   def inventory
-    @inventory = Treasure.where(game_id: params[:game_id]).where(player_id: params[:player_id]).pluck(:name)
+    @inventory = []
+    inventory_items = Treasure.where(game_id: params[:game_id]).where(player_id: params[:player_id]).pluck(:name, :price, :fame_value, :notoriety_value, :great)
+    inventory_items.each do |item|
+      if item[4]
+        great = "GREAT TREASURE"
+      else
+        great = "normal treasure"
+      end
+      @inventory << "#{item[0]} - G:#{item[1]} F:#{item[2]} N:#{item[3]} - #{great}"
+    end
+
     render json: @inventory
   end
 
