@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   match '/master_cheat_mode', :controller => 'master_cheat_mode', :action => 'master_cheat_mode', via: [:get]
   match '/inventory/:game_id/:player_id', :controller => 'treasures', :action => 'inventory', via: [:get]
 
-  resources :games, only: [:index, :create, :show] do
+  resources :games do
     member do
       get 'lost_items'
       get 'time_of_day'
@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :players, only: [:index, :edit, :update]
   end
 
+  resources :clearings
 
   #Player Routes
   match '/players', :controller => 'players', :action => 'create', via: [:options]
