@@ -1,0 +1,11 @@
+<h1>Clearing Edit</h1>
+<%= form_for :clearing, url: clearing_path, html: { method: :patch } do |f| %>
+  <b>X </b> <%= f.text_field :x %></br>
+  <b>Y </b><%= f.text_field :y %></br>
+  <b>Exit </b><%= f.text_field :exit %></br>
+  <b>Movement Type </b><%= f.text_field :movement_type %></br>
+  <b>Movement Value </b><%= f.text_field :movement_value %></br>
+  <b>Clearing Number </b><%= f.text_field :clearing_number %></br>
+  <b>Tile ID </b><%= f.text_field :tile_id %></br>
+  <%= f.submit "Update" %>
+<% end %>

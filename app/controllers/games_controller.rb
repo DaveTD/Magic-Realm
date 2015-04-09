@@ -25,6 +25,12 @@ class GamesController < ApplicationController
     render 'games/game'
   end
 
+  def update
+    load_game
+    @game.update!(game_params)
+    redirect_to cheat_mode_game_path
+  end
+
   def current_player
     @player = Player.where(id: @game.current_players_turn).first
     @player_clearing = @player.clearing if @player
@@ -33,6 +39,7 @@ class GamesController < ApplicationController
   end
 
   def cheat_mode
+    load_game
     render :template => 'games/cheat_mode.html'
   end
 
@@ -85,7 +92,7 @@ class GamesController < ApplicationController
 
   private
   def game_params
-    params.require(:game).permit(:time_of_day, :game_day, :cards_randomized, :board_complete, :players_ready, :setup_complete, :player_actions_submitted, :activity_order_selected, :denizens_actions_completed, :combat_completed, :day_complete)
+    params.require(:game).permit(:turn, :prowling_row, :time_of_day, :game_day, :cards_randomized, :board_complete, :players_ready, :setup_complete, :player_actions_submitted, :activity_order_selected, :denizens_actions_completed, :combat_completed, :day_complete)
   end
   def load_game
     @game = Game.find params[:id]

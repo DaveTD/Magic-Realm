@@ -1,0 +1,27 @@
+<h1>Clearings Index</h1>
+
+<table>
+    <th>Clearing ID</th>
+    <th>X</th>
+    <th>Y</th>
+    <th>Exit</th>
+    <th>Movement Type</th>
+    <th>Movement Value</th>
+    <th>Clearing Number</th>
+    <th>Tile ID</th>
+
+    <th>Edit</th>
+  <% @clearings.each do |a| %>
+    <tr>
+      <td><%= a.id %></td>
+      <td><%= a.x %></td>
+      <td><%= a.y %></td>
+      <td><%= a.exit %></td>
+      <td><%= a.movement_type %></td>
+      <td><%= a.movement_value %></td>
+      <td><%= a.clearing_number %></td>
+      <td><%= a.tile_id %></td>
+      <td><%= link_to "Edit", edit_clearing_path(a.id) %></td>
+    </tr>
+  <% end %>
+</table>
