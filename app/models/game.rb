@@ -184,7 +184,7 @@ class Game < ActiveRecord::Base
 
     unless gold_sites_here.empty?
       gold_sites_here.each do |gold_site|
-        record(player_id, "Player #{player_id} sees the #{gold_site.name}.", false)
+        record(player_id, "Player #{player_id} sees the #{gold_site.site_name}.", false)
         site_appears = gold_site.name.downcase + "_appears"
         appearing_monster = Monster.where(game_id: self.id).where("#{site_appears} IS 't'").where(dead: false).where(on_board: false).where(spawn_row: self.prowling_row).first
         if appearing_monster != nil
