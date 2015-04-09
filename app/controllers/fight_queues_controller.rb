@@ -14,9 +14,9 @@ class FightQueuesController < ApplicationController
     @player = Player.find params[:player_id]
     @game = @player.game
     fight_actor = FightActor.where(player_id: @player.id, turn: @game.turn).first
-
     should_fight = @game.should_fight?(@player)
     if !should_fight
+      @game.go_to_bird_song
       render json: nil
       return
     end
@@ -60,5 +60,4 @@ class FightQueuesController < ApplicationController
   def find_fight_action
     @fight_queue = FightQueue.find params[:id]
   end
-
 end

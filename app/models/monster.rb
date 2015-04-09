@@ -13,6 +13,9 @@ class Monster < ActiveRecord::Base
   def wound!(results)
     self.wounds += results[:wounds]
     self.fatigue += results[:fatigue]
+    if ((self.wounds*2) + self.fatigue) >= self.vulnerability
+      self.dead = true
+    end
     save
   end
 end
