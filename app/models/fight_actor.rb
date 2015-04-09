@@ -17,8 +17,18 @@ class FightActor < ActiveRecord::Base
     results = self.calculate_damage
     if player_id != nil
       self.player.wound!(results)
+      if self.player.dead?
+        self.dead = true
+        self.fight_queue.find_winner(self.id, 'player')
+        save
+      end
     else
-      monster.wound!(results)
+      self.monster.wound!(results)
+      if self.monster.dead?
+        self.dead = true
+        self.fight_queue.find_winner(self.id, 'monster')
+        save
+      end
     end
   end
 

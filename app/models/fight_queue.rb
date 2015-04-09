@@ -63,7 +63,7 @@ class FightQueue < ActiveRecord::Base
 
   def seleceted_actions
     select_monster_actions
-    fas = FightActions.where(fight_queue_id: self.id, fight_round: self.fight_round)
+    fas = FightAction.where(fight_queue_id: self.id, fight_round: self.fight_round).incomplete
 
     if fas.empty?
       actions_all_selected!
@@ -101,13 +101,41 @@ class FightQueue < ActiveRecord::Base
     players.each do |p|
       agree_to_end &= p.state == 'agree'
     end
-
     if agree_to_end && monsters.empty? || players.nil?
       complete!
       self.game.go_to_bird_song
     else
+      players.each do |p|
+        p.state = "fighting"
+        p.save
+      end
       continue!
       create_round
+    end
+  end
+  def find_winner dead_actor_id, type
+    dead_actor = FightActor.where(id: dead_actor_id).first
+    f_actions = FightAction.where(fight_queue_id: self.id, fight_round: self.fight_round, target: dead_actor_id)
+    f_actors = f_actions.map{|fa| fa.fight_actor}
+    players, monsters = f_actors.partition{|fa| fa.monster_id == nil}
+    return if players.empty?
+
+    if type == 'player'
+      treasures = Treasure.where(player_id: dead_actor.player_id)
+      slice = treasures.count/players.count
+      t_piles = treasures.each_slice(slice)
+      t_piles.each do ts
+        players.each {|p| p.give_treasure_pile(ts)}
+      end
+    else
+      monster = dead_actor.monster
+      count = players.count
+      players.each do |fa|
+        p = fa.player
+        p.fame_vps += (monster.fame_reward/count)
+        p.notoriety_vps += (monster.notoriety_reward/count)
+        p.save
+      end
     end
   end
 end

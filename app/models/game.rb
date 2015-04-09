@@ -107,7 +107,7 @@ class Game < ActiveRecord::Base
       m.save
     end
 
-    record(nil, "Game prowling row rolled to #{self.prowling_row}", false)
+    record(1, "Game prowling row rolled to #{self.prowling_row}", false)
   end
 
   # player
@@ -131,7 +131,6 @@ class Game < ActiveRecord::Base
   def actions_submitted
     all_submitted = true
     all_players = Player.where(game_id: self.id).where(dead: false)
-
     all_players.each do |player|
       all_submitted &= player.actions_submitted
     end
@@ -194,7 +193,7 @@ class Game < ActiveRecord::Base
     unless gold_sites_here.empty?
       gold_sites_here.each do |gold_site|
         record(player_id, "Player #{player_id} sees the #{gold_site.site_name}.", false)
-        site_appears = gold_site.name.downcase + "_appears"
+        site_appears = gold_site.site_name.downcase + "_appears"
         appearing_monster = Monster.where(game_id: self.id).where("#{site_appears} IS 't'").where(dead: false).where(on_board: false).where(spawn_row: self.prowling_row).first
         if appearing_monster != nil
           appearing_monster.on_board = true
@@ -231,8 +230,8 @@ class Game < ActiveRecord::Base
   end
 
   def move_denizens_in_tile tile, player
-    tile_clearings = Clearing.where(tile_id: tile_id)
-    moving_monsters = Monster.where(game_id: self.id).where(clearing_id: tile_clearings).where(dead: false).where(prowling: true)
+    tile_clearings_ids = Clearing.where(tile_id: tile.id).pluck(:id)
+    moving_monsters = Monster.where(game_id: self.id).where(clearing_id: tile_clearings_ids).where(dead: false).where(prowling: true)
 
     unless player.hidden
       moving_monsters.each do |monster|
@@ -241,7 +240,7 @@ class Game < ActiveRecord::Base
         monster.prowling = false
         monster.save
         player.blocked!
-        record(player.id, "#{monster.monster} moved to #{player.name}'s clearing!")
+        record(player.id, "#{monster.monster} moved to #{player.name}'s clearing!", false)
       end
     end
   end
@@ -330,7 +329,7 @@ class Game < ActiveRecord::Base
     players = Player.where(game_id: self.id, clearing_id: clearing_id) - [player]
     monsters = Monster.where(game_id: self.id, clearing_id: clearing_id)
 
-    if players.count < 0 && monsters.count < 0
+    if players.count > 0 || monsters.count > 0
       return true
     else
       return false

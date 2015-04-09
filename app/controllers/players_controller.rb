@@ -53,6 +53,9 @@ class PlayersController < ApplicationController
 
   def next_action
     dice = params[:dice] == '0' ? nil : params[:dice].to_i
+    @action = @player.action_queues.last
+    return if @action.completed == true
+
     @player.do_next_action(dice)
     @notifications = @player.game.notifications.not_private.last(5)
     @aq_complete = ActionQueue.where(player_id: @player.id, completed: false).order('action_this_turn ASC').first.try(:completed)

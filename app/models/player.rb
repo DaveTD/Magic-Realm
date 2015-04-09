@@ -104,10 +104,13 @@ class Player < ActiveRecord::Base
     result = "failed to hide"
     roll = Random.rand(1..6)
     roll = dice if dice
+
     if roll != 6
       self.hidden = true
       save
       result = "successfully hid"
+    else
+      result = "failed to hide"
     end
     record("Player #{self.name} #{result} in clearing #{action.clearing.id}.", false)
   end
@@ -310,14 +313,23 @@ class Player < ActiveRecord::Base
     player_queue = PlayersQueue.where(player_id: id).incomplete.first
     player_queue.complete = true
     player_queue.save
-    game.create_denizens self.clearing_id, self.id
-    game.move_denizens_in_tile self.clearing_id.tile, self
-    game.start_next_turn
+    self.game.create_denizens self.clearing_id, self.id
+    self.game.move_denizens_in_tile(self.clearing.tile, self)
+    self.game.start_next_turn
   end
 
   def wound!(results)
     self.wounds += results[:wounds]
     self.fatigue += results[:fatigue]
+    if ((self.wounds*2) + self.fatigue) >= 12
+      self.dead = true
+    end
     save
+  end
+  def give_treasure_pile t_pile
+    t_pile.each do |t|
+      t.player_id = self.id
+      t.save
+    end
   end
 end
