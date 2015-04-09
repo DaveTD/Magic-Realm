@@ -1,0 +1,18 @@
+<h1>Players Queues Index</h1>
+
+<table>
+    <th>Player</th>
+    <th>Turn</th>
+    <th>Complete</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  <% @players_queues.each do |a| %>
+    <tr>
+      <td><%= a.player_id %></td>
+      <td><%= a.turn_number %></td>
+      <td><%= a.completed %></td>
+      <td><%= link_to "Edit", edit_game_players_queue_path(params[:game_id], a.id) %></td>
+      <td><%= link_to "Delete", game_players_queue_path(params[:game_id], a.id), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
