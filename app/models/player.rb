@@ -101,12 +101,13 @@ class Player < ActiveRecord::Base
   end
 
   def perform_hide(action, dice)
-    result = "successfully hid"
+    result = "failed to hide"
     roll = Random.rand(1..6)
     roll = dice if dice
     if roll != 6
-      hidden = true
-      result = "failed to hide"
+      self.hidden = true
+      save
+      result = "successfully hid"
     end
     record("Player #{self.name} #{result} in clearing #{action.clearing.id}.", false)
   end

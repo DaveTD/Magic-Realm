@@ -80,6 +80,15 @@ class Game < ActiveRecord::Base
     player_actions_submitted!
     select_action_order
     set_prowling_row
+    unhide_all_players
+  end
+
+  def unhide_all_players
+    all_players = Player.where(game_id: self.id)
+    all_players.each do |player|
+      player.hidden = false
+      player.save
+    end
   end
 
   def set_prowling_row
@@ -87,7 +96,7 @@ class Game < ActiveRecord::Base
     self.prowling_row = roll
     self.save
 
-    all_mosters = Monster.where(game_id: self.id)
+    all_monsters = Monster.where(game_id: self.id)
     all_monsters.each do |m|
       m.prowling = false
       m.save
