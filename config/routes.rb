@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :discovered_chits_clearings
     resources :found_hidden_paths
     resources :found_hidden_passages
+    resources :players_queues
     resources :players, only: [:index, :edit, :update]
   end
 
