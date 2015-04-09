@@ -129,11 +129,20 @@ class FightQueue < ActiveRecord::Base
       end
     else
       monster = dead_actor.monster
+      if monster.monster == 'Jean-Pierre Corriveau'
+        players.each do |p|
+          item = Treasure.create(game_id: self.game_id, name: 'Rose of Real Time', large: true, spell_type: 'Awesome', fame_value: 1000, great: true, fame_price_number: 10, weight: "s", notoriety_value: 1000, price: 10000, metatreasure: false, movable: true, player_id: p.id)
+        end
+      end
+
       count = players.count
       players.each do |fa|
         p = fa.player
         p.fame_vps += (monster.fame_reward/count)
         p.notoriety_vps += (monster.notoriety_reward/count)
+
+
+
         p.save
       end
     end
