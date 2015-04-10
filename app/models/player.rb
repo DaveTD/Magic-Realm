@@ -163,6 +163,11 @@ class Player < ActiveRecord::Base
       small_treasures = Treasure.where(pile: pile).where(large: false)
       all_treasures = large_treasures + small_treasures
       looted_item = all_treasures[roll - 1]
+      if looting_site.site_name == 'Cairns' || looting_site.site_name == 'Pool'
+        self.fatigue = self.fatigue + 1
+        self.save
+        record("Player #{self.name} got tired from looting the #{looting_site.site_name}", false)
+      end
     end
     return looted_item
   end
