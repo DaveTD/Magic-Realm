@@ -1,0 +1,20 @@
+<h1>Warning Chit Index</h1>
+
+<table>
+    <th>Name</th>
+    <th>Tile Name</th>
+    <th>Letter</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  <% @warning_chits.each do |a| %>
+    <tr>
+      <td><%= link_to "#{a.name}", game_warning_chit_path(params[:game_id], a.id) %></td>
+      <td><%= a.tile.try(:name) %></td>
+      <td><%= a.letter %></td>
+      <td><%= link_to "Edit #{a.name}", edit_game_warning_chit_path(params[:game_id], a.id) %></td>
+      <td><%= link_to "Delete #{a.name}", game_warning_chit_path(params[:game_id], a.id), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Create Warning Chit", new_game_warning_chit_path(params[:game_id]) %>

@@ -1,0 +1,8 @@
+<h1>Warning Chit Edit</h1>
+
+<%= form_for :warning_chit, url: game_warning_chit_path, html: { method: :patch } do |f| %>
+  <b>Name</b> <%= f.text_field :name %></br>
+  <b>Tile ID</b> <%= f.text_field :tile_id %></br>
+  <b>Letter</b> <%= f.text_field :letter %></br>
+  <%= f.submit "Update" %>
+<% end %>

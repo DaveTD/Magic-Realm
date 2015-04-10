@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     end
     resources :gold_sites
     resources :sound_chits
+    resources :warning_chits
     resources :treasures
     resources :monsters
     resources :special_chits
