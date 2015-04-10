@@ -1,0 +1,8 @@
+<h1>Players Queues Edit</h1>
+
+<%= form_for :players_queue, url: game_players_queue_path, html: { method: :patch } do |f| %>
+  <b>Player</b> <%= f.text_field :player_id %></br>
+  <b>Turn</b> <%= f.text_field :turn_number %></br>
+  <b>Complete</b> <%= f.text_field :completed %></br>
+  <%= f.submit "Update" %>
+<% end %>
