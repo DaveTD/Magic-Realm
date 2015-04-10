@@ -1,7 +1,10 @@
+require 'socket'
+
 class MasterCheatModeController < ApplicationController
 
   def master_cheat_mode
     @games_and_players = {}
+    @ip = Socket.ip_address_list.find { |ai| ai.ipv4? && !ai.ipv4_loopback? }.ip_address
     # localhost:9000/games/game_id/players/player_id
     all_games = Game.where(complete: false)
     all_games.each do |game|
