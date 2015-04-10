@@ -127,8 +127,8 @@ class ActionQueue < ActiveRecord::Base
   def where_can_search
     if self.clearing.mountain?
       clearings = []
-      tile = player.clearing.tile
-      clearings.push(tile.clearings.not_cave.not_exit)
+      tile = self.clearing.tile
+      clearings = tile.clearings.not_cave.not_exit
 
       adj_tiles = tile.adjacent_tiles
       adj_tiles.each do |adj_tile|

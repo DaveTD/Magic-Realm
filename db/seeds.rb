@@ -3,8 +3,8 @@
   Tile.create(name: "evilvalley", tile_type: 'valley', enchanted: false)
   Tile.create(name: "ledges", tile_type: 'mountain', enchanted: false)
   Tile.create(name: "crag", tile_type: 'mountain', enchanted: false)
-  Tile.create(name: "highpass", tile_type: 'cave', enchanted: false)
   Tile.create(name: "darkvalley", tile_type: 'valley', enchanted: false)
+  Tile.create(name: "highpass", tile_type: 'cave', enchanted: false)
   Tile.create(name: "borderland", tile_type: 'cave', enchanted: false)
   Tile.create(name: "oakwoods", tile_type: 'woods', enchanted: false)
   Tile.create(name: "deepwoods", tile_type: 'mountain', enchanted: false)
@@ -321,8 +321,8 @@ tile_travs =[
   {:tl_id => 2,  :adj_tile => [1,3,6,7], :directions => ['ne','e','sw','se']},
   {:tl_id => 3,  :adj_tile => [1,2,4,7,8], :directions => ['nw','w','e','sw','se']},
   {:tl_id => 4,  :adj_tile => [3,5,8,9], :directions => ['w','e','sw','se']},
-  {:tl_id => 5,  :adj_tile => [2,7,11], :directions => ['ne','e','se']},
-  {:tl_id => 6,  :adj_tile => [4,9,10], :directions => ['e','sw','se']},
+  {:tl_id => 5,  :adj_tile => [4,9,10], :directions => ['e','sw','se']},
+  {:tl_id => 6,  :adj_tile => [2,7,11], :directions => ['ne','e','se']},
   {:tl_id => 7,  :adj_tile => [2,3,6,8,11,12],  :directions => ['nw','ne','w','e','sw','se']},
   {:tl_id => 8,  :adj_tile => [3,4,7,9,12,13], :directions => ['nw','ne','w','e','sw','se']},
   {:tl_id => 9,  :adj_tile => [4,5,8,10,13,14], :directions => ['nw','ne','w','e','sw','se']},
