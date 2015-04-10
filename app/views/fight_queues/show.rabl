@@ -4,7 +4,7 @@ attributes :id, :fight_round, :clearing_id, :state
 
 child :fight_actors do |fa|
   attributes :player_id, :monster_id
-  child :player od
+  child :player do
     attributes :name, :wounds, :fatigue
   end
   child :monster do

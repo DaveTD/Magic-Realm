@@ -49,7 +49,7 @@ class FightActor < ActiveRecord::Base
     if r < 50
       self.state = 'runaway'
       save
-      self.player.ran_away!
+      self.player.run_away!
     else
       self.state = 'continue'
     end
@@ -57,7 +57,7 @@ class FightActor < ActiveRecord::Base
 
   def calculate_damage
     actor_action = self.fight_actions.last
-    fas = FightAction.where(fight_round: self.fight_queue.fight_round, target: self.id) - [actor_action]
+    fas = FightAction.where(fight_round: self.fight_queue.fight_round, target: self.id)
 
     wounds = fas.map{|fa| fa.wounds(actor_action.defence)}
     wounds = wounds.inject{|sum,x| sum + x }
@@ -66,7 +66,6 @@ class FightActor < ActiveRecord::Base
     fatigue = fas.map{|fa| fa.fatigue(actor_action.defence)}
     fatigue = fatigue.inject{|sum,x| sum + x }
     fatigue = 0 if fatigue.nil?
-
     fas.map{|fa| fa.update_attributes(complete: true)}
 
     {wounds: wounds, fatigue: fatigue}

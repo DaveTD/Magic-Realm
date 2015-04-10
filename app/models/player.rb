@@ -132,6 +132,8 @@ class Player < ActiveRecord::Base
       item.player_id = self.id
       item.save
       result = "found #{item.name}"
+    else
+      result = "nothing found"
     end
     record("Player #{self.name} rolled a #{roll} #{result} when looting", false)
   end
@@ -139,8 +141,8 @@ class Player < ActiveRecord::Base
   def loot_clearing(roll)
     looted_item = nil
     looting_site = GoldSite.where(game_id: self.game.id).where(clearing_id: self.clearing_id).first
-    in_city = looting_site.lost_city
-    in_castle = looting_site.lost_castle
+    in_city = looting_site.try(:lost_city?)
+    in_castle = looting_site.try(:lost_castle?)
     city_map_owner = Treasure.where(game_id: self.game.id).where(name: 'Map of Lost City').pluck(:player_id).first
     castle_map_owner = Treasure.where(game_id: self.game.id).where(name: 'Map of Lost Castle').pluck(:player_id).first
     if in_city && (city_map_owner == self.id)
@@ -296,7 +298,11 @@ class Player < ActiveRecord::Base
   end
 
   def name
-    self.first_name + self.last_name
+    if self.first_name && self.last_name
+      return self.first_name + self.last_name
+    else
+      return ""
+    end
   end
 
   def current_action
@@ -316,6 +322,15 @@ class Player < ActiveRecord::Base
     self.game.create_denizens self.clearing_id, self.id
     self.game.move_denizens_in_tile(self.clearing.tile, self)
     self.game.start_next_turn
+  end
+
+  def run_away!
+    clearing = self .clearing
+    tcs = clearing.traversable_clearings
+    tc = tcs.sample(1).first
+    new_clearing = tc.traversable
+    self.clearing_id = new_clearing.id
+    save
   end
 
   def wound!(results)

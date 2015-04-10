@@ -39,28 +39,28 @@ class ActionQueue < ActiveRecord::Base
   end
 
   def can_move?
-    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves + class_moves + item_moves
+    return ActionQueue.actions_this_turn(self.player).count < (2 + day_moves + class_moves + item_moves)
   end
 
   def can_hide?
-    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves + class_hides + item_hides
+    return ActionQueue.actions_this_turn(self.player).count < (2 + day_moves + class_hides + item_hides)
   end
 
   def can_search?
-    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves + item_searches
+    return ActionQueue.actions_this_turn(self.player).count < (2 + day_moves + item_searches)
   end
 
   def can_rest?
-    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves + class_rests
+    return ActionQueue.actions_this_turn(self.player).count < (2 + day_moves + class_rests)
   end
 
   def can_loot?
-    return ActionQueue.actions_this_turn(self.player).count < 2 + day_moves
+    return ActionQueue.actions_this_turn(self.player).count < (2 + day_moves)
   end
 
   def can_enchant?
     only_one = ActionQueue.actions_this_turn(self.player).enchants.empty?
-    count = ActionQueue.actions_this_turn(self.player).count < 2 + day_moves
+    count = ActionQueue.actions_this_turn(self.player).count < (2 + day_moves)
     return only_one && count
   end
 
@@ -162,10 +162,14 @@ class ActionQueue < ActiveRecord::Base
   end
 
   def cave_movement?
+    cave_start = self.player.clearing.cave?
     move = self.clearing.cave?
+    if cave_start || move
+      return true
+    end
     actions = ActionQueue.actions_this_turn(self.player)
     actions.each do |a|
-      move &= a.clearing.cave?
+      move ||= a.clearing.cave?
     end
     return move
   end
