@@ -13,7 +13,7 @@ class GamesController < ApplicationController
 
   def show
     @monsters = []
-    monsters = Monster.where(game_id: @game.id).where(on_board: true)
+    monsters = Monster.where(game_id: @game.id).where(on_board: true).where(dead: false)
     unless monsters.nil?
       monsters.each do |monster|
         this_x = monster.clearing.x
@@ -89,6 +89,9 @@ class GamesController < ApplicationController
     render :template => 'games/winning.html'
   end
 
+  def dead
+    render :template => 'games/dead.html'
+  end
 
   private
   def game_params

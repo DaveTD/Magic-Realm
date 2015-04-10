@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get 'master_cheat_mode'
       get 'show_clearing_treasures'
       get 'winning'
+      get 'dead'
     end
     resources :gold_sites
     resources :sound_chits

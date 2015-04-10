@@ -39,6 +39,6 @@ class PlayersQueuesController < ApplicationController
 
 private
   def players_queue_params
-    params.require(:players_queue).permit(:player, :turn_number, :complete)
+    params.require(:players_queue).permit(:player, :turn_number, :completed)
   end
 end
