@@ -1,7 +1,7 @@
 development:
   adapter: sqlite3
   encoding: unicode
-  database: magic_realm_development
+  database: magic_realm_production
   pool: 5
 
 test:

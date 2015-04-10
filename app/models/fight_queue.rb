@@ -96,12 +96,12 @@ class FightQueue < ActiveRecord::Base
   def player_choice
     players = self.fight_actors.where(monster_id: nil, dead: false).where('state != ?', 'runaway')
     monsters = self.fight_actors.where(player_id: nil, dead: false)
-
+    binding.pry
     agree_to_end = true
     players.each do |p|
       agree_to_end &= p.state == 'agree'
     end
-    if agree_to_end && monsters.empty? || players.nil?
+    if agree_to_end && monsters.empty? || players.nil? || players.count == 1 && monsters.empty?
       complete!
       self.game.go_to_bird_song
     else
@@ -113,6 +113,7 @@ class FightQueue < ActiveRecord::Base
       create_round
     end
   end
+
   def find_winner dead_actor_id, type
     dead_actor = FightActor.where(id: dead_actor_id).first
     f_actions = FightAction.where(fight_queue_id: self.id, fight_round: self.fight_round, target: dead_actor_id)
@@ -140,9 +141,6 @@ class FightQueue < ActiveRecord::Base
         p = fa.player
         p.fame_vps += (monster.fame_reward/count)
         p.notoriety_vps += (monster.notoriety_reward/count)
-
-
-
         p.save
       end
     end

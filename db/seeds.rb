@@ -37,19 +37,19 @@
   Clearing.create(tile_id: 2, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:310, y:447)
   Clearing.create(tile_id: 2, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:404, y:422)
   ## Tile 3 - Ledges
-  Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 3, exit: false, x:815, y:388)
-  Clearing.create(tile_id: 3, movement_type: 'mountain', movement_value: 2, clearing_number: 2, exit: false, x:805, y:448)
-  Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:724, y:376)
-  Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:743, y:322)
-  Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 6, exit: false, x:793, y:340)
-  Clearing.create(tile_id: 3, movement_type: 'mountain', movement_value: 2, clearing_number: 5, exit: false, x:750, y:427)
+  Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 1, exit: false, x:572, y:342)
+  Clearing.create(tile_id: 3, movement_type: 'mountain', movement_value: 2, clearing_number: 2, exit: false, x:494, y:387)
+  Clearing.create(tile_id: 3, movement_type: 'mountain', movement_value: 2, clearing_number: 4, exit: false, x:555, y:392)
+  Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 6, exit: false, x:623, y:350)
+  Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 3, exit: false, x:515, y:336)
+  Clearing.create(tile_id: 3, movement_type: 'wood', movement_value: 1, clearing_number: 5, exit: false, x:576, y:453)
   ## Tile 4 - Crag
-  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 1, exit: false, x:572, y:342)
-  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 4, exit: false, x:555, y:392)
-  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 6, exit: false, x:623, y:350)
-  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 5, exit: false, x:576, y:453)
-  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 3, exit: false, x:515, y:336)
-  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 2, exit: false, x:494, y:387)
+  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 3, exit: false, x:815, y:388)
+  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 2, exit: false, x:805, y:448)
+  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 4, exit: false, x:724, y:376)
+  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 1, exit: false, x:743, y:322)
+  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 6, exit: false, x:793, y:340)
+  Clearing.create(tile_id: 4, movement_type: 'mountain', movement_value: 2, clearing_number: 5, exit: false, x:750, y:427)
   ## Tile 5 - Dark Valley
   Clearing.create(tile_id: 5, movement_type: 'wood', movement_value: 1, clearing_number: 4, exit: false, x:971, y:361)
   Clearing.create(tile_id: 5, movement_type: 'wood', movement_value: 1, clearing_number: 2, exit: false, x:1048, y:394)
@@ -207,7 +207,7 @@ travs = [
   ## Tile 7 - Borderland
   {:id => 40, :trav => [39,68,43], :e_trav => [39,68], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 41, :trav => [42,43], :e_trav => [42,43], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
-  {:id => 42, :trav => [13,41], :e_trav => [13,41], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
+  {:id => 42, :trav => [13,41,46], :e_trav => [13,41,46], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 43, :trav => [40,41,45], :e_trav => [40,41,45], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 44, :trav => [41,45,62], :e_trav => [41,45,62], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
   {:id => 45, :trav => [44,43,16], :e_trav => [44,43,16], :hidden => nil, :hidden_type => nil, :e_hidden => nil, :e_hidden_type => nil},
@@ -415,8 +415,8 @@ end
 game = Game.create(turn: 1, prowling_row: 0, complete: false, name: "seeded game")
 game.players_ready!
 
-Player.create(game_id: game.id, first_name: 'Joe', last_name: 'Blow', character_class_id: 1, wounds: 0, fatigue: 0)
-# Player.create(game_id: game.id, first_name: 'Jim', last_name: 'Vim', character_class_id: 2, wounds: 0, fatigue: 0)
+Player.create(game_id: game.id, first_name: 'Joe', last_name: 'Blow', character_class_id: 1, wounds: 0, fatigue: 0, fame_vps: 0, notoriety_vps: 0, clearing_id: 13)
+# Player.create(game_id: game.id, first_name: 'Jim', last_name: 'Vim', character_class_id: 2, wounds: 0, fatigue: 0, fame_vps: 0, notoriety_vps: 0)
 
 game2 = Game.create(turn: 1, prowling_row: 0)
 
