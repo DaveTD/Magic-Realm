@@ -34,7 +34,7 @@ class FightQueuesController < ApplicationController
     @player = Player.find params[:player_id]
     @game = @player.game
     @fight_actor = FightActor.where(player_id: @player.id, turn: @game.turn).last
-    render json: {queue: @fight_actor.fight_queue, actor: @fight_actor, action: @fight_actor.fight_actions.last}
+    render json: {queue: @fight_actor.fight_queue, actor: @fight_actor, action: @fight_actor.fight_actions.last, player: @fight_actor.player}
   end
 
   def other_fights
@@ -45,7 +45,7 @@ class FightQueuesController < ApplicationController
 
   def current_state
     @fight_actors = @fight_queue.fight_actors
-    @players_incomplete = FightAction.where(fight_queue_id: @fight_queue.id, fight_round: @fight_queue.fight_round).incomplete.map{|fa| fa.fight_actor.player.name if fa.fight_actor.monste_id == nil}.compact
+    @players_incomplete = FightAction.where(fight_queue_id: @fight_queue.id, fight_round: @fight_queue.fight_round).incomplete.map{|fa| fa.fight_actor.player.name if fa.fight_actor.monster_id == nil}.compact
     render json: {current_state: @fight_queue.state, players: @players_incomplete}
   end
 

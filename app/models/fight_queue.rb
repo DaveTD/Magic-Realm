@@ -54,7 +54,7 @@ class FightQueue < ActiveRecord::Base
   def create_round
     all_charactars = self.fight_actors.where(dead: false, state: 'fighting')
     all_charactars.each do |ac|
-      FightAction.create(fight_queue_id: self.id, fight_actor_id: ac.id, fight_round: self.fight_round)
+      FightAction.create(fight_queue_id: self.id, fight_actor_id: ac.id, fight_round: (self.fight_round+1))
     end
     self.fight_round += 1
     save

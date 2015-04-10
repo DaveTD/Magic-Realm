@@ -114,7 +114,7 @@ class Game < ActiveRecord::Base
   def check_votes
     all_ready = true
     all_players = Player.where(game_id: self.id)
-    if all_players.count >= 2
+    if all_players.count >= 1
       all_players.each do |player|
         all_ready &= player.ready
       end
