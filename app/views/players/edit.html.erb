@@ -1,6 +1,6 @@
 <h1>Player Edit</h1>
 
-<%= form_for :player, url: game_player_path, html: { method: :patch } do |f| %>
+<%= form_for :player, url: cheatmode_update_player_path, html: { method: :patch } do |f| %>
   <b>First Name</b> <%= f.text_field :first_name %></br>
   <b>Last Name</b> <%= f.text_field :last_name %></br>
   <b>Clearing</b> <%= f.text_field :clearing_id %></br>

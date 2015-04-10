@@ -27,6 +27,12 @@ class PlayersController < ApplicationController
     render json: @player
   end
 
+  def cheatmode_update
+    @player = Player.find params[:id]
+    @player.update!(player_params)
+    redirect_to game_players_path
+  end
+
   def show
     @player = Player.find params[:id]
     @action_queues = @player.action_queues
@@ -89,7 +95,7 @@ class PlayersController < ApplicationController
 
   private
   def player_params
-    params.require(:player).permit(:first_name, :last_name, :game_id, :great_treasures_vps, :usable_spells_vps, :fame_vps, :notoriety_vps, :gold_vps, :ready, :fame, :gold, :notoriety, :action_queue_id, :hidden, :found_hidden_enemies, :wounds, :fatigue, :dead, :block)
+    params.require(:player).permit(:first_name, :last_name, :clearing_id, :game_id, :great_treasures_vps, :usable_spells_vps, :fame_vps, :notoriety_vps, :gold_vps, :ready, :fame, :gold, :notoriety, :action_queue_id, :hidden, :found_hidden_enemies, :wounds, :fatigue, :dead, :block)
   end
   def find_player_and_action_queue
     @player = Player.find params[:id]

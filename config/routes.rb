@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       get 'next_action'
       get 'end_turn'
       get 'update_block'
+      patch 'cheatmode_update'
     end
   end
 
