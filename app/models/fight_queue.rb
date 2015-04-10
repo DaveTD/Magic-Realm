@@ -96,7 +96,7 @@ class FightQueue < ActiveRecord::Base
   def player_choice
     players = self.fight_actors.where(monster_id: nil, dead: false).where('state != ?', 'runaway')
     monsters = self.fight_actors.where(player_id: nil, dead: false)
-    binding.pry
+
     agree_to_end = true
     players.each do |p|
       agree_to_end &= p.state == 'agree'
